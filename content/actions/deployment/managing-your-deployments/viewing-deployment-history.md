@@ -1,6 +1,5 @@
 ---
 title: Viewing deployment history
-shortTitle: View deployment history
 intro: View current and previous deployments for your repository.
 versions:
   fpt: '*'
@@ -9,6 +8,7 @@ versions:
   ghec: '*'
 topics:
   - API
+shortTitle: View deployment history
 redirect_from:
   - /developers/overview/viewing-deployment-history
   - /actions/deployment/viewing-deployment-history

@@ -1,6 +1,6 @@
 ---
-title: Organizations and teams（组织和团队）
-shortTitle: Organizations
+title: 组织和团队
+shortTitle: 组织
 intro: 您可以使用组织同时与多个项目中无限数量的人员进行协作，同时管理对数据的访问和自定义设置。
 redirect_from:
   - /articles/about-improved-organization-permissions
@@ -39,21 +39,15 @@ children:
   - /managing-peoples-access-to-your-organization-with-roles
   - /organizing-members-into-teams
   - /collaborating-with-your-team
-  - /managing-user-access-to-your-organizations-repositories
+  - /managing-access-to-your-organizations-repositories
   - /managing-access-to-your-organizations-project-boards
-  - /managing-programmatic-access-to-your-organization
+  - /managing-access-to-your-organizations-apps
   - /managing-organization-settings
-  - /managing-oauth-access-to-your-organizations-data
+  - /restricting-access-to-your-organizations-data
   - /keeping-your-organization-secure
   - /managing-saml-single-sign-on-for-your-organization
   - /granting-access-to-your-organization-with-saml-single-sign-on
   - /managing-git-access-to-your-organizations-repositories
   - /migrating-to-improved-organization-permissions
-ms.openlocfilehash: 3c5ee471d073bc94773607938b70ba4826eb8efb
-ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '147876105'
 ---
 

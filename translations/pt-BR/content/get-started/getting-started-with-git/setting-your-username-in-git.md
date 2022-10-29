@@ -11,20 +11,15 @@ versions:
   ghes: '*'
   ghae: '*'
   ghec: '*'
-shortTitle: Set your username
-ms.openlocfilehash: c713f21fdf91269764dd97f15770e7996bf9f4f0
-ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '145126729'
+shortTitle: Definir o seu nome de usuário
 ---
+
 ## Sobre nomes de usuários do Git
 Você pode alterar o nome associado aos commits do Git usando o comando `git config`. O novo nome configurado ficará visível em todos os commits futuros cujo push é feito para o {% data variables.product.product_name %} usando a linha de comando. Se não quiser usar seu nome verdadeiro, use qualquer texto como o nome de usuário do Git.
 
-A alteração do nome associado aos commits do Git por meio de `git config` afetará apenas os commits futuros e não alterará o nome usado para os commits anteriores.
+Alterar o nome associado aos commits do Git usando o `git config` afeta somente os commits futuros e não altera o nome usado em commits antigos.
 
-## Como configurar seu nome de usuário do Git para *todos* os repositórios no computador
+## Configurar o nome de usuário do Git para *todos* os repositórios no computador
 
 {% data reusables.command_line.open_the_multi_os_terminal %}
 
@@ -56,7 +51,7 @@ A alteração do nome associado aos commits do Git por meio de `git config` afet
    > Mona Lisa
    ```
 
-## Leitura adicional
+## Leia mais
 
-- "[Como configurar seu endereço de email de commit](/articles/setting-your-commit-email-address)"
-- ["Configuração do Git" do livro _Pro Git_](https://git-scm.com/book/en/Customizing-Git-Git-Configuration)
+- "[Configurar endereço de e-mail do commit](/articles/setting-your-commit-email-address)"
+- ["Configuração do Git" no livro _Pro Git_](https://git-scm.com/book/en/Customizing-Git-Git-Configuration)

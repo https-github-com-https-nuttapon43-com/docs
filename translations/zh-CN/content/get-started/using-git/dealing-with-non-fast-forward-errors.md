@@ -1,6 +1,6 @@
 ---
-title: 处理非快进错误
-intro: 有时，Git 无法在不丢失提交的情况下对远程仓库进行更改。 发生此情况时，推送会被拒绝。
+title: Dealing with non-fast-forward errors
+intro: 'Sometimes, Git can''t make your change to a remote repository without losing commits. When this happens, your push is refused.'
 redirect_from:
   - /articles/dealing-with-non-fast-forward-errors
   - /github/using-git/dealing-with-non-fast-forward-errors
@@ -12,14 +12,8 @@ versions:
   ghae: '*'
   ghec: '*'
 shortTitle: Non-fast-forward error
-ms.openlocfilehash: 59e1957bf2376462c1267527b1bc29ed9de49db9
-ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 09/05/2022
-ms.locfileid: '145109492'
 ---
-如果其他人已推送与您相同的分支，Git 将无法推送您的更改：
+If another person has pushed to the same branch as you, Git won't be able to push your changes:
 
 ```shell
 $ git push origin main
@@ -31,7 +25,7 @@ $ git push origin main
 > 'Note about fast-forwards' section of 'git push --help' for details.
 ```
 
-可以通过[提取和合并](/github/getting-started-with-github/getting-changes-from-a-remote-repository)远程分支上所做的更改以及本地所做的更改来解决此问题：
+You can fix this by [fetching and merging](/github/getting-started-with-github/getting-changes-from-a-remote-repository) the changes made on the remote branch with the changes that you have made locally:
 
 ```shell
 $ git fetch origin
@@ -40,7 +34,7 @@ $ git merge origin <em>YOUR_BRANCH_NAME</em>
 # Merges updates made online with your local work
 ```
 
-或者，只需使用 `git pull` 一次执行这两个命令：
+Or, you can simply use `git pull` to perform both commands at once:
 
 ```shell
 $ git pull origin <em>YOUR_BRANCH_NAME</em>

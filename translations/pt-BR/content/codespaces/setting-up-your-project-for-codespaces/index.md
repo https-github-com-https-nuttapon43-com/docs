@@ -1,8 +1,7 @@
 ---
-title: 'Como configurar seu repositório para o {% data variables.product.prodname_github_codespaces %}'
-shortTitle: Setting up your repository
+title: 'Configurando seu repositório para {% data variables.product.prodname_codespaces %}'
 allowTitleToDifferFromFilename: true
-intro: 'Saiba como começar a usar o {% data variables.product.prodname_github_codespaces %}, incluindo a configuração para linguagens específicas.'
+intro: 'Aprenda como dar os primeiros passos com {% data variables.product.prodname_codespaces %}, incluindo a configuração para linguagens específicas.'
 product: '{% data reusables.gated-features.codespaces %}'
 versions:
   fpt: '*'
@@ -10,20 +9,12 @@ versions:
 redirect_from:
   - /codespaces/getting-started-with-codespaces
 children:
-  - /introduction-to-dev-containers
+  - /configuring-codespaces-for-your-project
   - /setting-up-your-project-for-codespaces
   - /setting-up-your-nodejs-project-for-codespaces
   - /setting-up-your-dotnet-project-for-codespaces
   - /setting-up-your-java-project-for-codespaces
   - /setting-up-your-python-project-for-codespaces
   - /setting-a-minimum-specification-for-codespace-machines
-  - /automatically-opening-files-in-the-codespaces-for-a-repository
-  - /adding-a-codespaces-badge
-ms.openlocfilehash: 4649ef4e36dff0b37d4a579ecd56bbb0edd2a184
-ms.sourcegitcommit: 27882d9b3f19979c817c25952a2fb4dc4c6f0a65
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 10/27/2022
-ms.locfileid: '148113953'
 ---
 

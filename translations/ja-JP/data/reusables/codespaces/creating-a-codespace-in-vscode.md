@@ -1,30 +1,20 @@
-After you connect your account on {% data variables.location.product_location %} to the {% data variables.product.prodname_github_codespaces %} extension, you can create a new codespace. For more information about the {% data variables.product.prodname_github_codespaces %} extension, see the [{% data variables.product.prodname_vs_marketplace_shortname %} marketplace](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces).
+After you connect your account on {% data variables.product.product_location %} to the {% data variables.product.prodname_github_codespaces %} extension, you can create a new codespace.
 
 {% data reusables.codespaces.click-remote-explorer-icon-vscode %}
-2. Click the Add icon: {% octicon "plus" aria-label="The plus icon" %}.
+2. [Add] アイコンをクリックしてから、[**Create New Codespace**] をクリックします。
 
-   ![The Create new Codespace option in {% data variables.product.prodname_github_codespaces %}](/assets/images/help/codespaces/create-codespace-vscode.png)
+   ![{% data variables.product.prodname_codespaces %} の [Create New Codespace] オプション](/assets/images/help/codespaces/create-codespace-vscode.png)
 
-3. Type the name of the repository you want to develop in, then select it.
+3. 入力し、開発するリポジトリの名前をクリックします。
 
-   ![Searching for repository to create a new codespace](/assets/images/help/codespaces/choose-repository-vscode.png)
+   ![新しい {% data variables.product.prodname_codespaces %} を作成するためのリポジトリを検索する](/assets/images/help/codespaces/choose-repository-vscode.png)
 
-   If codespaces are billable for the repository you choose, a message will be displayed in subsequent prompts telling you who will pay for the codespace.
+4. 開発するブランチをクリックします。
 
-4. Click the branch you want to develop on.
+   ![新しい {% data variables.product.prodname_codespaces %} を作成するためのブランチを検索する](/assets/images/help/codespaces/choose-branch-vscode.png)
 
-   ![Searching for a branch to create a new codespace](/assets/images/help/codespaces/choose-branch-vscode.png)
+5. 開発するマシンタイプをクリックします。
 
-5. If prompted to choose a dev container configuration file, choose a file from the list.
+   ![新しい {% data variables.product.prodname_codespaces %} のインスタンスタイプ](/assets/images/help/codespaces/choose-sku-vscode.png)
 
-   ![Choosing a dev container configuration file for {% data variables.product.prodname_github_codespaces %}](/assets/images/help/codespaces/choose-dev-container-vscode.png)
-
-6. Click the machine type you want to use.
-
-   ![Instance types for a new codespace](/assets/images/help/codespaces/choose-sku-vscode.png)
-
-   {% note %}
-
-   **Note**: {% data reusables.codespaces.codespaces-machine-type-availability %}
-
-   {% endnote %}
+   {% data reusables.codespaces.codespaces-machine-type-availability %}

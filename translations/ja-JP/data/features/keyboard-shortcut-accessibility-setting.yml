@@ -1,5 +1,6 @@
-# Reference: #4999.
-# Documentation for the security manager org-level role
+---
+#Reference: #4999.
+#Documentation for the security manager org-level role
 versions:
   fpt: '*'
   ghes: '>=3.4'

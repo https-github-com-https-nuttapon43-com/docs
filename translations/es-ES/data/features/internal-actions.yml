@@ -1,3 +1,4 @@
+---
 versions:
   ghec: '*'
   ghes: '>=3.5'

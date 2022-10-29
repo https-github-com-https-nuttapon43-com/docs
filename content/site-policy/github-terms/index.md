@@ -6,12 +6,12 @@ topics:
   - Policy
   - Legal
 children:
-  - /github-terms-of-service
   - /github-corporate-terms-of-service
-  - /github-terms-for-additional-products-and-features
+  - /github-community-forum-code-of-conduct
   - /github-community-guidelines
-  - /github-community-code-of-conduct
+  - /github-terms-of-service
   - /github-sponsors-additional-terms
+  - /github-terms-for-additional-products-and-features
   - /github-registered-developer-agreement
   - /github-marketplace-terms-of-service
   - /github-marketplace-developer-agreement

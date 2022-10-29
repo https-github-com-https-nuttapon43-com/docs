@@ -1,6 +1,6 @@
 ---
-title: Troubleshooting cloning errors
-intro: 'If you''re having trouble cloning a repository, check these common errors.'
+title: 排查克隆错误
+intro: 如果您在克隆存储库时遇到问题，请检查这些常见错误。
 redirect_from:
   - /articles/error-the-requested-url-returned-error-403
   - /articles/error-the-requested-url-returned-error-401
@@ -21,39 +21,38 @@ topics:
   - Repositories
 ---
 
-## HTTPS cloning errors
+## HTTPS 克隆错误
 
-There are a few common errors when using HTTPS with Git. These errors usually indicate you have an old version of Git, or you don't have access to the repository.
+对 Git 使用 HTTPS 时有几种常见错误。 这些错误通常表示您有旧版 Git，或无法访问仓库。
 
-Here's an example of an HTTPS error you might receive:
+下面是您可能收到的 HTTPS 错误示例：
 
 ```shell
 > error: The requested URL returned error: 401 while accessing
-> https://{% data variables.command_line.codeblock %}/USER/REPO.git/info/refs?service=git-receive-pack
+> https://{% data variables.command_line.codeblock %}/<em>user</em>/<em>repo</em>.git/info/refs?service=git-receive-pack
 > fatal: HTTP request failed
 ```
 
 ```shell
 > Error: The requested URL returned error: 403 while accessing
-> https://{% data variables.command_line.codeblock %}/USER/REPO.git/info/refs
+> https://{% data variables.command_line.codeblock %}/<em>user</em>/<em>repo</em>.git/info/refs
 > fatal: HTTP request failed
 ```
 
 ```shell
-> Error: https://{% data variables.command_line.codeblock %}/USER/REPO.git/info/refs not found: did you run git
+> Error: https://{% data variables.command_line.codeblock %}/<em>user</em>/<em>repo</em>.git/info/refs not found: did you run git
 > update-server-info on the server?
 ```
 
-### Check your Git version
+### 检查 Git 版本
 
-There's no minimum Git version necessary to interact with {% data variables.product.product_name %}, but we've found version 1.7.10 to be a comfortable stable version that's available on many platforms. You can always [download the latest version on the Git website](https://git-scm.com/downloads).
+与 {% data variables.product.product_name %} 交互没有最低 Git 版本要求，但我们发现 1.7.10 版是一个方便、稳定的版本，适用于许多平台。 您可随时[在 Git 网站上下载最新版本](https://git-scm.com/downloads)。
 
-### Ensure the remote is correct
+### 确保远程正确
 
-The repository you're trying to fetch must exist on {% data variables.location.product_location %}, and the URL is case-sensitive.
+您要提取的仓库必须存在于 {% data variables.product.product_location %} 上，且 URL 区分大小写。
 
-You can find the URL of the local repository by opening the command line and
-typing `git remote -v`:
+您可以打开命令行并输入 `git remote -v` 来查找本地仓库的 URL：
 
 ```shell
 $ git remote -v
@@ -70,89 +69,84 @@ $ git remote -v
 > origin  https://github.com/ghost/ReactiveCocoa.git (push)
 ```
 
-Alternatively, you can change the URL through our
-[{% data variables.product.prodname_desktop %}](https://desktop.github.com/) application.
+也可通过 [{% data variables.product.prodname_desktop %}](https://desktop.github.com/) 应用程序更改 URL。
 
-### Provide an access token
+### 提供访问令牌
 
-To access {% data variables.product.prodname_dotcom %}, you must authenticate with a {% data variables.product.pat_generic %} instead of your password. For more information, see "[Creating a {% data variables.product.pat_generic %}](/github/authenticating-to-github/creating-a-personal-access-token)."
+要访问 {% data variables.product.prodname_dotcom %}，您必须使用个人访问令牌而不是密码进行身份验证。 更多信息请参阅“[创建个人访问令牌](/github/authenticating-to-github/creating-a-personal-access-token)”。
 
 {% data reusables.command_line.provide-an-access-token %}
 
-### Check your permissions
+### 检查您的权限
 
-When prompted for a username and password, make sure you use an account that has access to the repository.
+提示输入用户名和密码时，确保使用可以访问仓库的帐户。
 
 {% tip %}
 
-**Tip**: If you don't want to enter your credentials every time you interact with the remote repository, you can turn on [credential caching](/github/getting-started-with-github/caching-your-github-credentials-in-git). If you are already using credential caching, please make sure that your computer has the correct credentials cached. Incorrect or out of date credentials will cause authentication to fail.
+**提示**：如果不想在每次与远程仓库交互时都输入用户名和密码，您可以打开[凭据缓存](/github/getting-started-with-github/caching-your-github-credentials-in-git)。 如果已在使用凭据缓存，请确保您的计算机缓存了正确的凭据。 不正确或过期的凭据将导致身份验证失败。
 
 {% endtip %}
 
-### Use SSH instead
+### 改用 SSH
 
-If you've previously set up SSH keys, you can use the SSH clone URL instead of HTTPS.  For more information, see "[About remote repositories](/github/getting-started-with-github/about-remote-repositories)."
+如果您以前设置了 SSH 密钥，便可使用 SSH 克隆 URL，而不使用 HTTPS。  更多信息请参阅“[关于远程仓库](/github/getting-started-with-github/about-remote-repositories)”。
 
-## Error: Repository not found
+## 错误：未找到仓库
 
-{% ifversion fpt or ghae or ghec %}If you see this error when cloning a repository, it means that the repository does not exist or you do not have permission to access it.{% else %}If you see this error when cloning a repository, it means that the repository does not exist, you do not have permission to access it, or {% data variables.location.product_location %} is in private mode.{% endif %} There are a few solutions to this error, depending on the cause.
+{% ifversion fpt or ghae or ghec %}如果您在克隆仓库时看到这个错误，意味着仓库不存在或您没有权限访问它。{% else %}如果您在克隆仓库时看到此错误，意味着仓库不存在、您没有访问权限，或者 {% data variables.product.product_location %} 处于隐私模式。{% endif %} 对此错误有一些解决办法，具体取决于错误原因。
 
-### Check your spelling
+### 检查拼写
 
-Typos happen, and repository names are case-sensitive.  If you try to clone `git@{% data variables.command_line.codeblock %}:user/repo.git`, but the repository is really named `User/Repo` you will receive this error.
+拼写错误可能发生，并且仓库名称区分大小写。  如果您尝试克隆 `git@{% data variables.command_line.codeblock %}:user/repo.git`，但仓库实际被命名为 `User/Repo`，您会收到此错误。
 
-To avoid this error, when cloning, always copy and paste the clone URL from the repository's page. For more information, see "[Cloning a repository](/articles/cloning-a-repository)."
+要避免此错误，克隆时，始终从仓库页面复制和粘贴克隆 URL。 更多信息请参阅“[克隆仓库](/articles/cloning-a-repository)”。
 
-To update the remote on an existing repository, see "[Managing remote repositories](/github/getting-started-with-github/managing-remote-repositories)".
+要在现有仓库上更新远程，请参阅“[管理远程仓库](/github/getting-started-with-github/managing-remote-repositories)”。
 
-### Checking your permissions
+### 检查权限
 
-If you are trying to clone a private repository but do not have permission to view the repository, you will receive this error.
+如果您尝试克隆私有仓库，但没有查看仓库的权限，您将收到此错误。
 
-Make sure that you have access to the repository in one of these ways:
+确保您通过以下方式之一中，拥有仓库的访问权限：
 
-* The owner of the repository
-* A [collaborator](/articles/inviting-collaborators-to-a-personal-repository) on the repository
-* A [member of a team](/articles/adding-organization-members-to-a-team) that has access to the repository (if the repository belongs to an organization)
+* 仓库所有者
+* 仓库[协作者](/articles/inviting-collaborators-to-a-personal-repository)
+* 拥有仓库访问权限的[团队成员](/articles/adding-organization-members-to-a-team)（如果仓库属于组织）
 
-### Check your SSH access
+### 检查 SSH 访问权限
 
-In rare circumstances, you may not have the proper SSH access to a repository.
+在极少数情况下，您可能没有仓库的适当 SSH 访问权限。
 
-You should ensure that the SSH key you are using is attached to your personal account on {% data variables.product.product_name %}. You can check this by typing
-the following into the command line:
+您应确保正在使用的 SSH 密钥已连接到您的 {% data variables.product.product_name %} 用户帐户。 您可以通过在命令行中输入以下内容检查此项：
 
 ```shell
 $ ssh -T git@{% data variables.command_line.codeblock %}
-> Hi USERNAME! You've successfully authenticated, but GitHub does not
+> Hi <em>username</em>! You've successfully authenticated, but GitHub does not
 > provide shell access.
 ```
 
-{% ifversion fpt or ghec %}
-If the repository belongs to an organization and you're using an SSH key generated by an OAuth App, OAuth App access may have been restricted by an organization owner. For more information, see "[About OAuth App access restrictions](/organizations/restricting-access-to-your-organizations-data/about-oauth-app-access-restrictions)."
-{% endif %}
+如果仓库属于组织，并且您使用的是 OAuth App 生成的 SSH 密钥，则 OAuth App 访问权限可能已被组织所有者限制。 更多信息请参阅“<a href="/organizations/restricting-access-to-your-organizations-data/about-oauth-app-access-restrictions" class="dotcom-only">关于 OAuth App 访问限制</a>”。
 
-For more information, see [Adding a new SSH key to your GitHub account](/articles/adding-a-new-ssh-key-to-your-github-account).
+更多信息请参阅[添加 SSH 密钥到 GitHub 帐户](/articles/adding-a-new-ssh-key-to-your-github-account)。
 
 {% ifversion ghes %}
-### Check if your instance is in private mode
+### 检查实例是否处于私有模式
 
-If your site administrator has enabled private mode on your GitHub Enterprise instance, anonymous clones over `git://` will be disabled. If you are unable to clone a repository, contact your site administrator.
+如果您的站点管理员已对您的 GitHub Enterprise 实例启用私有模式，将禁用通过 `git://` 进行匿名克隆。 如果您无法克隆仓库，请联系您的站点管理员。
 {% endif %}
 
-### Check that the repository really exists
+### 检查仓库是否确实存在
 
-If all else fails, make sure that the repository really exists on {% data variables.location.product_location %}!
-If you're trying to push to a repository that doesn't exist, you'll get this error.
+如果所有其他内容失败，确保仓库在 {% data variables.product.product_location %} 上确实存在！ 如果您尝试推送不存在的仓库，您将收到此错误。
 
-## Error: Remote HEAD refers to nonexistent ref, unable to checkout
+## 错误：远程 HEAD 引用不存在的 ref，无法检出
 
-This error occurs if the default branch of a repository has been deleted on {% data variables.location.product_location %}.
+如果已在 {% data variables.product.product_location %} 上删除仓库的默认分支，会发生此错误。
 
-Detecting this error is simple; Git will warn you when you try to clone the repository:
+检测此错误很简单；当您尝试克隆以下仓库时，Git 会警告您：
 
 ```shell
-$ git clone https://{% data variables.command_line.codeblock %}/USER/REPO.git
+$ git clone https://{% data variables.command_line.codeblock %}/<em>user</em>/<em>repo</em>.git
 # Clone a repo
 > Cloning into 'repo'...
 > remote: Counting objects: 66179, done.
@@ -163,24 +157,24 @@ $ git clone https://{% data variables.command_line.codeblock %}/USER/REPO.git
 > warning: remote HEAD refers to nonexistent ref, unable to checkout.
 ```
 
-To fix the error, you'll need to be an administrator of the repository on {% data variables.location.product_location %}.
-You'll want to [change the default branch](/github/administering-a-repository/changing-the-default-branch) of the repository.
+要修复此错误，您需要成为 {% data variables.product.product_location %} 上仓库的管理员。 您需要[更改仓库的默认分支](/github/administering-a-repository/changing-the-default-branch)。
 
-After that, you can get a list of all the available branches from the command line:
+之后，您可以从命令行获取所有可用分支的列表：
 
 ```shell
 $ git branch -a
 # Lists ALL the branches
 >   remotes/origin/awesome
 >   remotes/origin/more-work
->   remotes/origin/new-main
+>   remotes/origin/new-master
 ```
 
-Then, you can just switch to your new branch:
+然后，您可以切换到新分支：
 
 ```shell
-$ git checkout new-main
+$ git checkout new-master
 # Create and checkout a tracking branch
-> Branch new-main set up to track remote branch new-main from origin.
+> Branch new-master set up to track remote branch new-master from origin.
+> Switched to a new branch 'new-master'
 > Switched to a new branch 'new-main'
 ```

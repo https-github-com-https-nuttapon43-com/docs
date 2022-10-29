@@ -12,34 +12,35 @@ topics:
   - Dependency graph
 ---
 
-## About the dependency graph
+## Acerca del gráfico de dependencias
 
 {% data reusables.dependabot.about-the-dependency-graph %} For more information, see "[About the dependency graph](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph)"
 
-After you enable the dependency graph for your enterprise, you can enable {% data variables.product.prodname_dependabot %} to detect insecure dependencies in your repository{% ifversion ghes %} and automatically fix the vulnerabilities{% endif %}. For more information, see "[Enabling {% data variables.product.prodname_dependabot %} for your enterprise](/admin/configuration/configuring-github-connect/enabling-dependabot-for-your-enterprise)."
+After you enable the dependency graph for your enterprise, you can enable {% data variables.product.prodname_dependabot %} to detect vulnerable dependencies in your repository{% ifversion ghes > 3.2 %} and automatically fix the vulnerabilities{% endif %}. Para obtener más información, consulta la sección "[Habilitar la {% data variables.product.prodname_dependabot %} en tu empresa](/admin/configuration/configuring-github-connect/enabling-dependabot-for-your-enterprise)".
 
-{% ifversion ghes %}
-You can enable the dependency graph via the {% data variables.enterprise.management_console %} or the administrative shell. We recommend using the {% data variables.enterprise.management_console %} unless {% data variables.location.product_location %} uses clustering.
+{% ifversion ghes > 3.1 %}
+Puedes habilitar la gráfica de dependencias a través de la {% data variables.enterprise.management_console %} o del shell administrativo. We recommend using the {% data variables.enterprise.management_console %} unless {% data variables.product.product_location %} uses clustering.
 
-## Enabling the dependency graph via the {% data variables.enterprise.management_console %}
+## Habilitar la gráfica de dependencias a través de la {% data variables.enterprise.management_console %}
 
-If {% data variables.location.product_location %} uses clustering, you cannot enable the dependency graph with the {% data variables.enterprise.management_console %} and must use the administrative shell instead. For more information, see "[Enabling the dependency graph via the administrative shell](#enabling-the-dependency-graph-via-the-administrative-shell)."
+If your {% data variables.product.product_location %} uses clustering, you cannot enable the dependency graph with the {% data variables.enterprise.management_console %} and must use the administrative shell instead. For more information, see "[Enabling the dependency graph via the administrative shell](#enabling-the-dependency-graph-via-the-administrative-shell)."
 
 {% data reusables.enterprise_site_admin_settings.sign-in %}
 {% data reusables.enterprise_site_admin_settings.access-settings %}
 {% data reusables.enterprise_site_admin_settings.management-console %}
 {% data reusables.enterprise_management_console.advanced-security-tab %}
-1. Under "Security," click **Dependency graph**.
-![Checkbox to enable or disable the dependency graph](/assets/images/enterprise/3.2/management-console/enable-dependency-graph-checkbox.png)
+1. Debajo de "Seguridad", haz clic en **Gráfica de dependencias**. ![Casilla de verificación para habilitar o inhabilitar la gráfica de dependencias](/assets/images/enterprise/3.2/management-console/enable-dependency-graph-checkbox.png)
 {% data reusables.enterprise_management_console.save-settings %}
-1. Click **Visit your instance**.
+1. Da clic en **Visitar tu instancia**.
 
-## Enabling the dependency graph via the administrative shell
+## Habilitar la gráfica de dependencias a través del shell administrativo
 
+{% endif %}{% ifversion ghes < 3.2 %}
+## Habilitar la gráfica de dependencias
 {% endif %}
 {% data reusables.enterprise_site_admin_settings.sign-in %}
-1. In the administrative shell, enable the dependency graph on {% data variables.location.product_location %}:
-    {% ifversion ghes %}```shell
+1. En el shell administrativo, habilita la gráfica de dependencias en {% data variables.product.product_location %}:
+    {% ifversion ghes > 3.1 %}```shell
     ghe-config app.dependency-graph.enabled true
     ```
     {% else %}```shell
@@ -48,11 +49,11 @@ If {% data variables.location.product_location %} uses clustering, you cannot en
     ```{% endif %}
    {% note %}
 
-   **Note**: For more information about enabling access to the administrative shell via SSH, see "[Accessing the administrative shell (SSH)](/enterprise/admin/configuration/accessing-the-administrative-shell-ssh)."
+   **Note**: For more information about enabling access to the administrative shell via SSH, see "[Accessing the administrative shell (SSH)](/enterprise/{{ currentVersion }}/admin/configuration/accessing-the-administrative-shell-ssh)."
 
    {% endnote %}
-2. Apply the configuration.
+2. Aplica la configuración
     ```shell
     $ ghe-config-apply
     ```
-3. Return to {% data variables.product.prodname_ghe_server %}.
+3. Regresa a {% data variables.product.prodname_ghe_server %}.

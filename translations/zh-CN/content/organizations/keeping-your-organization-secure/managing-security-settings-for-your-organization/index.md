@@ -1,7 +1,7 @@
 ---
-title: 管理组织的安全设置
+title: Managing security settings for your organization
 shortTitle: Manage security settings
-intro: '可以管理组织的安全设置并查看审核日志{% ifversion ghec %}、合规性报告{% endif %}和集成。'
+intro: 'You can manage security settings and review the audit log{% ifversion ghec %}, compliance reports,{% endif %} and integrations for your organization.'
 versions:
   fpt: '*'
   ghes: '*'
@@ -16,11 +16,6 @@ children:
   - /restricting-email-notifications-for-your-organization
   - /reviewing-the-audit-log-for-your-organization
   - /accessing-compliance-reports-for-your-organization
-ms.openlocfilehash: f3170c9636a6d298ba1faad74018a7f8798215d3
-ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '145127523'
+  - /reviewing-your-organizations-installed-integrations
 ---
 

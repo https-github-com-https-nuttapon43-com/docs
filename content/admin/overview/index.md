@@ -8,8 +8,6 @@ versions:
   ghes: '*'
   ghae: '*'
 children:
-  - /about-github-for-enterprises
-  - /about-github-enterprise-server
   - /about-github-ae
   - /about-upgrades-to-new-releases
   - /about-data-residency

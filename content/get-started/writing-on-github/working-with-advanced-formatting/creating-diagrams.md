@@ -8,7 +8,7 @@ shortTitle: Create diagrams
 
 ## About creating diagrams
 
-You can create diagrams in Markdown using three different syntaxes: mermaid, geoJSON and topoJSON, and ASCII STL. Diagram rendering is available in {% data variables.product.prodname_github_issues %}, {% data variables.product.prodname_discussions %}, pull requests, wikis, and Markdown files.
+You can create diagrams in Markdown using three different syntaxes: mermaid, geoJSON and topoJSON, and ASCII STL.
 
 ## Creating Mermaid diagrams
 
@@ -38,38 +38,26 @@ graph TD;
 
 {% endnote %}
 
-## Creating GeoJSON and TopoJSON maps
+## Creating geoJSON and topoJSON maps
 
-You can use GeoJSON/TopoJSON syntax to create interactive maps. To create a map, add GeoJSON or TopoJSON inside a fenced code block with the `geojson` or `topojson` syntax identifier. For more information, see "[Creating and highlighting code blocks](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)."
+You can use geo/topoJSON syntax to create interactive maps. To create a map, add geoJSON or topoJSON inside a fenced code block with the `geojson` or `topojson` syntax identifier. For more information, see "[Creating and highlighting code blocks](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)."
 
-### Using GeoJSON
+### Using geoJSON
 
 For example, you can create a simple map:
 
 <pre>
 ```geojson
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "id": 1,
-      "properties": {
-        "ID": 0
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-              [-90,35],
-              [-90,30],
-              [-85,30],
-              [-85,35],
-              [-90,35]
-          ]
-        ]
-      }
-    }
+  "type": "Polygon",
+  "coordinates": [
+      [
+          [-90,30],
+          [-90,35],
+          [-90,35],
+          [-85,35],
+          [-85,30]
+      ]
   ]
 }
 ```
@@ -77,9 +65,9 @@ For example, you can create a simple map:
 
 ![Rendered map](/assets/images/help/writing/fenced-geojson-rendered-map.png)
 
-### Using TopoJSON
+### Using topoJSON
 
-For example, you can create a simple TopoJSON map:
+For example, you can create a simple topoJSON map:
 
 <pre>
 ```topojson

@@ -14,15 +14,11 @@ topics:
   - Migration
   - CI
   - CD
-shortTitle: Migrate from GitLab CI/CD
-ms.openlocfilehash: d0d5f2cae928f95b1a614826f270342f376db0de
-ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 09/05/2022
-ms.locfileid: '146178980'
+shortTitle: Fazer a migração a partir da CI/CD do GitLab
 ---
-{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
+
+{% data reusables.actions.enterprise-beta %}
+{% data reusables.actions.enterprise-github-hosted-runners %}
 
 ## Introdução
 
@@ -43,7 +39,7 @@ Os trabalhos no GitLab CI/CD são muito semelhantes aos trabalhos em {% data var
 * Os trabalhos podem ser executados em máquinas separadas ou em contêineres separados.
 * Por padrão, os trabalhos executados em paralelo, mas podem ser configuradas para serem executados em sequência.
 
-Você pode executar um script ou um comando de shell em um trabalho. Na CI/CD do GitLab, as etapas de script são especificadas por meio da chave `script`. No {% data variables.product.prodname_actions %}, todos os scripts são especificados por meio da chave `run`.
+Você pode executar um script ou um comando de shell em um trabalho. No GitLab CI/CD, as etapas do script são especificadas usando a chave do `script`. Em {% data variables.product.prodname_actions %}, todos os scripts são especificados usando a chave `executar`.
 
 Abaixo, há um exemplo da sintaxe para cada sistema:
 
@@ -69,22 +65,22 @@ job1:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-
+{% raw %}
 ```yaml
 jobs:
   job1:
     steps:
-      - uses: {% data reusables.actions.action-checkout %}
+      - uses: actions/checkout@v2
       - run: echo "Run your script here"
 ```
-
+{% endraw %}
 </td>
 </tr>
 </table>
 
 ## Executores
 
-Os executores são máquinas nas quais os trabalhos são executados. Tanto GitLab CI/CD quanto {% data variables.product.prodname_actions %} oferecem variantes de executores gerenciadas e auto-hospedadas. Na CI/CD do GitLab, `tags` são usadas para executar trabalhos em diferentes plataformas, enquanto no {% data variables.product.prodname_actions %}, isso é feito com a chave `runs-on`.
+Os executores são máquinas nas quais os trabalhos são executados. Tanto GitLab CI/CD quanto {% data variables.product.prodname_actions %} oferecem variantes de executores gerenciadas e auto-hospedadas. No GitLab CI/CD, as `tags` são usadas para executar trabalhos em diferentes plataformas, enquanto em {% data variables.product.prodname_actions %} é feito com a chave `runs-on`.
 
 Abaixo, há um exemplo da sintaxe para cada sistema:
 
@@ -107,8 +103,10 @@ windows_job:
   script:
     - echo Hello, %USERNAME%!
 
-linux_job: tags:
-    - linux script:
+linux_job:
+  tags:
+    - linux
+  script:
     - echo "Hello, $USER!"
 ```
 {% endraw %}
@@ -131,11 +129,11 @@ linux_job:
 </tr>
 </table>
 
-Para obter mais informações, confira "[Sintaxe de fluxo de trabalho do {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on)".
+Para obter mais informações, consulte "[Sintaxe do fluxo de trabalho para {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on)."
 
-## Docker images
+## Imagens do Docker
 
-Tanto o GitLab CI/CD quanto o {% data variables.product.prodname_actions %} são compatíveis com trabalhos executados em uma imagem do Docker. Na CI/CD do GitLab, as imagens do Docker são definidas com uma chave `image`, enquanto no {% data variables.product.prodname_actions %} isso é feito com a chave `container`.
+Tanto o GitLab CI/CD quanto o {% data variables.product.prodname_actions %} são compatíveis com trabalhos executados em uma imagem do Docker. Na CI/CD do GitLab, as imagens do Docker são definidas com uma chave `de imagem`, enquanto em {% data variables.product.prodname_actions %}, isso é feito com a chave `contêiner`.
 
 Abaixo, há um exemplo da sintaxe para cada sistema:
 
@@ -169,11 +167,11 @@ jobs:
 </tr>
 </table>
 
-Para obter mais informações, confira "[Sintaxe de fluxo de trabalho do {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer)".
+Para obter mais informações, consulte "[Sintaxe de fluxo de trabalho para o {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer)".
 
 ## Condição e sintaxe de expressão
 
-A CI/CD do GitLab usa `rules` para determinar se um trabalho será executado para uma condição específica. O {% data variables.product.prodname_actions %} usa a palavra-chave `if` para impedir que um trabalho seja executado, a menos que uma condição seja atendida.
+O GitLab CI/CD usa as `regras` para determinar se um trabalho será executado para uma condição específica. {% data variables.product.prodname_actions %} usa a palavra-chave `se` para evitar que um trabalho seja executado a menos que uma condição seja atendida.
 
 Abaixo, há um exemplo da sintaxe para cada sistema:
 
@@ -214,13 +212,13 @@ jobs:
 </tr>
 </table>
 
-Para obter mais informações, confira "[Expressões](/actions/learn-github-actions/expressions)".
+Para obter mais informações, consulte "[Expressões](/actions/learn-github-actions/expressions)".
 
 ## Dependências entre trabalhos
 
-Tanto o GitLab CI/CD quanto o {% data variables.product.prodname_actions %} permitem que você defina dependências para um trabalho. Nos dois sistemas, os trabalhos são executados em paralelo por padrão, mas as dependências de trabalho no {% data variables.product.prodname_actions %} podem ser especificadas explicitamente com a chave `needs`. A CI/CD do GitLab também tem um conceito de `stages`, em que os trabalhos em uma fase são executados simultaneamente, mas a próxima fase será iniciada quando todos os trabalhos da fase anterior tiverem sido concluídos. Você pode recriar esse cenário no {% data variables.product.prodname_actions %} com a chave `needs`.
+Tanto o GitLab CI/CD quanto o {% data variables.product.prodname_actions %} permitem que você defina dependências para um trabalho. Em ambos os sistemas, os trabalhos executados em paralelo por padrão, mas dependências de trabalho em {% data variables.product.prodname_actions %} podem ser especificados explicitamente com a chave `needs`. O GitLab CI/CD também tem o conceito de `stages`, em que os trabalhos em um estágio são executados paralelamente, mas o próximo stage terá início depois de terminados todos os trabalho no stage anterior. Você pode recriar esse cenário em {% data variables.product.prodname_actions %} com a chave `needs`.
 
-Abaixo, há um exemplo da sintaxe para cada sistema. Os fluxos de trabalho começam com dois trabalhos chamados `build_a` e `build_b` em execução em paralelo e, quando esses trabalhos forem concluídos, outro trabalho chamado `test_ab` será executado. Por fim, quando `test_ab` é concluído, o trabalho `deploy_ab` será executado.
+Abaixo, há um exemplo da sintaxe para cada sistema. Os fluxos de trabalho iniciam com dois trabalhos denominados `build_a` e `build_b` sendo executados paralelamente e, após a conclusão desses trabalhos, será executado outro trabalho denominado `test_ab`. Por fim, quando `test_ab` é concluído, o trabalho `deploy_ab` será executado.
 
 <table class="d-block">
 <tr>
@@ -240,17 +238,25 @@ stages:
   - test
   - deploy
 
-build_a: stage: build script:
-    - echo "Esse trabalho será executado primeiro".
+build_a:
+  stage: build
+  script:
+    - echo "This job will run first."
 
-build_b: stage: build script:
-    - echo "Esse trabalho será executado primeiro, em paralelo com build_a".
+build_b:
+  stage: build
+  script:
+    - echo "This job will run first, in parallel with build_a."
 
-test_ab: stage: test script:
-    - echo "Esse trabalho será executado depois que build_a e build_b forem concluídos".
+test_ab:
+  stage: test
+  script:
+    - echo "This job will run after build_a and build_b have finished."
 
-deploy_ab: stage: deploy script:
-    - echo "Esse trabalho será executado após a conclusão de test_ab"
+deploy_ab:
+  stage: deploy
+  script:
+    - echo "This job will run after test_ab is complete"
 ```
 {% endraw %}
 </td>
@@ -285,25 +291,23 @@ jobs:
 </tr>
 </table>
 
-Para obter mais informações, confira "[Sintaxe de fluxo de trabalho do {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)".
+Para obter mais informações, consulte "[Sintaxe de fluxo de trabalho para o {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)".
 
 ## Agendar fluxos de trabalho
 
 Tanto o GitLab CI/CD quanto o {% data variables.product.prodname_actions %} permitem que você execute fluxos de trabalho em um intervalo específico. No GitLab CI/CD, a programação de pipeline é configurada com a interface do usuário, enquanto em {% data variables.product.prodname_actions %} você pode acionar um fluxo de trabalho em um intervalo programado com a chave "ligado".
 
-Para obter mais informações, confira "[Eventos que disparam fluxos de trabalho](/actions/reference/events-that-trigger-workflows#scheduled-events)".
+Para obter mais informações, consulte "[Eventos que acionam fluxos de trabalho](/actions/reference/events-that-trigger-workflows#scheduled-events)".
 
 ## Variáveis e segredos
 
 O GitLab CI/CD e {% data variables.product.prodname_actions %} são compatíveis com as variáveis de ambiente no pipeline ou no arquivo de configuração do fluxo de trabalho e ao criar segredos usando o GitLab ou a interface de usuário de {% data variables.product.product_name %}.
 
-Para obter mais informações, confira "[Variáveis de ambiente](/actions/reference/environment-variables)" e "[Segredos criptografados](/actions/reference/encrypted-secrets)".
+Para obter mais informações, consulte "[Variáveis de ambiente](/actions/reference/environment-variables)" e "[Segredos criptografados](/actions/reference/encrypted-secrets)".
 
-## Cache
+## Armazenar em cache
 
 GitLab CI/CD e {% data variables.product.prodname_actions %} fornecem um método no arquivo de configuração para armazenar os arquivos do fluxo de trabalho manualmente.
-
-{% ifversion actions-caching %}
 
 Abaixo, há um exemplo da sintaxe para cada sistema:
 
@@ -322,43 +326,42 @@ GitLab CI/CD
 ```yaml
 image: node:latest
 
-cache: key: $CI_COMMIT_REF_SLUG paths:
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
     - .npm/
 
 before_script:
   - npm ci --cache .npm --prefer-offline
 
-test_async: script:
+test_async:
+  script:
     - node ./specs/start.js ./specs/async.spec.js
 ```
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-
+{% raw %}
 ```yaml
 jobs:
   test_async:
     runs-on: ubuntu-latest
     steps:
     - name: Cache node modules
-      uses: {% data reusables.actions.action-cache %}
+      uses: actions/cache@v2
       with:
         path: ~/.npm
-        key: {% raw %}v1-npm-deps-${{ hashFiles('**/package-lock.json') }}{% endraw %}
+        key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
         restore-keys: v1-npm-deps-
 ```
-
+{% endraw %}
 </td>
 </tr>
 </table>
 
-{% else %}
+O cache de {% data variables.product.prodname_actions %} só é aplicável para repositórios hospedados em {% data variables.product.prodname_dotcom_the_website %}. Para obter mais informações, consulte "<a href="/actions/guides/caching-dependencies-to-speed-up-workflows" class="dotcom-only">Memorizar dependências para acelerar fluxos de trabalho</a>".
 
-{% data reusables.actions.caching-availability %}
-
-{% endif %}
-
-## Artifacts
+## Artefatos
 
 Tanto o GitLab CI/CD quanto o {% data variables.product.prodname_actions %} podem fazer upload de arquivos e diretórios criados por um trabalho como artefatos. Em {% data variables.product.prodname_actions %}, os artefatos podem ser usados para persistir dados em vários trabalhos.
 
@@ -385,28 +388,28 @@ artifacts:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-
+{% raw %}
 ```yaml
 - name: Upload math result for job 1
-  uses: {% data reusables.actions.action-upload-artifact %}
+  uses: actions/upload-artifact@v3
   with:
     name: homework
     path: math-homework.txt
 ```
-
+{% endraw %}
 </td>
 </tr>
 </table>
 
-Para obter mais informações, confira "[Como armazenar dados de fluxo de trabalho como artefatos](/actions/guides/storing-workflow-data-as-artifacts)".
+Para obter mais informações, consulte "[Armazenar dados de fluxo de trabalho como artefatos](/actions/guides/storing-workflow-data-as-artifacts)".
 
 ## Bancos de dados e contêineres de serviço
 
 Ambos os sistemas permitem que você inclua contêineres adicionais para bases de dados, memorização ou outras dependências.
 
-Na CI/CD do GitLab, um contêiner para o trabalho é especificado com a chave `image`, enquanto o {% data variables.product.prodname_actions %} usa a chave `container`. Nos dois sistemas, contêineres de serviço adicionais são especificados com a chave `services`.
+No GitLab CI/CD, um contêiner para o trabalho é especificado com a chave `imagem`, enquanto {% data variables.product.prodname_actions %} usa a chave `contêiner`. Nos dois sistemas, os contêineres de serviço adicionais são especificados com a chave </code>serviços.</p>
 
-Abaixo, há um exemplo da sintaxe para cada sistema:
+<p spaces-before="0">Abaixo, há um exemplo da sintaxe para cada sistema:</p>
 
 <table class="d-block">
 <tr>
@@ -445,7 +448,7 @@ container-job:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-
+{% raw %}
 ```yaml
 jobs:
   container-job:
@@ -460,7 +463,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: {% data reusables.actions.action-checkout %}
+        uses: actions/checkout@v2
 
       # Performs a clean installation of all dependencies
       # in the `package.json` file
@@ -478,9 +481,9 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
 ```
-
+{% endraw %}
 </td>
 </tr>
 </table>
 
-Para obter mais informações, confira "[Sobre os contêineres de serviço](/actions/guides/about-service-containers)".
+<p spaces-before="0">Para obter mais informações, consulte "<a href="/actions/guides/about-service-containers">Sobre contêineres de serviço</a>."</p>

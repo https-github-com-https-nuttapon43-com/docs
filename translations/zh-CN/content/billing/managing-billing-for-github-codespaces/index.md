@@ -1,14 +1,14 @@
 ---
-title: Managing billing for GitHub Codespaces
+title: 管理 GitHub Codespaces 的计费
 shortTitle: Codespaces
-intro: 'You can view your usage and set a spending limit for {% data variables.product.prodname_github_codespaces %}.'
+intro: '您可以查看您的使用情况，并为 {% data variables.product.prodname_codespaces %} 设置支出限额。'
 versions:
   fpt: '*'
   ghec: '*'
 product: '{% data reusables.gated-features.codespaces %}'
 children:
-  - /about-billing-for-github-codespaces
-  - /viewing-your-github-codespaces-usage
-  - /managing-spending-limits-for-github-codespaces
+  - /about-billing-for-codespaces
+  - /viewing-your-codespaces-usage
+  - /managing-spending-limits-for-codespaces
 ---
 

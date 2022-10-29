@@ -12,14 +12,9 @@ type: overview
 topics:
   - LFS
   - Upgrades
-shortTitle: About Git LFS billing
-ms.openlocfilehash: e09a093aa827d3ed4a25236f42cee65c1c195f14
-ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2022
-ms.locfileid: '145088146'
+shortTitle: Git LFSの支払いについて
 ---
+
 ## {% data variables.large_files.product_name_long %}の支払いについて
 
 {% data reusables.large_files.free-storage-bandwidth-amount %} {% data reusables.large_files.does_not_carry %}
@@ -38,11 +33,11 @@ ms.locfileid: '145088146'
 
 追加のデータパック数をダウングレードすると、その変更は次の支払日に有効になります。
 
-## 参考資料
+## 参考リンク
 
-- 「[{% data variables.large_files.product_name_long %} について](/articles/about-git-large-file-storage)」
-- 「[{% data variables.large_files.product_name_long %} をインストールする](/articles/installing-git-large-file-storage)」
+- [{% data variables.large_files.product_name_long %}について](/articles/about-git-large-file-storage)
+- 「[{% data variables.large_files.product_name_long %}をインストールする](/articles/installing-git-large-file-storage)」
 - 「[ストレージと帯域の利用について](/articles/about-storage-and-bandwidth-usage)」
-- 「[{% data variables.large_files.product_name_long %} の使用状況を表示する](/articles/viewing-your-git-large-file-storage-usage)」
-- 「[{% data variables.large_files.product_name_long %} をアップグレードする](/articles/upgrading-git-large-file-storage)」
-- 「[{% data variables.large_files.product_name_long %} をダウングレードする](/articles/downgrading-git-large-file-storage)」
+- 「[ {% data variables.large_files.product_name_long %}の利用状況を表示する](/articles/viewing-your-git-large-file-storage-usage)」
+- 「[{% data variables.large_files.product_name_long %}をアップグレードする](/articles/upgrading-git-large-file-storage)」
+- 「[{% data variables.large_files.product_name_long %}をダウングレードする](/articles/downgrading-git-large-file-storage)」

@@ -2,15 +2,15 @@
 
 {% ifversion fpt or ghec %}
   ```shell
-  @OWNER:registry=https://npm.pkg.github.com
+  @<em>OWNER</em>:registry=https://npm.pkg.github.com
   ```
 {% else %}
   If subdomain isolation is enabled:
   ```shell
-  @OWNER:registry=https://npm.HOSTNAME
+  @<em>OWNER</em>:registry=https://npm.<em>HOSTNAME</em>
   ```
   If subdomain isolation is disabled:
   ```shell
-  @OWNER:registry=https://HOSTNAME/_registry/npm
+  @<em>OWNER</em>:registry=https://<em>HOSTNAME</em>/_registry/npm
   ```
 {% endif %}

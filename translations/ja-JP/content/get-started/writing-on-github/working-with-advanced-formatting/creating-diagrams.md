@@ -1,27 +1,22 @@
 ---
-title: ダイアグラムの作成
-intro: 図を作成して、チャートとグラフを使って情報を伝えます
+title: Creating diagrams
+intro: Create diagrams to convey information through charts and graphs
 versions:
   feature: mermaid
 shortTitle: Create diagrams
-ms.openlocfilehash: 0e588fb771bd7992f75e364624576e216cf84000
-ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2022
-ms.locfileid: '147529736'
 ---
-## ダイアグラムの作成について
 
-Markdown では、Mermaid、geoJSON と topoJSON、ASCII STL の 3 つの異なる構文を使用してダイアグラムを作成できます。 ダイアグラムのレンダリングは、{% data variables.product.prodname_github_issues %}、{% data variables.product.prodname_discussions %}、pull request、Wiki、Markdown ファイルで利用できます。
+## About creating diagrams
 
-## Mermaid ダイアグラムの作成
+You can create diagrams in Markdown using three different syntaxes: mermaid, geoJSON and topoJSON, and ASCII STL.
 
-Mermaid は、テキストをダイアグラムにレンダリングする、マークダウンから着想を得たツールです。 たとえば、Mermaid ではフローチャート、シーケンス図、円グラフなどをレンダリングできます。 詳細については、[Mermaid のドキュメント](https://mermaid-js.github.io/mermaid/#/)を参照してください。
+## Creating Mermaid diagrams
 
-Mermaid ダイアグラムを作成するには、`mermaid` 言語識別子をもつコード ブロック内に Mermaid 構文を追加します。 コード ブロックの作成の詳細については、「[コード ブロックの作成と強調表示](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)」を参照してください。
+Mermaid is a Markdown-inspired tool that renders text into diagrams. For example, Mermaid can render flow charts, sequence diagrams, pie charts and more. For more information, see the [Mermaid documentation](https://mermaid-js.github.io/mermaid/#/).
 
-たとえば、フロー チャートを作成できます。
+To create a Mermaid diagram, add Mermaid syntax inside a fenced code block with the `mermaid` language identifier. For more information about creating code blocks, see "[Creating and highlighting code blocks](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)."
+
+For example, you can create a flow chart:
 
 <pre>
 Here is a simple flow chart:
@@ -35,56 +30,44 @@ graph TD;
 ```
 </pre>
 
-![レンダリングされた Mermaid フロー チャート](/assets/images/help/writing/mermaid-flow-chart.png)
+![Rendered Mermaid flow chart](/assets/images/help/writing/mermaid-flow-chart.png)
 
 {% note %}
 
-**注**: {% data variables.product.company_short %} で Mermaid 構文を使用しているときに、サードパーティの Mermaid プラグインを実行すると、エラーが発生する可能性があります。
+**Note:** You may observe errors if you run a third-party Mermaid plugin when using Mermaid syntax on {% data variables.product.company_short %}.
 
 {% endnote %}
 
-## GeoJSON マップと TopoJSON マップの作成
+## Creating geoJSON and topoJSON maps
 
-GeoJSON または TopoJSON 構文を使うと、対話型マップを作成できます。 マップを作成するには、フェンス コード ブロック内に GeoJSON または TopoJSON を、`geojson` または `topojson` 構文識別子と共に追加します。 詳細については、「[コード ブロックの作成と強調表示](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)」を参照してください。
+You can use geo/topoJSON syntax to create interactive maps. To create a map, add geoJSON or topoJSON inside a fenced code block with the `geojson` or `topojson` syntax identifier. 詳しい情報については[コードブロックの作成とハイライト](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)を参照してください。
 
-### GeoJSON の使用
+### Using geoJSON
 
-たとえば、シンプルなマップを作成できます。
+For example, you can create a simple map:
 
 <pre>
 ```geojson
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "id": 1,
-      "properties": {
-        "ID": 0
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-              [-90,35],
-              [-90,30],
-              [-85,30],
-              [-85,35],
-              [-90,35]
-          ]
-        ]
-      }
-    }
+  "type": "Polygon",
+  "coordinates": [
+      [
+          [-90,30],
+          [-90,35],
+          [-90,35],
+          [-85,35],
+          [-85,30]
+      ]
   ]
 }
 ```
 </pre>
 
-![レンダリングされたマップ](/assets/images/help/writing/fenced-geojson-rendered-map.png)
+![Rendered map](/assets/images/help/writing/fenced-geojson-rendered-map.png)
 
-### TopoJSON の使用
+### Using topoJSON
 
-たとえば、シンプルな TopoJSON マップを作成できます。
+For example, you can create a simple topoJSON map:
 
 <pre>
 ```topojson
@@ -123,16 +106,16 @@ GeoJSON または TopoJSON 構文を使うと、対話型マップを作成で�
 ```
 </pre>
 
-![レンダリングされた topojson マップ](/assets/images/help/writing/fenced-topojson-rendered-map.png)
+![Rendered topojson map](/assets/images/help/writing/fenced-topojson-rendered-map.png)
 
-`.geojson` ファイルと `.topojson` ファイルでの作業の詳細については、「[非コードファイルでの作業](/repositories/working-with-files/using-files/working-with-non-code-files#mapping-geojson-files-on-github)」を参照してください。
+For more information on working with `.geojson` and `.topojson` files, see "[Working with non-code files](/repositories/working-with-files/using-files/working-with-non-code-files#mapping-geojson-files-on-github)."
 
 
-## STL 3D モデルの作成
+## Creating STL 3D models
 
-マークダウンで ASCII STL 構文を直接使用して、対話型の 3D モデルを作成できます。 モデルを表示するには、コード ブロック内に ASCII STL 構文を、`stl` 構文識別子と共に追加します。 詳細については、「[コード ブロックの作成と強調表示](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)」を参照してください。
+You can use ASCII STL syntax directly in markdown to create interactive 3D models. To display a model, add ASCII STL syntax inside a fenced code block with the `stl` syntax identifier. 詳しい情報については[コードブロックの作成とハイライト](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)を参照してください。
 
-たとえば、シンプルな 3D モデルを作成できます。
+For example, you can create a simple 3D model:
 
 <pre>
 ```stl
@@ -169,7 +152,7 @@ endsolid
 ```
 </pre>
 
-![レンダリングされた 3D モデル](/assets/images/help/writing/fenced-stl-rendered-object.png)
+![Rendered 3D model](/assets/images/help/writing/fenced-stl-rendered-object.png)
 
-`.stl` ファイルでの作業の詳細については、「[非コードファイルでの作業](/repositories/working-with-files/using-files/working-with-non-code-files#3d-file-viewer)」を参照してください。
+For more information on working with `.stl` files, see "[Working with non-code files](/repositories/working-with-files/using-files/working-with-non-code-files#3d-file-viewer)."
 

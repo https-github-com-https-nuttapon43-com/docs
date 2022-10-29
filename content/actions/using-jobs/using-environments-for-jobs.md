@@ -1,6 +1,6 @@
 ---
 title: Using environments for jobs
-shortTitle: Environments
+shortTitle: Using environments for jobs
 intro: Specify an environment for a job.
 versions:
   fpt: '*'

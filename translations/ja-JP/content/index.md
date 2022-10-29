@@ -12,18 +12,13 @@ featuredLinks:
     - /get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-locally-hosted-code-to-github
     - /get-started/getting-started-with-git/managing-remote-repositories
     - /pages
-redirect_from:
-  - /github
-  - /articles
-  - /common-issues-and-questions
-  - /troubleshooting-common-issues
 versions: '*'
 children:
-  - search
   - get-started
   - account-and-profile
   - authentication
   - repositories
+  - github
   - admin
   - billing
   - site-policy
@@ -32,7 +27,6 @@ children:
   - pull-requests
   - issues
   - actions
-  - copilot
   - codespaces
   - packages
   - search-github
@@ -64,7 +58,6 @@ childGroups:
       - repositories
       - pull-requests
       - discussions
-      - copilot
   - name: CI/CD and DevOps
     octicon: GearIcon
     children:
@@ -75,10 +68,6 @@ childGroups:
     octicon: ShieldLockIcon
     children:
       - code-security
-      - code-security/supply-chain-security
-      - code-security/dependabot
-      - code-security/code-scanning
-      - code-security/secret-scanning
   - name: Client apps
     octicon: DeviceMobileIcon
     children:
@@ -90,7 +79,7 @@ childGroups:
       - issues
       - search-github
   - name: Developers
-    octicon: CodeSquareIcon
+    octicon: MarkGithubIcon
     children:
       - developers
       - rest
@@ -128,11 +117,5 @@ externalProducts:
     name: npm
     href: 'https://docs.npmjs.com/'
     external: true
-ms.openlocfilehash: 09ad193360503125adce9c659a465cfae32dd54e
-ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2022
-ms.locfileid: '148107630'
 ---
 

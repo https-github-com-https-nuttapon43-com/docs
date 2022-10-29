@@ -1,6 +1,6 @@
 ---
-title: Mantenimiento de las dependencias actualizadas automáticamente con las actualizaciones de la versión de Dependabot
-intro: 'Puedes usar {% data variables.product.prodname_dependabot %} para mantener automáticamente las dependencias y paquetes usados en el repositorio actualizados a la versión más reciente, incluso cuando no tienen vulnerabilidades conocidas.'
+title: Keeping your dependencies updated automatically with Dependabot version updates
+intro: 'You can use {% data variables.product.prodname_dependabot %} to automatically keep the dependencies and packages used in your repository updated to the latest version, even when they don’t have any known vulnerabilities.'
 allowTitleToDifferFromFilename: true
 redirect_from:
   - /github/administering-a-repository/keeping-your-dependencies-updated-automatically
@@ -8,7 +8,7 @@ redirect_from:
 versions:
   fpt: '*'
   ghec: '*'
-  ghes: '*'
+  ghes: '>3.2'
 topics:
   - Repositories
   - Dependabot
@@ -21,12 +21,6 @@ children:
   - /listing-dependencies-configured-for-version-updates
   - /customizing-dependency-updates
   - /configuration-options-for-the-dependabot.yml-file
-shortTitle: Dependabot version updates
-ms.openlocfilehash: 7d926dd11d8d97511a66109273e30aa018f2707a
-ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
-ms.translationtype: HT
-ms.contentlocale: es-ES
-ms.lasthandoff: 10/25/2022
-ms.locfileid: '148110152'
+shortTitle: Actualizaciones de versión del dependabot
 ---
 

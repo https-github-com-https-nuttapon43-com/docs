@@ -1,102 +1,71 @@
 ---
-title: アマゾン ウェブ サービスでの OpenID Connect の構成
+title: Configuring OpenID Connect in Amazon Web Services
 shortTitle: Configuring OpenID Connect in Amazon Web Services
-intro: ワークフロー内で OpenID Connect を使用して、アマゾン ウェブ サービスで認証を行います。
+intro: Use OpenID Connect within your workflows to authenticate with Amazon Web Services.
 miniTocMaxHeadingLevel: 3
 versions:
   fpt: '*'
+  ghae: issue-4856
   ghec: '*'
-  ghes: '>=3.5'
 type: tutorial
 topics:
   - Security
-ms.openlocfilehash: 6b57dc216c3f2ebc1edb73a8d588edb1967aebcb
-ms.sourcegitcommit: ac00e2afa6160341c5b258d73539869720b395a4
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2022
-ms.locfileid: '147878431'
 ---
-{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
+
+{% data reusables.actions.enterprise-beta %}
+{% data reusables.actions.enterprise-github-hosted-runners %}
 
 ## 概要
 
-OpenID Connect (OIDC) を使うと、{% data variables.product.prodname_actions %} ワークフローでは、有効期間の長い {% data variables.product.prodname_dotcom %} シークレットとしてアマゾン ウェブ サービス (AWS) 資格情報を格納しなくても、AWS 内のリソースにアクセスできます。 
+OpenID Connect (OIDC) allows your {% data variables.product.prodname_actions %} workflows to access resources in Amazon Web Services (AWS), without needing to store the AWS credentials as long-lived {% data variables.product.prodname_dotcom %} secrets.
 
-このガイドでは、{% data variables.product.prodname_dotcom %} の OIDC をフェデレーション ID として信頼するように AWS を構成する方法と、トークンを使って AWS に対する認証とリソースへのアクセスを行う [`aws-actions/configure-aws-credentials`](https://github.com/aws-actions/configure-aws-credentials) のワークフロー例を示します。
+This guide explains how to configure AWS to trust {% data variables.product.prodname_dotcom %}'s OIDC as a federated identity, and includes a workflow example for the [`aws-actions/configure-aws-credentials`](https://github.com/aws-actions/configure-aws-credentials) that uses tokens to authenticate to AWS and access resources.
 
-## 前提条件
+## 必要な環境
 
 {% data reusables.actions.oidc-link-to-intro %}
 
 {% data reusables.actions.oidc-security-notice %}
 
-## AWS への ID プロバイダーの追加
+## Adding the identity provider to AWS
 
-{% data variables.product.prodname_dotcom %} OIDC プロバイダーを IAM に追加するには、[AWS のドキュメント](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)を参照してください。
+To add the {% data variables.product.prodname_dotcom %} OIDC provider to IAM, see the [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html).
 
-- プロバイダー URL の場合: {% ifversion ghes %}`https://HOSTNAME/_services/token`{% else %}`https://token.actions.githubusercontent.com`{% endif %} を使います
-- "Audience" の場合: [公式のアクション](https://github.com/aws-actions/configure-aws-credentials)を使っている場合は、`sts.amazonaws.com` を使います。
+- For the provider URL: Use `https://token.actions.githubusercontent.com`
+- For the "Audience": Use `sts.amazonaws.com` if you are using the [official action](https://github.com/aws-actions/configure-aws-credentials).
 
-### ロールと信頼ポリシーの構成
+### Configuring the role and trust policy
 
-IAM でロールと信頼を構成するには、AWS のドキュメントの「[ロールの想定](https://github.com/aws-actions/configure-aws-credentials#assuming-a-role)」と「[Web ID または OpenID 接続フェデレーションのためのロールの作成](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_oidc.html)」を参照してください。
+To configure the role and trust in IAM, see the AWS documentation for ["Assuming a Role"](https://github.com/aws-actions/configure-aws-credentials#assuming-a-role) and ["Creating a role for web identity or OpenID connect federation"](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_oidc.html).
 
-信頼ポリシーを編集して、`sub` フィールドを検証条件に追加します。 次に例を示します。
+Edit the trust relationship to add the `sub` field to the validation conditions. 例:
 
 ```json{:copy}
 "Condition": {
-  "StringEquals": {
-    "{% ifversion ghes %}HOSTNAME/_services/token{% else %}token.actions.githubusercontent.com{% endif %}:aud": "sts.amazonaws.com",
-    "{% ifversion ghes %}HOSTNAME/_services/token{% else %}token.actions.githubusercontent.com{% endif %}:sub": "repo:octo-org/octo-repo:ref:refs/heads/octo-branch"
+  "ForAllValues:StringEquals": {
+    "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+    "token.actions.githubusercontent.com:sub": "repo:octo-org/octo-repo:ref:refs/heads/octo-branch"
   }
 }
 ```
 
-次の例では、複数の条件キーでの一致に `ForAllValues` が使用され、指定したリポジトリ内の任意の ref との一致に `StringLike` が使用されています。 `ForAllValues` は[過度に制限が少なく](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html)、`Allow` Effect で単独で使用すべきでないことに注意してください。 この例の場合、`StringLike` を含めることは `ForAllValues` の空のセットが条件に合格しないことを意味します。
-
-```json{:copy}
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn:aws:iam::123456123456:oidc-provider/token.actions.githubusercontent.com"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringLike": {
-                    "token.actions.githubusercontent.com:sub": "repo:octo-org/octo-repo:*"
-                },
-                "ForAllValues:StringEquals": {
-                    "token.actions.githubusercontent.com:iss": "https://token.actions.githubusercontent.com",
-                    "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
-                }
-            }
-        }
-    ]
-}
-```
-
-
 ## {% data variables.product.prodname_actions %} ワークフローを更新する
 
-OIDC のワークフローを更新するには、YAML に 2 つの変更を行う必要があります。
-1. トークンのアクセス許可設定を追加します。
-2. この [`aws-actions/configure-aws-credentials`](https://github.com/aws-actions/configure-aws-credentials) アクションを使用して、OIDC トークン (JWT) をクラウド アクセス トークンと交換します。
+To update your workflows for OIDC, you will need to make two changes to your YAML:
+1. Add permissions settings for the token.
+2. Use the [`aws-actions/configure-aws-credentials`](https://github.com/aws-actions/configure-aws-credentials) action to exchange the OIDC token (JWT) for a cloud access token.
 
-### アクセス許可設定の追加
+### Adding permissions settings
 
- {% data reusables.actions.oidc-permissions-token %}
+ {% data reusables.actions.oidc-permissions-token %}
 
-### アクセス トークンの要求
+### Requesting the access token
 
-この `aws-actions/configure-aws-credentials` アクションを使うと、{% data variables.product.prodname_dotcom %} OIDC プロバイダーから JWT を受け取り、アクセス トークンを AWS に要求します。 詳細については、AWS の[ドキュメント](https://github.com/aws-actions/configure-aws-credentials)を参照してください。
+The `aws-actions/configure-aws-credentials` action receives a JWT from the {% data variables.product.prodname_dotcom %} OIDC provider, and then requests an access token from AWS. For more information, see the AWS [documentation](https://github.com/aws-actions/configure-aws-credentials).
 
-- `<example-bucket-name>`: ここに S3 バケットの名前を追加します。
-- `<role-to-assume>`: 例を AWS ロールに置き換えます。
-- `<example-aws-region>`: ここに AWS リージョンの名前を追加します。
+- `<example-bucket-name>`: Add the name of your S3 bucket here.
+- `<role-to-assume>`: Replace the example with your AWS role.
+- `<example-aws-region>`: Add the name of your AWS region here.
 
 ```yaml{:copy}
 # Sample workflow to access AWS resources when workflow is tied to branch
@@ -109,14 +78,14 @@ env:
   AWS_REGION : "<example-aws-region>"
 # permission can be added at job level or workflow level    
 permissions:
-      id-token: write   # This is required for requesting the JWT
-      contents: read    # This is required for actions/checkout
+      id-token: write
+      contents: read    # This is required for actions/checkout@v2
 jobs:
   S3PackageUpload:
     runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
-        uses: {% data reusables.actions.action-checkout %}
+        uses: actions/checkout@v2
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:

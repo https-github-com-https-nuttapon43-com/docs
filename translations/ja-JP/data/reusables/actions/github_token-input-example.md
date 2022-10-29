@@ -1,26 +1,19 @@
----
-ms.openlocfilehash: eeaa56fe9499f2e74e2baa66f883d9aa31bc81f9
-ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/05/2022
-ms.locfileid: "147065731"
----
-次のワークフローの例では、`repo-token` 入力パラメーターの値として `GITHUB_TOKEN` を必要とする[ラベラー アクション](https://github.com/actions/labeler)を使用します。
+以下のワークフローの例では[labeler action](https://github.com/actions/labeler)を使用しています。これには、`repo-token`入力パラメータの値として`GITHUB_TOKEN`を渡すことが必要です。
 
 ```yaml{:copy}
 name: Pull request labeler
 on: [ pull_request_target ]
 
-permissions:
+{% ifversion fpt or ghes > 3.1 or ghae or ghec %}permissions:
   contents: read
   pull-requests: write
 
+{% endif %}
 jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - uses: {% data reusables.actions.action-labeler %}
+      - uses: actions/labeler@v2
         with:
           repo-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 ```

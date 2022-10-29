@@ -22,7 +22,6 @@ export type ReleaseNotePatch = {
   patchVersion: string
   version: string
   downloadVersion: string
-  release: string
   intro: string
   date: string
   friendlyDate: string
@@ -40,6 +39,8 @@ export type GHAEReleaseNotesContextT = {
 
 export type GHESReleaseNotesContextT = {
   latestPatch: string
+  prevRelease?: string
+  nextRelease?: string
   latestRelease: string
   currentVersion: CurrentVersion
   releaseNotes: Array<ReleaseNotePatch>

@@ -6,7 +6,6 @@
 .markdownBody {
   a {
     text-decoration: underline;
-    text-underline-offset: 25%;
   }
 
   summary {
@@ -69,17 +68,6 @@
     ul,
     ol {
       margin-bottom: 0;
-    }
-  }
-}
-
-.automatedPages {
-  h2,
-  h3,
-  h4 {
-    a {
-      text-decoration: none;
-      color: var(--color-fg-default);
     }
   }
 }

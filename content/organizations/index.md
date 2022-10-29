@@ -39,11 +39,11 @@ children:
   - /managing-peoples-access-to-your-organization-with-roles
   - /organizing-members-into-teams
   - /collaborating-with-your-team
-  - /managing-user-access-to-your-organizations-repositories
+  - /managing-access-to-your-organizations-repositories
   - /managing-access-to-your-organizations-project-boards
-  - /managing-programmatic-access-to-your-organization
+  - /managing-access-to-your-organizations-apps
   - /managing-organization-settings
-  - /managing-oauth-access-to-your-organizations-data
+  - /restricting-access-to-your-organizations-data
   - /keeping-your-organization-secure
   - /managing-saml-single-sign-on-for-your-organization
   - /granting-access-to-your-organization-with-saml-single-sign-on

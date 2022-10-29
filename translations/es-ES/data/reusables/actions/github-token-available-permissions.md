@@ -1,12 +1,4 @@
----
-ms.openlocfilehash: 56ed7762c2325d0328bd52ca89fe7879b5ce4601
-ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
-ms.translationtype: HT
-ms.contentlocale: es-ES
-ms.lasthandoff: 09/11/2022
-ms.locfileid: "145092109"
----
-Alcances y valores de acceso disponibles:
+Available scopes and access values:
 
 ```yaml
 permissions:
@@ -25,15 +17,15 @@ permissions:
   statuses: read|write|none
 ```
 
-Si especifica el acceso para cualquiera de estos ámbitos, todos los que no se especifiquen se establecen en `none`.
+If you specify the access for any of these scopes, all of those that are not specified are set to `none`.
 
-Puedes utilizar la siguiente sintaxis para definir el acceso de lectura o escritura para todos los alcances disponibles:
+You can use the following syntax to define read or write access for all of the available scopes:
 
 ```yaml
 permissions: read-all|write-all
 ```
 
-Puedes utilizar la siguiente sintaxis para inhabilitar los permisos para todos los alcances disponibles:
+You can use the following syntax to disable permissions for all of the available scopes:
 
 ```yaml
 permissions: {}

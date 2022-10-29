@@ -4,7 +4,6 @@ intro: 'To simplify deploying to a server, you can set up SSH agent forwarding t
 redirect_from:
   - /guides/using-ssh-agent-forwarding
   - /v3/guides/using-ssh-agent-forwarding
-  - /articles/using-ssh-agent-forwarding
 versions:
   fpt: '*'
   ghes: '*'
@@ -32,7 +31,7 @@ You can test that your local key works by entering `ssh -T git@{% ifversion ghes
 ```shell
 $ ssh -T git@{% ifversion ghes or ghae %}hostname{% else %}github.com{% endif %}
 # Attempt to SSH in to github
-> Hi USERNAME! You've successfully authenticated, but GitHub does not provide
+> Hi <em>username</em>! You've successfully authenticated, but GitHub does not provide
 > shell access.
 ```
 
@@ -68,7 +67,7 @@ If the variable is not set, it means that agent forwarding is not working:
 ```shell
 $ echo "$SSH_AUTH_SOCK"
 # Print out the SSH_AUTH_SOCK variable
-> [No output]
+> <em>[No output]</em>
 $ ssh -T git@{% ifversion ghes or ghae %}hostname{% else %}github.com{% endif %}
 # Try to SSH to github
 > Permission denied (publickey).
@@ -84,7 +83,7 @@ SSH forwarding only works with SSH URLs, not HTTP(s) URLs. Check the `.git/confi
 
 ```shell
 [remote "origin"]
-  url = git@{% ifversion ghes or ghae %}hostname{% else %}github.com{% endif %}:YOUR_ACCOUNT/YOUR_PROJECT.git
+  url = git@{% ifversion ghes or ghae %}hostname{% else %}github.com{% endif %}:<em>yourAccount</em>/<em>yourProject</em>.git
   fetch = +refs/heads/*:refs/remotes/origin/*
 ```
 
@@ -97,10 +96,10 @@ Before you can make your keys work through agent forwarding, they must work loca
 Sometimes, system configurations disallow SSH agent forwarding. You can check if a system configuration file is being used by entering the following command in the terminal:
 
 ```shell
-$ ssh -v URL
-# Connect to the specified URL with verbose debug output
+$ ssh -v <em>example.com</em>
+# Connect to example.com with verbose debug output
 > OpenSSH_8.1p1, LibreSSL 2.7.3</span>
-> debug1: Reading configuration data /Users/YOU/.ssh/config
+> debug1: Reading configuration data /Users/<em>you</em>/.ssh/config
 > debug1: Applying options for example.com
 > debug1: Reading configuration data /etc/ssh_config
 > debug1: Applying options for *
@@ -147,7 +146,7 @@ ssh-add -L
 If the command says that no identity is available, you'll need to add your key:
 
 ```shell
-$ ssh-add YOUR-KEY
+$ ssh-add <em>yourkey</em>
 ```
 
 {% tip %}
@@ -155,10 +154,8 @@ $ ssh-add YOUR-KEY
 On macOS, `ssh-agent` will "forget" this key, once it gets restarted during reboots. But you can import your SSH keys into Keychain using this command:
 
 ```shell
-$ ssh-add --apple-use-keychain YOUR-KEY
+$ ssh-add -K <em>yourkey</em>
 ```
-
-For MacOS versions prior to Monterey (12.0), use `-K` instead of `--apple-use-keychain`. For more information, see "[Adding your SSH key to the ssh-agent](/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent)."
 
 {% endtip %}
 

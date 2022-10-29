@@ -1,6 +1,7 @@
-# Issue 6137
-# Restrict self-hosted runner groups to specific workflows
+---
+#Issue 6137
+#Restrict self-hosted runner groups to specific workflows
 versions:
   ghec: '*'
   ghes: '>=3.5'
-  ghae: 'problema 6137'
+  ghae: 'issue-6137'

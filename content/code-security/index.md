@@ -50,10 +50,9 @@ topics:
   - Vulnerabilities
 children:
   - /getting-started
-  - /adopting-github-advanced-security-at-scale
   - /secret-scanning
   - /code-scanning
-  - /security-advisories
+  - /repository-security-advisories
   - /supply-chain-security
   - /dependabot
   - /security-overview

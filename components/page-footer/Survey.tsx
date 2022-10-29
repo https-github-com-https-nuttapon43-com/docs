@@ -203,7 +203,7 @@ export const Survey = () => {
   )
 }
 
-function trackEvent(formData?: FormData) {
+function trackEvent(formData: FormData | undefined) {
   if (!formData) return
   // Nota bene: convert empty strings to undefined
   return sendEvent({

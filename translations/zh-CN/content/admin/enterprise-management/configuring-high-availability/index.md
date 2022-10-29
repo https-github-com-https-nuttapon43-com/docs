@@ -18,12 +18,6 @@ children:
   - /recovering-a-high-availability-configuration
   - /removing-a-high-availability-replica
   - /about-geo-replication
-shortTitle: Configure high availability
-ms.openlocfilehash: 8df1e6b70d68fc09ffce4783e0c41ace51a089c7
-ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '145100027'
+shortTitle: 配置高可用性
 ---
 

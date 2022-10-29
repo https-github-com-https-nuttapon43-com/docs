@@ -12,7 +12,6 @@ versions:
   ghae: '*'
   ghec: '*'
 children:
-  - /quickstart-for-writing-on-github
   - /about-writing-and-formatting-on-github
   - /basic-writing-and-formatting-syntax
 shortTitle: Start writing on GitHub

@@ -1,7 +1,5 @@
-import { Label } from '@primer/react'
-
 import { ArticleGuide } from 'components/context/ProductGuidesContext'
-import { Link } from 'components/Link'
+import { Label } from '@primer/react'
 
 type Props = {
   card: ArticleGuide
@@ -16,7 +14,7 @@ export const ArticleCard = ({ tabIndex, card, typeLabel }: Props) => {
       data-testid="article-card"
       className="d-flex col-12 col-md-4 pr-0 pr-md-6 pr-lg-8"
     >
-      <Link className="no-underline d-flex flex-column py-3 border-bottom" href={card.href}>
+      <a className="no-underline d-flex flex-column py-3 border-bottom" href={card.href}>
         <h3 className="h4 color-fg-default mb-1" dangerouslySetInnerHTML={{ __html: card.title }} />
         <div className="h6 text-uppercase" data-testid="article-card-type">
           {typeLabel}
@@ -29,9 +27,8 @@ export const ArticleCard = ({ tabIndex, card, typeLabel }: Props) => {
                 <li className="d-inline-block" key={topic}>
                   <Label
                     data-testid="article-card-topic"
-                    size="small"
-                    variant="accent"
-                    sx={{ mr: 1 }}
+                    variant="small"
+                    sx={{ bg: 'accent.emphasis', mr: 1 }}
                   >
                     {topic}
                   </Label>
@@ -40,7 +37,7 @@ export const ArticleCard = ({ tabIndex, card, typeLabel }: Props) => {
             })}
           </ul>
         )}
-      </Link>
+      </a>
     </li>
   )
 }
