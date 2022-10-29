@@ -1,46 +1,52 @@
 #!/usr/bin/env node
-import chalk from 'chalk'
-
 import languages from '../../lib/languages.js'
 import buildRecords from './build-records.js'
 import findIndexablePages from './find-indexable-pages.js'
 import { allVersions } from '../../lib/all-versions.js'
 import { namePrefix } from '../../lib/search/config.js'
 import LunrIndex from './lunr-search-index.js'
-import { writeIndexRecords } from './search-index-records.js'
+
+// Lunr
 
 // Build a search data file for every combination of product version and language
 // e.g. `github-docs-dotcom-en.json` and `github-docs-2.14-ja.json`
-export default async function syncSearchIndexes({
-  language,
-  version,
-  dryRun,
-  notLanguage,
-  outDirectory,
-  compressFiles,
-  generateLunrIndex,
-  config = {},
-}) {
-  const t0 = new Date()
+export default async function syncSearchIndexes(opts = {}) {
+  if (opts.language) {
+    if (!Object.keys(languages).includes(opts.language)) {
+      console.log(
+        `Error! ${opts.language} not found. You must provide a currently supported two-letter language code.`
+      )
+      process.exit(1)
+    }
+  }
+
+  if (opts.version) {
+    if (!Object.keys(allVersions).includes(opts.version)) {
+      console.log(`${opts.version} not one of ${Object.keys(allVersions)}`)
+      throw new Error(
+        `Error! ${opts.version} not found. You must provide a currently supported version in <PLAN@RELEASE> format.`
+      )
+    }
+  }
 
   // build indices for a specific language if provided; otherwise build indices for all languages
-  const languagesToBuild = Object.keys(languages).filter((lang) =>
-    notLanguage ? notLanguage !== lang : language ? language === lang : true
-  )
+  const languagesToBuild = opts.language
+    ? Object.keys(languages).filter((language) => language === opts.language)
+    : Object.keys(languages)
 
-  // build indices for a specific version if provided; otherwise build indices for all versions
-  const versionsToBuild = Object.keys(allVersions).filter((ver) =>
-    version ? version === ver : true
-  )
+  // build indices for a specific version if provided; otherwise build indices for all veersions
+  const versionsToBuild = opts.version
+    ? Object.keys(allVersions).filter((version) => version === opts.version)
+    : Object.keys(allVersions)
 
   console.log(
-    `Building indices for ${chalk.yellow(language || 'all languages')} and ${chalk.yellow(
-      version || 'all versions'
-    )}.\n`
+    `Building indices for ${opts.language || 'all languages'} and ${
+      opts.version || 'all versions'
+    }.\n`
   )
 
   // Exclude WIP pages, hidden pages, index pages, etc
-  const indexablePages = await findIndexablePages(config.filter)
+  const indexablePages = await findIndexablePages()
   const redirects = {}
   indexablePages.forEach((page) => {
     const href = page.relativePath.replace('index.md', '').replace('.md', '')
@@ -73,28 +79,16 @@ export default async function syncSearchIndexes({
         indexablePages,
         pageVersion,
         languageCode,
-        redirects,
-        config
+        redirects
       )
-      if (generateLunrIndex) {
-        const index = new LunrIndex(indexName, records)
+      const index = new LunrIndex(indexName, records)
 
-        if (!dryRun) {
-          await index.write({ outDirectory, compressFiles })
-          console.log('wrote index to file: ', indexName)
-        }
-      } else {
-        const fileWritten = await writeIndexRecords(indexName, records, {
-          outDirectory,
-          compressFiles,
-        })
-        console.log(`wrote records to ${fileWritten}`)
+      if (!opts.dryRun) {
+        await index.write()
+        console.log('wrote index to file: ', indexName)
       }
     }
   }
-  const t1 = new Date()
-  const tookSec = (t1.getTime() - t0.getTime()) / 1000
 
   console.log('\nDone!')
-  console.log(`Took ${tookSec.toFixed(1)} seconds`)
 }

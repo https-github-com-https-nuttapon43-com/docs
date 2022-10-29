@@ -5,7 +5,7 @@ intro: 'Guidance and recommendations for working with {% data variables.product.
 versions:
   fpt: '*'
   ghec: '*'
-  ghes: '*'
+  ghes: '>3.2'
 topics:
   - Repositories
   - Dependabot

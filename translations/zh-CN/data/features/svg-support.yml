@@ -1,5 +1,6 @@
-# Releases issue #1951
-# Support upload of SVG files
+---
+#Releases issue #1951
+#Support upload of SVG files
 versions:
   fpt: '*'
   ghec: '*'

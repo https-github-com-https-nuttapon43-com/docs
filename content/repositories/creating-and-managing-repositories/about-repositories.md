@@ -26,10 +26,10 @@ You can own repositories individually, or you can share ownership of repositorie
 
 You can restrict who has access to a repository by choosing the repository's visibility. For more information, see "[About repository visibility](#about-repository-visibility)."
 
-For user-owned repositories, you can give other people collaborator access so that they can collaborate on your project. If a repository is owned by an organization, you can give organization members access permissions to collaborate on your repository. For more information, see "[Permission levels for a personal account repository](/articles/permission-levels-for-a-user-account-repository/)" and "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)."
+For user-owned repositories, you can give other people collaborator access so that they can collaborate on your project. If a repository is owned by an organization, you can give organization members access permissions to collaborate on your repository. For more information, see "[Permission levels for a user account repository](/articles/permission-levels-for-a-user-account-repository/)" and "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)."
 
 {% ifversion fpt or ghec %}
-With {% data variables.product.prodname_free_team %} for personal accounts and organizations, you can work with unlimited collaborators on unlimited public repositories with a full feature set, or unlimited private repositories with a limited feature set. To get advanced tooling for private repositories, you can upgrade to {% data variables.product.prodname_pro %}, {% data variables.product.prodname_team %}, or {% data variables.product.prodname_ghe_cloud %}. {% data reusables.gated-features.more-info %}
+With {% data variables.product.prodname_free_team %} for user accounts and organizations, you can work with unlimited collaborators on unlimited public repositories with a full feature set, or unlimited private repositories with a limited feature set. To get advanced tooling for private repositories, you can upgrade to {% data variables.product.prodname_pro %}, {% data variables.product.prodname_team %}, or {% data variables.product.prodname_ghe_cloud %}. {% data reusables.gated-features.more-info %}
 {% else %}
 Each person and organization can own unlimited repositories and invite an unlimited number of collaborators to all repositories.
 {% endif %}
@@ -52,7 +52,7 @@ When you create a repository, you can choose to make the repository public or pr
 
 {% elsif ghae %}
 
-When you create a repository owned by your personal account, the repository is always private. When you create a repository owned by an organization, you can choose to make the repository private or internal.
+When you create a repository owned by your user account, the repository is always private. When you create a repository owned by an organization, you can choose to make the repository private or internal.
 
 {% endif %}
 
@@ -60,7 +60,7 @@ When you create a repository owned by your personal account, the repository is a
 - Public repositories are accessible to everyone on the internet.
 - Private repositories are only accessible to you, people you explicitly share access with, and, for organization repositories, certain organization members.
 {%- elsif ghes %}
-- If {% data variables.location.product_location %} is not in private mode or behind a firewall, public repositories are accessible to everyone on the internet. Otherwise, public repositories are available to everyone using {% data variables.location.product_location %}, including outside collaborators.
+- If {% data variables.product.product_location %} is not in private mode or behind a firewall, public repositories are accessible to everyone on the internet. Otherwise, public repositories are available to everyone using {% data variables.product.product_location %}, including outside collaborators.
 - Private repositories are only accessible to you, people you explicitly share access with, and, for organization repositories, certain organization members.
 {%- elsif ghae %}
 - Private repositories are only accessible to you, people you explicitly share access with, and, for organization repositories, certain organization members.
@@ -78,35 +78,19 @@ People with admin permissions for a repository can change an existing repository
 
 {% data reusables.repositories.about-internal-repos %} For more information on innersource, see {% data variables.product.prodname_dotcom %}'s whitepaper "[An introduction to innersource](https://resources.github.com/whitepapers/introduction-to-innersource/)."
 
-{% ifversion ghec %}
-{% note %}
-
-**Note:** You can only create internal repositories if you use {% data variables.product.prodname_ghe_cloud %} with an enterprise account. An enterprise account is a separate type of account that allows a central point of management for multiple organizations. For more information, see "[Types of {% data variables.product.prodname_dotcom %} account](/get-started/learning-about-github/types-of-github-accounts)."
-
-{% endnote %}
-{% endif %}
-
 All enterprise members have read permissions to the internal repository, but internal repositories are not visible to people {% ifversion fpt or ghec %}outside of the enterprise{% else %}who are not members of any organization{% endif %}, including outside collaborators on organization repositories. For more information, see "[Roles in an enterprise](/github/setting-up-and-managing-your-enterprise/roles-in-an-enterprise#enterprise-members)" and "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)."
 
 {% ifversion ghes %}
 {% note %}
 
-**Note:** A user must be part of an organization to be an enterprise member and have access to internal repositories. If a user on {% data variables.location.product_location %} is not a member of any organization, that user will not have access to internal repositories.
+**Note:** A user must be part of an organization to be an enterprise member and have access to internal repositories. If a user on {% data variables.product.product_location %} is not a member of any organization, that user will not have access to internal repositories.
 
 {% endnote %}
 {% endif %}
 
 {% data reusables.repositories.internal-repo-default %}
 
-{% ifversion ghec %}Unless your enterprise uses {% data variables.product.prodname_emus %}, members{% else %}Members{% endif %} of the enterprise can fork any internal repository owned by an organization in the enterprise. The forked repository will belong to the member's personal account, and the visibility of the fork will be private. If a user is removed from all organizations owned by the enterprise, that user's forks of internal repositories are removed automatically.
-
-{% ifversion ghec %}
-{% note %}
-
-**Note:** {% data variables.enterprise.prodname_managed_users_caps %} cannot fork internal repositories. For more information, see "[About {% data variables.product.prodname_emus %}](/admin/identity-and-access-management/using-enterprise-managed-users-for-iam/about-enterprise-managed-users#abilities-and-restrictions-of-managed-user-accounts)."
-
-{% endnote %}
-{% endif %}
+Any member of the enterprise can fork any internal repository owned by an organization in the enterprise. The forked repository will belong to the member's user account, and the visibility of the fork will be private. If a user is removed from all organizations owned by the enterprise, that user's forks of internal repositories are removed automatically.
 {% endif %}
 
 ## Limits for viewing content and diffs in a repository

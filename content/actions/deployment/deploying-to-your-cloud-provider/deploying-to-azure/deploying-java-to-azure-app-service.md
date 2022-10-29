@@ -20,7 +20,7 @@ topics:
 
 This guide explains how to use {% data variables.product.prodname_actions %} to build and deploy a Java project to [Azure App Service](https://azure.microsoft.com/services/app-service/).
 
-{% ifversion fpt or ghec or ghes > 3.4 %}
+{% ifversion fpt or ghec or ghae-issue-4856 %}
 
 {% note %}
 
@@ -67,8 +67,6 @@ Ensure that you set `AZURE_WEBAPP_NAME` in the workflow `env` key to the name of
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
 
-{% data reusables.actions.actions-use-sha-pinning-comment %}
-
 name: Build and deploy JAR app to Azure Web App
 
 env:
@@ -85,10 +83,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: {% data reusables.actions.action-checkout %}
+      - uses: actions/checkout@v2
 
       - name: Set up Java version
-        uses: {% data reusables.actions.action-setup-java %}
+        uses: actions/setup-java@v2.3.1
         with:
           java-version: {% raw %}${{ env.JAVA_VERSION }}{% endraw %}
           cache: 'maven'
@@ -97,7 +95,7 @@ jobs:
         run: mvn clean install
 
       - name: Upload artifact for deployment job
-        uses: {% data reusables.actions.action-upload-artifact %}
+        uses: actions/upload-artifact@v3
         with:
           name: java-app
           path: '{% raw %}${{ github.workspace }}{% endraw %}/target/*.jar'
@@ -111,7 +109,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: {% data reusables.actions.action-download-artifact %}
+        uses: actions/download-artifact@v3
         with:
           name: java-app
 

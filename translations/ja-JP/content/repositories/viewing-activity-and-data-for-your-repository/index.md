@@ -1,6 +1,6 @@
 ---
-title: リポジトリのアクティビティとデータを表示する
-intro: アクティビティとデータを表示して、リポジトリに関する分析情報を取得します。
+title: Viewing activity and data for your repository
+intro: Gain insight into your repository by viewing activity and data.
 redirect_from:
   - /categories/44/articles
   - /categories/graphs-and-contributions
@@ -23,11 +23,5 @@ children:
   - /analyzing-changes-to-a-repositorys-content
   - /understanding-connections-between-repositories
 shortTitle: View activity and data
-ms.openlocfilehash: 93ee6e343390540cb05551f4f8cb888eebdf63e2
-ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/11/2022
-ms.locfileid: '147883434'
 ---
 

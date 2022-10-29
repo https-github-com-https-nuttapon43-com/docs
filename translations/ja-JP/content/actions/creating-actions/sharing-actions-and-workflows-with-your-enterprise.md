@@ -1,6 +1,6 @@
 ---
-title: アクションとワークフローを企業と共有する
-intro: アクションまたはワークフローを公開せずに、企業とアクションまたはワークフローを共有できます。
+title: Sharing actions and workflows with your enterprise
+intro: You can share an action or workflow with your enterprise without publishing the action or workflow publicly.
 versions:
   feature: internal-actions
 type: tutorial
@@ -8,31 +8,26 @@ topics:
   - Actions
   - Action development
 shortTitle: Share with your enterprise
-ms.openlocfilehash: 90541af9dfbb3c5f8ea2384de4a291336951434f
-ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '145068783'
 ---
-## 内部リポジトリへの {% data variables.product.prodname_actions %} アクセスについて
 
-組織が企業アカウントによって所有されている場合、アクションまたはワークフローが含まれるリポジトリへのアクセスを {% data variables.product.prodname_actions %} ワークフローに許可することで、アクションまたはワークフローを公開することなく、企業内でアクションまたはワークフローを共有できます。 
+## About {% data variables.product.prodname_actions %} access to internal repositories
 
-内部リポジトリに格納されているアクションまたはワークフローは、同じ組織に所有されているか、企業によって所有されているあらゆる組織によって所有されている他のプライベートな内部リポジトリで定義されているワークフローで使用できます。 内部リポジトリに格納されているアクションまたはワークフローは、パブリック リポジトリで使用できません。
+If your organization is owned by an enterprise account, you can share actions and workflows within your enterprise, without publishing the action or workflow publicly, by allowing {% data variables.product.prodname_actions %} workflows to access an internal repository that contains the action or workflow.
+
+Any actions or workflows stored in the internal repository can be used in workflows defined in other private and internal repositories owned by the same organization, or by any organization owned by the enterprise. Actions and workflows stored in internal repositories cannot be used in public repositories.
 
 {% warning %}
 
-**警告**: {% data reusables.actions.outside-collaborators-internal-actions %}
+**Warning**: {% data reusables.actions.outside-collaborators-internal-actions %}
 
 {% endwarning %}
 
-## アクションとワークフローを企業と共有する
+## Sharing actions and workflows with your enterprise
 
-1. アクションまたはワークフローを内部リポジトリに格納します。 詳細については、[リポジトリ](/repositories/creating-and-managing-repositories/about-repositories#about-internal-repositories)に関する説明を参照してください。
-1. 他のプライベートな内部リポジトリにあるワークフローにアクセスできるよう、リポジトリを構成します。 詳細については、「[リポジトリの {% data variables.product.prodname_actions %} 設定の管理](/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#allowing-access-to-components-in-an-internal-repository)」を参照してください。
+1. Store the action or workflow in an internal repository. For more information, see "[About repositories](/repositories/creating-and-managing-repositories/about-repositories#about-internal-repositories)."
+1. Configure the repository to allow access to workflows in other private and internal repositories. 詳しい情報については、「[リポジトリの {% data variables.product.prodname_actions %} 設定の管理](/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#allowing-access-to-components-in-an-internal-repository)」を参照してください。
 
-## 参考資料
+## 参考リンク
 
-- "[Enterprise アカウントについて](/admin/overview/about-enterprise-accounts)"
-- "[ワークフローの再利用](/actions/using-workflows/reusing-workflows)"
+- 「[Enterprise アカウントについて](/admin/overview/about-enterprise-accounts)」
+- "[Reusing workflows](/actions/using-workflows/reusing-workflows)"

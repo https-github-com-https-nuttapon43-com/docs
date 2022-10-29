@@ -38,8 +38,12 @@ export type ProductLandingContextT = {
   intro: string
   beta_product: boolean
   product: Product
-  introLinks: Record<string, string> | null
-  productVideo: string
+  introLinks: {
+    quickstart?: string
+    reference?: string
+    overview?: string
+  } | null
+  product_video?: string
   featuredLinks: Record<string, Array<FeaturedLink>>
   productCodeExamples: Array<CodeExample>
   productUserExamples: Array<{ username: string; description: string }>
@@ -54,7 +58,7 @@ export type ProductLandingContextT = {
   whatsNewChangelog?: Array<{ href: string; title: string; date: string }>
   tocItems: Array<TocItem>
   hasGuidesPage: boolean
-  ghesReleases: Array<{
+  releases: Array<{
     version: string
     firstPreviousRelease: string
     secondPreviousRelease: string
@@ -93,30 +97,29 @@ export const getFeaturedLinksFromReq = (req: any): Record<string, Array<Featured
   )
 }
 
-export const getProductLandingContextFromRequest = async (
-  req: any
-): Promise<ProductLandingContextT> => {
+export const getProductLandingContextFromRequest = (req: any): ProductLandingContextT => {
   const productTree = req.context.currentProductTree
   const page = req.context.page
   const hasGuidesPage = (page.children || []).includes('/guides')
-
-  const productVideo = page.product_video
-    ? await page.renderProp('product_video', req.context, { textOnly: true })
-    : ''
-
   return {
-    ...pick(page, ['title', 'shortTitle', 'introPlainText', 'beta_product', 'intro']),
-    productVideo,
+    ...pick(page, [
+      'title',
+      'shortTitle',
+      'introPlainText',
+      'beta_product',
+      'intro',
+      'product_video',
+    ]),
     hasGuidesPage,
     product: {
       href: productTree.href,
-      title: productTree.page.shortTitle || productTree.page.title,
+      title: productTree.renderedShortTitle || productTree.renderedFullTitle,
     },
     whatsNewChangelog: req.context.whatsNewChangelog || [],
     changelogUrl: req.context.changelogUrl || [],
     productCodeExamples: req.context.productCodeExamples || [],
     productCommunityExamples: req.context.productCommunityExamples || [],
-    ghesReleases: req.context.ghesReleases || [],
+    releases: req.context.releases || [],
 
     productUserExamples: (req.context.productUserExamples || []).map(
       ({ user, description }: any) => ({
@@ -125,7 +128,13 @@ export const getProductLandingContextFromRequest = async (
       })
     ),
 
-    introLinks: page.introLinks || null,
+    introLinks: page.introLinks
+      ? {
+          quickstart: page.introLinks.quickstart,
+          reference: page.introLinks.reference,
+          overview: page.introLinks.overview,
+        }
+      : null,
 
     featuredLinks: getFeaturedLinksFromReq(req),
 

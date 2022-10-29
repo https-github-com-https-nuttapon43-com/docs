@@ -1,9 +1,9 @@
-A self-hosted runner can be located in either your repository, organization, or {% ifversion fpt or ghec %}enterprise account settings on {% data variables.product.prodname_dotcom %}{% elsif ghes or ghae %} enterprise settings on {% data variables.location.product_location %}{% endif %}. To manage a self-hosted runner, you must have the following permissions, depending on where the self-hosted runner was added:
-- **User repository**: You must be the repository owner.
-- **Organization**: You must be an organization owner. 
-- **Organization repository**: You must be an organization owner, or have admin access to the repository.
+セルフホストランナーは、リポジトリ、Organization、{% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %}上のEnterpriseアカウント設定{% elsif ghes or ghae %} {% data variables.product.product_location %}上のEnterprise設定{% endif %}で見つかります。 セルフホストランナーを管理するには、セルフホストランナーが追加された場所に応じて以下の権限が必要になります。
+- **ユーザリポジトリ**: リポジトリのオーナーでなければなりません。
+- **Organization**: Organizationのオーナーでなければなりません。
+- **Organizationのリポジトリ**: Organizationのオーナーであるか、リポジトリへの管理アクセス権を持っていなければなりません。
 {% ifversion ghec %}
-- **Enterprise account**: You must be an enterprise owner.
+- **Enterpriseアカウント**: Enterpriseのオーナーでなければなりません。
 {% elsif ghes or ghae %}
-- **Enterprise**: You must be a {% data variables.product.prodname_enterprise %} site administrator.
+- **Enterprise**: {% data variables.product.prodname_enterprise %}サイト管理者でなければなりません。
 {% endif %}

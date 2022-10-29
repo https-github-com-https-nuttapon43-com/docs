@@ -1,14 +1,6 @@
----
-ms.openlocfilehash: 428cbf55b065c4350f8d97dcde0ab4c598fb4409
-ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
-ms.translationtype: HT
-ms.contentlocale: es-ES
-ms.lasthandoff: 09/11/2022
-ms.locfileid: "147885224"
----
-**Si usa Git Bash**, active ssh-agent:
+**Si estás usando Git Bash**, activa el ssh-agent:
 ```shell
-# start the ssh-agent in the background
+# inicia el ssh-agent en segundo plano
 $ eval "$(ssh-agent -s)"
 > Agent pid 59566
 ```

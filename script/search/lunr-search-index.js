@@ -78,22 +78,16 @@ export default class LunrIndex {
     return Object.fromEntries(this.records.map((record) => [record.objectID, record]))
   }
 
-  async write({
-    outDirectory = path.posix.join(__dirname, '../../lib/search/indexes'),
-    compressFiles = true,
-  }) {
+  async write() {
     this.build()
 
     // Write the parsed records
     await Promise.resolve(this.recordsObject)
       .then(JSON.stringify)
-      .then((str) => (compressFiles ? compress(str) : str))
+      .then(compress)
       .then((content) =>
         fs.writeFile(
-          path.join(
-            outDirectory,
-            compressFiles ? `${this.name}-records.json.br` : `${this.name}-records.json`
-          ),
+          path.posix.join(__dirname, '../../lib/search/indexes', `${this.name}-records.json.br`),
           content
           // Do not set to 'utf8'
         )
@@ -102,10 +96,10 @@ export default class LunrIndex {
     // Write the index
     await Promise.resolve(this.index)
       .then(JSON.stringify)
-      .then((str) => (compressFiles ? compress(str) : str))
+      .then(compress)
       .then((content) =>
         fs.writeFile(
-          path.join(outDirectory, compressFiles ? `${this.name}.json.br` : `${this.name}.json`),
+          path.posix.join(__dirname, '../../lib/search/indexes', `${this.name}.json.br`),
           content
           // Do not set to 'utf8'
         )

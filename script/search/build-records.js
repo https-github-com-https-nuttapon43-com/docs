@@ -1,12 +1,11 @@
 #!/usr/bin/env node
+import domwaiter from 'domwaiter'
 import eventToPromise from 'event-to-promise'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
 import parsePageSectionsIntoRecords from './parse-page-sections-into-records.js'
 import getPopularPages from './popular-pages.js'
 import languages from '../../lib/languages.js'
-import domwaiter from '../domwaiter.js'
-
 const pageMarker = chalk.green('|')
 const recordMarker = chalk.grey('.')
 const port = 4002
@@ -26,10 +25,8 @@ export default async function buildRecords(
   indexablePages,
   pageVersion,
   languageCode,
-  redirects,
-  config = {}
+  redirects
 ) {
-  const { noMarkers } = config
   console.log(`\n\nBuilding records for index '${indexName}' (${languages[languageCode].name})`)
   const records = []
   const pages = indexablePages
@@ -63,12 +60,13 @@ export default async function buildRecords(
 
   const waiter = domwaiter(permalinks, { maxConcurrent: MAX_CONCURRENT, minTime: MIN_TIME })
     .on('page', (page) => {
-      if (!noMarkers) process.stdout.write(pageMarker)
+      process.stdout.write(pageMarker)
       const newRecord = parsePageSectionsIntoRecords(page)
-      const pathArticle = page.relativePath.replace('/index.md', '').replace('.md', '')
-      const popularity = (hasPopularPages && popularPages[pathArticle]) || 0.0
+      const hrefWithoutLocale = page.href.split('/').slice(2).join('/')
+
+      const popularity = (hasPopularPages && popularPages[hrefWithoutLocale]) || 0.0
       newRecord.popularity = popularity
-      if (!noMarkers) process.stdout.write(recordMarker)
+      process.stdout.write(recordMarker)
       records.push(newRecord)
     })
     .on('error', (err) => {

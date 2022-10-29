@@ -6,6 +6,7 @@ import matter from '../../lib/read-frontmatter.js'
 import { zip, difference } from 'lodash-es'
 import GithubSlugger from 'github-slugger'
 import { decode } from 'html-entities'
+import readFileAsync from '../../lib/readfile-async.js'
 import loadSiteData from '../../lib/site-data.js'
 import renderContent from '../../lib/render-content/index.js'
 import getApplicableVersions from '../../lib/get-applicable-versions.js'
@@ -20,13 +21,7 @@ describe('category pages', () => {
 
   const walkOptions = {
     globs: ['*/index.md', 'enterprise/*/index.md'],
-    ignore: [
-      '{rest,graphql}/**',
-      'enterprise/index.md',
-      '**/articles/**',
-      'early-access/**',
-      'search/index.md',
-    ],
+    ignore: ['{rest,graphql}/**', 'enterprise/index.md', '**/articles/**', 'early-access/**'],
     directories: false,
     includeBasePath: true,
   }
@@ -76,7 +71,7 @@ describe('category pages', () => {
           const categoryDir = path.dirname(indexAbsPath)
 
           // Get child article links included in each subdir's index page
-          const indexContents = await fs.promises.readFile(indexAbsPath, 'utf8')
+          const indexContents = await readFileAsync(indexAbsPath, 'utf8')
           const { data } = matter(indexContents)
           categoryVersions = getApplicableVersions(data.versions, indexAbsPath)
           categoryChildTypes = []
@@ -106,7 +101,7 @@ describe('category pages', () => {
             await Promise.all(
               articleLinks.map(async (articleLink) => {
                 const articlePath = getPath(productDir, indexLink, articleLink)
-                const articleContents = await fs.promises.readFile(articlePath, 'utf8')
+                const articleContents = await readFileAsync(articlePath, 'utf8')
                 const { data } = matter(articleContents)
 
                 // Do not include map topics in list of published articles
@@ -128,7 +123,7 @@ describe('category pages', () => {
           availableArticlePaths = (
             await Promise.all(
               childFilePaths.map(async (articlePath) => {
-                const articleContents = await fs.promises.readFile(articlePath, 'utf8')
+                const articleContents = await readFileAsync(articlePath, 'utf8')
                 const { data } = matter(articleContents)
 
                 // Do not include map topics nor hidden pages in list of available articles
@@ -142,7 +137,7 @@ describe('category pages', () => {
 
           await Promise.all(
             childFilePaths.map(async (articlePath) => {
-              const articleContents = await fs.promises.readFile(articlePath, 'utf8')
+              const articleContents = await readFileAsync(articlePath, 'utf8')
               const { data } = matter(articleContents)
 
               articleVersions[articlePath] = getApplicableVersions(data.versions, articlePath)

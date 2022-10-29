@@ -13,14 +13,9 @@ versions:
 topics:
   - Identity
   - Access management
-shortTitle: SSH key fingerprints
-ms.openlocfilehash: 29f61df463d014e6a72ad7dd21049a2b338b893e
-ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '145083632'
+shortTitle: Impressão digital de chave SSH
 ---
+
 Estas são as impressões digitais de chave pública de {% data variables.product.prodname_dotcom %}:
 
 - `SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8` (RSA)

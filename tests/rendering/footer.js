@@ -8,7 +8,7 @@ describe('footer', () => {
 
   describe('"contact us" link', () => {
     test('leads to support from articles', async () => {
-      const $ = await getDOM(`/en/${nonEnterpriseDefaultVersion}/issues`)
+      const $ = await getDOM(`/en/${nonEnterpriseDefaultVersion}/github`)
       expect($('a#contact-us').attr('href')).toBe('https://support.github.com/contact')
     })
 
@@ -20,7 +20,7 @@ describe('footer', () => {
 
   describe('"contact us" link with nextjs', () => {
     test('leads to support from articles', async () => {
-      const $ = await getDOM(`/en/${nonEnterpriseDefaultVersion}/issues?nextjs=`)
+      const $ = await getDOM(`/en/${nonEnterpriseDefaultVersion}/github?nextjs=`)
       expect($('a#contact-us').attr('href')).toBe('https://support.github.com/contact')
     })
   })
@@ -29,21 +29,21 @@ describe('footer', () => {
     test('codespaces product landing page leads to codespaces discussions page', async () => {
       const $ = await getDOM(`/en/codespaces`)
       expect($('a#ask-community').attr('href')).toBe(
-        'https://github.com/community/community/discussions/categories/codespaces'
+        'https://github.com/github/feedback/discussions/categories/codespaces-feedback'
       )
     })
 
     test('sponsors product landing page leads to sponsors discussions page', async () => {
       const $ = await getDOM(`/en/sponsors`)
       expect($('a#ask-community').attr('href')).toBe(
-        'https://github.com/community/community/discussions/categories/sponsors'
+        'https://github.com/github/feedback/discussions/categories/sponsors-feedback'
       )
     })
 
     test('codespaces product landing page leads to discussions discussions page', async () => {
       const $ = await getDOM(`/en/discussions`)
       expect($('a#ask-community').attr('href')).toBe(
-        'https://github.com/community/community/discussions/categories/discussions'
+        'https://github.com/github/feedback/discussions/categories/discussions-feedback'
       )
     })
   })

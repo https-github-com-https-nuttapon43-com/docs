@@ -98,13 +98,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
 
       # Set up npm and run npm ci to run husky to get githooks for LFS
       - name: Setup node
-        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048
+        uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
         with:
-          node-version: '16.17.0'
+          node-version: 16.14.x
           cache: npm
       - name: Install dependencies
         run: npm ci
@@ -120,7 +120,7 @@ jobs:
           github_token: ${{ secrets.OCTOMERGER_PAT_WITH_REPO_AND_WORKFLOW_SCOPE }}
 
       - name: Create pull request
-        uses: repo-sync/pull-request@65785d95a5a466e46a9d0708933a3bd51bbf9dde
+        uses: repo-sync/pull-request@65194d8015be7624d231796ddee1cd52a5023cb3
         env:
           GITHUB_TOKEN: ${{ secrets.OCTOMERGER_PAT_WITH_REPO_AND_WORKFLOW_SCOPE }}
         with:
@@ -239,18 +239,17 @@ jobs:
 
       - name: Approve pull request
         if: ${{ steps.find-pull-request.outputs.number && steps.pr-files.outputs.count != '0' }}
-        uses: juliangruber/approve-pull-request-action@c67a4808d52e44ea03656f6646ba24a010304f03
+        uses: juliangruber/approve-pull-request-action@c530832d4d346c597332e20e03605aa94fa150a8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.find-pull-request.outputs.number }}
 
-      - name: Admin merge the pull request
+      - name: Enable GitHub auto-merge
         if: ${{ steps.find-pull-request.outputs.number && steps.pr-files.outputs.count != '0' }}
         env:
           GITHUB_TOKEN: ${{ secrets.OCTOMERGER_PAT_WITH_REPO_AND_WORKFLOW_SCOPE }}
-          PR_NUMBER: ${{ steps.find-pull-request.outputs.number }}
-        run: |
-          gh pr merge $PR_NUMBER --admin --merge
+          AUTOMERGE_PR_NUMBER: ${{ steps.find-pull-request.outputs.number }}
+        run: node .github/actions-scripts/enable-automerge.js
 
       - name: Send Slack notification if workflow fails
         uses: someimportantcompany/github-actions-slack-message@f8d28715e7b8a4717047d23f48c39827cacad340

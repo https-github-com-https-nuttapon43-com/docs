@@ -11,83 +11,69 @@ If this test is failing...
 (1) edit the file to remove the reference; or
 (2) the repository is public,
     add the repository name to PUBLIC_REPOS; or
-(3) the file references a docs repository,
+(3) the feature references a docs repository,
     add the file name to ALLOW_DOCS_PATHS.
 */
 
-// These are a list of known public repositories in the GitHub organization.
-// The names below on their own, plus the same names ending with '.git', will be accepted.
-// Do not include '.git' in the names below.
+// These are a list of known public repositories in the GitHub organization
 const PUBLIC_REPOS = new Set([
-  'actions-oidc-gateway-example',
-  'advisory-database',
+  'site-policy',
+  'roadmap',
+  'linguist',
+  'super-linter',
   'backup-utils',
-  'browser-support',
-  'choosealicense.com',
   'codeql-action-sync-tool',
   'codeql-action',
   'codeql-cli-binaries',
-  'codeql-go',
-  'codeql',
-  'codeql',
-  'codespaces-precache',
-  'copilot.vim',
-  'dependency-submission-toolkit',
-  'dmca',
-  'docs',
-  'enterprise-releases',
+  'platform-samples',
+  'github-services',
   'explore',
+  'enterprise-releases',
+  'markup',
+  'hubot',
+  'VisualStudio',
+  'codeql',
+  'gitignore',
   'feedback',
-  'gh-net',
+  'semantic',
   'git-lfs',
   'git-sizer',
-  'github-services',
-  'gitignore',
+  'dmca',
   'gov-takedowns',
-  'haikus-for-codespaces',
-  'hello-world',
-  'help-docs-archived-enterprise-versions',
-  'hubot',
-  'insights-releases',
   'janky',
-  'linguist',
-  'localization-support',
-  'markup',
-  'platform-samples',
-  'renaming',
   'rest-api-description',
-  'roadmap',
-  'securitylab',
-  'semantic',
-  'ssh_data',
-  'site-policy',
   'smimesign',
-  'stack-graphs',
-  'super-linter',
   'tweetsodium',
-  'VisualStudio',
-  'codespaces-getting-started-ml',
+  'choosealicense.com',
+  'renaming',
+  'localization-support',
+  'docs',
+  'securitylab',
+  'hello-world',
+  'hello-world.git',
+  'insights-releases',
+  'help-docs-archived-enterprise-versions',
+  'stack-graphs',
+  'codespaces-precache',
+  'advisory-database',
 ])
 
 const ALLOW_DOCS_PATHS = [
   '.github/actions-scripts/enterprise-server-issue-templates/*.md',
   '.github/review-template.md',
-  '.github/workflows/hubber-contribution-help.yml',
   '.github/workflows/sync-search-indices.yml',
-  '.github/workflows/site-policy-reminder.yml',
   'contributing/search.md',
-  'docs/index.yaml',
-  'lib/excluded-links.js',
   'lib/rest/**/*.json',
   'lib/webhooks/**/*.json',
   'ownership.yaml',
+  'docs/index.yaml',
+  'lib/excluded-links.js',
   'script/README.md',
   'script/toggle-ghae-feature-flags.js',
+  '.github/workflows/hubber-contribution-help.yml',
 ]
 
-// This regexp will capture the last segment of a GitHub repo name.
-// E.g., it will capture `backup-utils.git` from `https://github.com/github/backup-utils.git`.
-const REPO_REGEXP = /\/\/github\.com\/github\/([\w\-.]+)/gi
+const REPO_REGEXP = /\/\/github\.com\/github\/(?!docs[/'"\n])([\w-.]+)/gi
 
 const IGNORE_PATHS = [
   '.git',
@@ -135,8 +121,7 @@ describe('check if a GitHub-owned private repository is referenced', () => {
     // the disk I/O is sufficiently small.
     const file = fs.readFileSync(filename, 'utf8')
     const matches = Array.from(file.matchAll(REPO_REGEXP))
-      // The referenced repo may or may not end with '.git', so ignore that extension.
-      .map(([, repoName]) => repoName.replace(/\.git$/, ''))
+      .map(([, repoName]) => repoName)
       .filter((repoName) => !PUBLIC_REPOS.has(repoName))
       .filter((repoName) => {
         return !(
@@ -145,15 +130,7 @@ describe('check if a GitHub-owned private repository is referenced', () => {
       })
     expect(
       matches,
-      `This test exists to make sure we don't reference private GitHub owned repositories in our open-source repository.
-
-      In '${filename}' we found references to these private repositories: ${matches.join(', ')}
-
-      You can:
-
-      (1) edit the file to remove the repository reference; or
-      (2) if the repository is public, add the repository name to the 'PUBLIC_REPOS' variable in this test file; or
-      (3) if the file references a docs repository, add the file name to the 'ALLOW_DOCS_PATHS' variable in this test file.`
+      `Please edit ${filename} to remove references to ${matches.join(', ')}`
     ).toHaveLength(0)
   })
 })

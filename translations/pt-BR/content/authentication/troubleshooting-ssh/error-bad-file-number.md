@@ -12,13 +12,8 @@ versions:
   ghec: '*'
 topics:
   - SSH
-ms.openlocfilehash: db2a47ad6029790cdbf9f0212087acc659326941
-ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 09/11/2022
-ms.locfileid: '145083556'
 ---
+
 Ao executar SSH ou comandos do Git remotos, o tempo limite da conexão pode expirar:
 
 ```shell
@@ -34,7 +29,7 @@ $ ssh -vT git@{% data variables.command_line.codeblock %}
 
 ### Usar HTTPS
 
-Geralmente, a solução mais simples é simplesmente evitar SSH por completo. A maioria dos firewalls e proxies permite tráfego HTTPS sem problemas. Para aproveitar isso, altere [a URL remota](/github/getting-started-with-github/about-remote-repositories) que está sendo usada:
+Geralmente, a solução mais simples é simplesmente evitar SSH por completo. A maioria dos firewalls e proxies permite tráfego HTTPS sem problemas. Para aproveitar isso, altere [a URL remota](/github/getting-started-with-github/about-remote-repositories) que você está usando:
 
 ```shell
 $ git clone https://{% data variables.command_line.codeblock %}/<em>username</em>/<em>reponame</em>.git
@@ -53,14 +48,14 @@ Se você conectar o computador a outra rede que não tem firewall, conseguirá t
 
 ### Usar SSH na porta HTTPS
 
-Se o uso de HTTPS não for uma opção e o administrador do firewall se recusar a permitir conexões SSH, experimente usar o [SSH na porta HTTPS](/articles/using-ssh-over-the-https-port).
+Se HTTPS não for uma opção e o administrador de firewall se recusar a permitir conexões SSH, tente usar [SSH na porta HTTPS](/articles/using-ssh-over-the-https-port).
 
 {% endif %}
 
 {% ifversion fpt or ghec %}
 
-## Leitura adicional
+## Leia mais
 
-- "[Solução de problemas de conectividade](/articles/troubleshooting-connectivity-problems)"
+- "[Solucionar problemas de conectividade](/articles/troubleshooting-connectivity-problems)"
 
 {% endif %}

@@ -1,6 +1,6 @@
 ---
-title: 組織とチーム
-shortTitle: Organizations
+title: OrganizationとTeam
+shortTitle: Organization
 intro: Organizationを使えば、データへのアクセスを管理し、設定をカスタマイズしながら、多くのプロジェクトに渡る人々と人数に制限なく同時にコラボレーションできます。
 redirect_from:
   - /articles/about-improved-organization-permissions
@@ -39,21 +39,15 @@ children:
   - /managing-peoples-access-to-your-organization-with-roles
   - /organizing-members-into-teams
   - /collaborating-with-your-team
-  - /managing-user-access-to-your-organizations-repositories
+  - /managing-access-to-your-organizations-repositories
   - /managing-access-to-your-organizations-project-boards
-  - /managing-programmatic-access-to-your-organization
+  - /managing-access-to-your-organizations-apps
   - /managing-organization-settings
-  - /managing-oauth-access-to-your-organizations-data
+  - /restricting-access-to-your-organizations-data
   - /keeping-your-organization-secure
   - /managing-saml-single-sign-on-for-your-organization
   - /granting-access-to-your-organization-with-saml-single-sign-on
   - /managing-git-access-to-your-organizations-repositories
   - /migrating-to-improved-organization-permissions
-ms.openlocfilehash: 3c5ee471d073bc94773607938b70ba4826eb8efb
-ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '147878801'
 ---
 

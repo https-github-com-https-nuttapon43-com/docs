@@ -107,13 +107,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const res = context.res as any
 
   const props: Props = {
-    mainContext: await getMainContext(req, res),
+    mainContext: getMainContext(req, res),
   }
   const { currentLayoutName, relativePath } = props.mainContext
 
   // This looks a little funky, but it's so we only send one context's data to the client
   if (currentLayoutName === 'product-landing') {
-    props.productLandingContext = await getProductLandingContextFromRequest(req)
+    props.productLandingContext = getProductLandingContextFromRequest(req)
   } else if (currentLayoutName === 'product-guides') {
     props.productGuidesContext = getProductGuidesContextFromRequest(req)
   } else if (relativePath?.endsWith('index.md')) {

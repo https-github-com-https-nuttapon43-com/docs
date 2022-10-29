@@ -5,8 +5,8 @@ redirect_from:
   - /github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-citation-files
 versions:
   fpt: '*'
-  ghes: '*'
-  ghae: '*'
+  ghes: '>=3.3'
+  ghae: issue-4651
   ghec: '*'
 topics:
   - Repositories

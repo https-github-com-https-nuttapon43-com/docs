@@ -1,3 +1,4 @@
+---
 versions:
   ghes: '>=3.4'
-  ghae: 'problema 5867'
+  ghae: 'issue-5867'

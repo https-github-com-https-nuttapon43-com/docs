@@ -37,12 +37,6 @@ children:
   - /disabling-team-discussions-for-your-organization
   - /managing-scheduled-reminders-for-your-team
   - /deleting-a-team
-shortTitle: Organize members into teams
-ms.openlocfilehash: 98bd34c41d1a57341ccd3c02636ae93dce180991
-ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 09/05/2022
-ms.locfileid: '145097217'
+shortTitle: Organizar integrantes em equipes
 ---
 

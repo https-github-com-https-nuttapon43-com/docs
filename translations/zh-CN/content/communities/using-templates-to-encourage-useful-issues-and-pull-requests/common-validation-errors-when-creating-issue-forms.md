@@ -1,33 +1,28 @@
 ---
 title: 创建议题表单时的常见验证错误
-intro: 创建、保存或查看问题表单时，可能会看到其中一些常见验证错误。
+intro: 'You may see some of these common validation errors when creating, saving, or viewing issue forms.'
 versions:
   fpt: '*'
   ghec: '*'
 topics:
   - Community
-ms.openlocfilehash: 54451186fe7fcbc40945dc6a0b2ee2d757924c1b
-ms.sourcegitcommit: dc42bb4a4826b414751ffa9eed38962c3e3fea8e
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 07/13/2022
-ms.locfileid: '145861067'
 ---
+
 <!--UI-LINK: We link to individual anchors within this file from the issue template editor when the given YAML error is thrown. Links to and anchors within this file should be preserved or should be updated in github/github if they are changed -->
 {% data reusables.community.issue-forms-beta %}
 
-## <a name="required-top-level-key-name-is-missing"></a>缺少必需的顶级键 `name`
+## Required top level key `name` is missing
 
-模板不包含 `name` 字段，这意味着在向用户提供选项列表时，不清楚要调用问题模板的内容。
+The template does not contain a `name` field, which means it is not clear what to call your issue template when giving users a list of options.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 description: "Thank you for reporting a bug!"
 ...
 ```
 
-可以通过添加 `name` 作为键来修复此错误。
+The error can be fixed by adding `name` as a key.
 
 ```yaml
 name: "Bug report"
@@ -35,13 +30,13 @@ description: "Thank you for reporting a bug!"
 ...
 ```
 
-## <a name="key-must-be-a-string"></a>`key` 必须是字符串
+## `key` must be a string
 
-此错误消息表示已提供允许的键，但由于不支持数据类型，无法分析其值。
+This error message means that a permitted key has been provided, but its value cannot be parsed as the data type is not supported.
 
-### <a name="example"></a>示例
+### 示例
 
-下面的 `description` 被分析为布尔值，但它应该是字符串。
+The `description` below is being parsed as a Boolean, but it should be a string.
 
 ```yaml
 name: "Bug report"
@@ -49,7 +44,7 @@ description: true
 ...
 ```
 
-可以通过提供字符串作为值来修复此错误。 可能需要在字符串两侧加双引号才能成功分析。 例如，必须在包含 `'` 的字符串两侧加双引号。
+The error can be fixed by providing a string as the value. Strings may need to be wrapped in double quotes to be successfully parsed. For example, strings that contain `'` must be wrapped in double quotes.
 
 ```yaml
 name: "Bug report"
@@ -57,7 +52,7 @@ description: "true"
 ...
 ```
 
-当字段应为字符串时，也不允许使用空字符串或仅包含空格的字符串。
+Empty strings, or strings consisting of only whitespaces, are also not permissible when the field expects a string.
 
 ```yaml
 name: ""
@@ -66,7 +61,7 @@ assignees: "      "
 ...
 ```
 
-可以通过将值更正为非空字符串来修复此错误。 如果字段不是必需的，则应删除键值对。
+The error can be fixed by correcting the value to be a non-empty string. If the field is not required, you should delete the key-value pair.
 
 ```yaml
 name: "Bug Report"
@@ -74,11 +69,11 @@ description: "File a bug report"
 ...
 ```
 
-## <a name="input-is-not-a-permitted-key"></a>`input` 不是允许的键
+## `input` is not a permitted key
 
-模板的顶层提供了意外的键。 有关支持哪些顶级键的详细信息，请参阅“[问题表单的语法](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms#top-level-syntax)”。
+An unexpected key was supplied at the top level of the template. For more information about which top-level keys are supported, see "[Syntax for issue forms](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms#top-level-syntax)."
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 name: "Bug report"
@@ -86,26 +81,26 @@ hello: world
 ...
 ```
 
-可以通过删除意外的键来修复此错误。
+The error can be fixed by removing the unexpected keys.
 
 ```yaml
 name: "Bug report"
 ...
 ```
 
-## <a name="forbidden-keys"></a>禁止键
+## Forbidden keys
 
-YAML 将某些字符串分析为 `Boolean` 值。 为了避免这种情况，我们明确禁止使用以下键：
+YAML parses certain strings as `Boolean` values. To avoid this, we have explicitly forbidden the usage of the following keys:
 
 `y`, `Y`, `yes`, `Yes`, `YES`, `n`, `N`, `no`, `No`, `NO`, `true`, `True`, `TRUE`, `false`, `False`, `FALSE`, `on`, `On`, `ON`, `off`, `Off`, `OFF`
 
-可以通过删除禁止键来修复此错误。
+The error can be fixed by removing the forbidden keys.
 
-## <a name="body-must-contain-at-least-one-non-markdown-field"></a>正文必须至少包含一个非 markdown 字段
+## Body must contain at least one non-markdown field
 
-问题表单必须接受用户输入，这意味着它的至少一个字段必须包含用户输入字段。 `markdown` 元素是静态文本，因此 `body` 数组不能只包含 `markdown` 元素。
+Issue forms must accept user input, which means that at least one of its fields must contain a user input field. A `markdown` element is static text, so a `body` array cannot contain only `markdown` elements.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 name: "Bug report"
@@ -115,7 +110,7 @@ body:
     value: "Bugs are the worst!"
 ```
 
-可以通过添加接受用户输入的非 markdown 元素来修复该错误。
+The error can be fixed by adding non-markdown elements that accept user input.
 
 ```yaml
 name: "Bug report"
@@ -128,11 +123,11 @@ body:
     label: "What's wrong?"
 ```
 
-## <a name="body-must-have-unique-ids"></a>正文必须具有唯一 ID
+## Body must have unique ids
 
-如果使用 `id` 属性来区分多个元素，则每个 `id` 属性必须是唯一的。
+If using `id` attributes to distinguish multiple elements, each `id` attribute must be unique.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 name: "Bug report"
@@ -147,7 +142,7 @@ body:
     label: Last name
 ```
 
-可以通过更改其中一个输入的 `id`，使每个 `input` 字段都具有唯一的 `id` 属性来修复该错误。
+The error can be fixed by changing the `id` for one of these inputs, so that every `input` field has a unique `id` attribute.
 
 ```yaml
 name: "Bug report"
@@ -162,11 +157,11 @@ body:
     label: Last name
 ```
 
-## <a name="body-must-have-unique-labels"></a>正文必须具有唯一标签
+## Body must have unique labels
 
-当有多个接受用户输入的 `body` 元素时，每个用户输入字段的 `label` 属性必须是唯一的。
+When there are multiple `body` elements that accept user input, the `label` attribute for each user input field must be unique.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 name: "Bug report"
@@ -179,7 +174,7 @@ body:
     label: Name
 ```
 
-要修复该错误，可以更改其中一个输入字段的 `label` 属性，确保每个 `label` 都是唯一的。
+The error can be fixed by changing the `label` attribute for one of the input fields to ensure that each `label` is unique.
 
 ```yaml
 name: "Bug report"
@@ -192,7 +187,7 @@ body:
     label: Operating System
 ```
 
-输入字段也可以按其 `id` 属性进行区分。 如果需要重复的 `label` 属性，则可以提供至少一个 `id` 来区分具有相同标签的两个元素。
+Input fields can also be differentiated by their `id` attribute. If duplicate `label` attributes are required, you can supply at least one `id` to differentiate two elements with identical labels.
 
 ```yaml
 name: "Bug report"
@@ -207,14 +202,14 @@ body:
     label: Name
 ```
 
-`id` 属性在问题正文中不可见。 如果要区分生成的问题中的字段，则应使用不同的 `label` 属性。
+`id` attributes are not visible in the issue body. If you want to distinguish the fields in the resulting issue, you should use distinct `label` attributes.
 
 
-## <a name="labels-are-too-similar"></a>标签太相似
+## Labels are too similar
 
-相似的标签可以处理成相同的引用。 如果没有为 `input` 提供 `id` 属性，则 `label` 属性用于生成对 `input` 字段的引用。 为此，我们将利用 Rails [参数化](https://apidock.com/rails/ActiveSupport/Inflector/parameterize)方法来处理 `label`。 在某些情况下，可以将两个不同标签处理为相同的参数化字符串。
+Similar labels may be processed into identical references. If an `id` attribute is not provided for an `input`, the `label` attribute is used to generate a reference to the `input` field. To do this, we process the `label` by leveraging the Rails [parameterize](https://apidock.com/rails/ActiveSupport/Inflector/parameterize) method. In some cases, two labels that are distinct can be processed into the same parameterized string.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 name: "Bug report"
@@ -228,7 +223,7 @@ body:
     label: Name???????
 ```
 
-可以通过将至少一个区别性字母数字字符（`-` 或 `_`）添加到冲突标签之一来修复该错误。
+The error can be fixed by adding at least one differentiating alphanumeric character, `-`, or `_` to one of the clashing labels.
 
 ```yaml
 name: "Bug report"
@@ -241,7 +236,7 @@ body:
     label: Your name
 ```
 
-也可以通过为其中一个冲突标签提供唯一的 `id` 来修复该错误。
+The error can also be fixed by giving one of the clashing labels a unique `id`.
 
 ```yaml
 name: "Bug report"
@@ -255,11 +250,11 @@ body:
     label: Name???????
 ```
 
-## <a name="checkboxes-must-have-unique-labels"></a>复选框必须具有唯一标签
+## Checkboxes must have unique labels
 
-当存在 `checkboxes` 元素时，它的每个嵌套标签在其对等方以及其他输入类型中都必须是唯一的。
+When a `checkboxes` element is present, each of its nested labels must be unique among its peers, as well as among other input types.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 name: "Bug report"
@@ -273,7 +268,7 @@ body:
     - label: Name
 ```
 
-可以通过更改其中一个输入的 `label` 属性来修复该错误。
+The error can be fixed by changing the `label` attribute for one of these inputs.
 
 ```yaml
 name: "Bug report"
@@ -287,7 +282,7 @@ body:
     - label: Your name
 ```
 
-也可以向任何冲突的顶级元素提供一个 `id`。 嵌套复选框元素不支持 `id` 属性。
+Alternatively, you can supply an `id` to any clashing top-level elements. Nested checkbox elements do not support the `id` attribute.
 
 ```yaml
 name: "Bug report"
@@ -302,92 +297,98 @@ body:
     - label: Name
 ```
 
-`id` 属性在问题正文中不可见。 如果要区分生成的问题中的字段，则应使用不同的 `label` 属性。
+`id` attributes are not visible in the issue body. If you want to distinguish the fields in the resulting issue, you should use distinct `label` attributes.
 
-## <a name="bodyi-required-key-type-is-missing"></a>Body[i]：缺少所需的键类型
+## Body[i]: required key type is missing
 
-每个正文块必须包含键 `type`。
+Each body block must contain the key `type`.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的零索引索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the zero-indexed index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 body:
 - attributes:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
+    preview_only: false
 ```
 
-可以通过添加具有有效输入类型的键 `type` 作为值来修复此错误。 有关可用的 `body` 输入类型及其语法，请参阅“[{% data variables.product.prodname_dotcom %} 表单架构的语法](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema#keys)”。
+The error can be fixed by adding the key `type` with a valid input type as the value. 有关可用的 `body` 输入类型及其语法，请参阅“[{% data variables.product.prodname_dotcom %} 表单架构的语法](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema#keys)”。
 
 ```yaml
 body:
 - type: markdown
   attributes:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
+    preview_only: false
 ```
 
-## <a name="bodyi-x-is-not-a-valid-input-type"></a>Body[i]：`x` 不是有效的输入类型
+## Body[i]: `x` is not a valid input type
 
-其中一个正文块包含的类型值不是[允许的类型](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema#keys)之一。
+One of the body blocks contains a type value that is not one of the [permitted types](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema#keys).
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 body:
 - type: x
   attributes:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
+    preview_only: false
 ```
 
-可以通过将 `x` 更改为有效类型之一来修复此错误。
+The error can be fixed by changing `x` to one of the valid types.
 
 ```yaml
 body:
 - type: markdown
   attributes:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
+    preview_only: false
 ```
 
-## <a name="bodyi-required-attribute-key-value-is-missing"></a>Body[i]：缺少必需的属性键 `value`
+## Body[i]: required attribute key `value` is missing
 
-尚未提供所需的 `value` 属性之一。 当块没有 `attributes` 键或 `attributes` 键下没有 `value` 键时，会发生此错误。
+One of the required `value` attributes has not been provided. The error occurs when a block does not have an `attributes` key or does not have a `value` key under the `attributes` key.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 body:
 - type: markdown
   attributes:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
+    preview_only: false
 - type: markdown
 ```
 
-可以通过在 `body` 的第二个列表元素的 `attributes` 下添加 `value` 作为键来修复此示例中的错误。
+The error in this example can be fixed by adding `value` as a key under `attributes` in the second list element of `body`.
 
 ```yaml
 body:
 - type: markdown
   attributes:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
+    preview_only: false
 - type: markdown
   attributes:
     value: "This is working now!"
 ```
 
-## <a name="bodyi-label-must-be-a-string"></a>Body[i]：标签必须是字符串
+## Body[i]: label must be a string
 
-在其 `attributes` 块中，值具有错误的数据类型。
+Within its `attributes` block, a value has the wrong data type.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
-下面的 `label` 被分析为布尔值，但它应该是字符串。
+The `label` below is being parsed as a Boolean, but it should be a string.
 
 
 ```yaml
@@ -403,7 +404,7 @@ body:
     label: true
 ```
 
-可以通过为 `label` 提供字符串值来修复此错误。 如果要使用可能会分析为布尔值、整数或小数的 `label` 值，则应在该值两侧加引号。 例如，应为 `"true"` 或 `"1.3"`，而不是 `true` 或 `1.3`。
+The error can be fixed by supplying a string value for `label`. If you want to use a `label` value that may be parsed as a Boolean, integer, or decimal, you should wrap the value in quotes. For example, `"true"` or `"1.3"` instead of `true` or `1.3`.
 
 ```yaml
 - type: markdown
@@ -417,9 +418,9 @@ body:
     label: Environment Details
 ```
 
-当属性应为字符串时，不允许使用空字符串或仅包含空格的字符串。 例如，不允许使用 `""` 或 `"     "`。
+Empty strings, or strings consisting of only whitespaces, are not permissible when an attribute expects a string. For example, `""` or `"     "` are not allowed.
 
-如果属性是必需的，该值必须是非空字符串。 如果字段不是必需的，则应删除键值对。
+If the attribute is required, the value must be a non-empty string. If the field is not required, you should delete the key-value pair.
 
 ```yaml
 body:
@@ -428,13 +429,13 @@ body:
     label: "Name"
 ```
 
-## <a name="bodyi-id-can-only-contain-numbers-letters---_"></a>Body[i]：`id` 只能包含数字、字母、-、_
+## Body[i]: `id` can only contain numbers, letters, -, _
 
-`id` 属性只能包含字母数字字符、`-` 和 `_`。 模板可能在 `id` 中包含不允许使用的字符，例如空格。
+`id` attributes can only contain alphanumeric characters, `-`, and `_`. Your template may include non-permitted characters, such as whitespace, in an `id`.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 name: "Bug report"
@@ -445,7 +446,7 @@ body:
     label: First name
 ```
 
-可以通过确保从 `id` 值中删除空格和其他不允许的字符来修复该错误。
+The error can be fixed by ensuring that whitespaces and other non-permitted characters are removed from `id` values.
 
 ```yaml
 name: "Bug report"
@@ -456,13 +457,13 @@ body:
     label: First name
 ```
 
-## <a name="bodyi-x-is-not-a-permitted-key"></a>Body[i]：`x` 不是允许的键
+## Body[i]: `x` is not a permitted key
 
-在与 `type` 和 `attributes` 相同的缩进级别提供了意外的键 `x`。
+An unexpected key, `x`, was provided at the same indentation level as `type` and `attributes`.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 body:
@@ -472,7 +473,7 @@ body:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
 ```
 
-可以通过删除额外的键以及仅使用 `type`、`attributes` 和 `id` 来修复此错误。
+The error can be fixed by removing extra keys and only using `type`, `attributes`, and `id`.
 
 ```yaml
 body:
@@ -481,13 +482,13 @@ body:
     value: "Thanks for taking the time to fill out this bug! If you need real-time help, join us on Discord."
 ```
 
-## <a name="bodyi-label-contains-forbidden-word"></a>Body[i]：`label` 包含禁止词
+## Body[i]: `label` contains forbidden word
 
-为了尽量减少在 GitHub 问题中公开发布私人信息和凭据的风险，在输入或 textarea 元素的 `label` 中不允许使用一些攻击者常用的词。
+To minimize the risk of private information and credentials being posted publicly in GitHub Issues, some words commonly used by attackers are not permitted in the `label` of input or textarea elements.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 body:
@@ -499,7 +500,7 @@ body:
     label: Password
 ```
 
-可以通过从任何 `label` 字段中删除“密码”之类的词汇来修复该错误。
+The error can be fixed by removing terms like "password" from any `label` fields.
 
 ```yaml
 body:
@@ -511,13 +512,13 @@ body:
     label: Username
 ```
 
-## <a name="bodyi-x-is-not-a-permitted-attribute"></a>Body[i]：`x` 不是允许的属性
+## Body[i]: `x` is not a permitted attribute
 
-`attributes` 块中提供了无效的键。
+An invalid key has been supplied in an `attributes` block.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```yaml
 body:
@@ -527,7 +528,7 @@ body:
     value: "Thanks for taking the time to fill out this bug!"
 ```
 
-可以通过删除额外的键以及仅使用允许的属性来修复此错误。
+The error can be fixed by removing extra keys and only using permitted attributes.
 
 ```yaml
 body:
@@ -536,13 +537,13 @@ body:
     value: "Thanks for taking the time to fill out this bug!"
 ```
 
-## <a name="bodyi-options-must-be-unique"></a>Body[i]：`options` 必须是唯一的
+## Body[i]: `options` must be unique
 
-对于复选框和下拉列表输入类型，`options` 数组中定义的选项必须是唯一的。
+For checkboxes and dropdown input types, the choices defined in the `options` array must be unique.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```
 body:
@@ -555,7 +556,7 @@ body:
       - pie
 ```
 
-可以通过确保 `options` 数组中不存在重复选项来修复此错误。
+The error can be fixed by ensuring that no duplicate choices exist in the `options` array.
 
 ```
 body:
@@ -567,13 +568,13 @@ body:
       - pie
 ```
 
-## <a name="bodyi-options-must-not-include-the-reserved-word-none"></a>Body[i]：`options` 不得包含保留字 none
+## Body[i]: `options` must not include the reserved word, none
 
-“None”是 `options` 集中的保留字，因为它用于在不需要 `dropdown` 时表示不进行选择。
+"None" is a reserved word in an `options` set because it is used to indicate non-choice when a `dropdown` is not required.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```
 body:
@@ -588,7 +589,7 @@ body:
     required: true
 ```
 
-可以通过删除“None”选项来修复该错误。 如果希望参与者能够表明他们不喜欢这些类型的馅饼，则还可以删除 `required` 验证。
+The error can be fixed by removing "None" as an option. If you want a contributor to be able to indicate that they like none of those types of pies, you can additionally remove the `required` validation.
 
 ```
 body:
@@ -600,15 +601,15 @@ body:
       - Chicken & Leek
 ```
 
-在此示例中，“None”将自动填充为可选选项。
+In this example, "None" will be auto-populated as a selectable option.
 
-## <a name="bodyi-options-must-not-include-booleans-please-wrap-values-such-as-yes-and-true-in-quotes"></a>Body[i]：`options` 不得包含布尔值。 请将“yes”和“true”等值两侧加引号
+## Body[i]: `options` must not include booleans. Please wrap values such as 'yes', and 'true' in quotes
 
-有许多英文单词会被 YAML 分析程序处理成布尔值，除非它们两侧加上引号。 对于下拉列表 `options`，所有项必须为字符串而非布尔值。
+There are a number of English words that become processed into Boolean values by the YAML parser unless they are wrapped in quotes. For dropdown `options`, all items must be strings rather than Booleans.
 
-带有 `body` 的错误将以 `body[i]` 为前缀，其中 `i` 表示包含错误的主体块的索引。 例如，可以通过 `body[0]` 得知错误是由 `body` 列表中的第一个块引起的。
+Errors with `body` will be prefixed with `body[i]` where `i` represents the index of the body block containing the error. For example, `body[0]` tells us that the error has been caused by the first block in the `body` list.
 
-### <a name="example"></a>示例
+### 示例
 
 ```
 body:
@@ -621,7 +622,7 @@ body:
       - Maybe
 ```
 
-可以通过在每个有问题的选项两侧加引号，以防止它们被处理为布尔值来修复错误。
+The error can be fixed by wrapping each offending option in quotes, to prevent them from being processed as Boolean values.
 
 ```
 body:
@@ -634,7 +635,7 @@ body:
       - Maybe
 ```
 
-## <a name="further-reading"></a>延伸阅读
+## 延伸阅读
 
 - [YAML](https://yaml.org/)
-- [问题表单的语法](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)
+- [议题表单的语法](/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)

@@ -1,6 +1,6 @@
 ---
-title: Using the Visual Studio Code Command Palette in GitHub Codespaces
-intro: 'You can use the Command Palette feature of {% data variables.product.prodname_vscode %} to access many commands in {% data variables.product.prodname_github_codespaces %}.'
+title: Usando a paleta de comando do Visual Studio em codespaces
+intro: 'Você pode usar o recurso de Paleta de Comando de {% data variables.product.prodname_vscode %} para acessar muitos comandos em codespaces.'
 versions:
   fpt: '*'
   ghec: '*'
@@ -9,60 +9,60 @@ topics:
   - Codespaces
   - Visual Studio Code
 product: '{% data reusables.gated-features.codespaces %}'
-shortTitle: VS Code Command Palette
+shortTitle: Paleta de Comando do VS Code
 allowTitleToDifferFromFilename: true
 redirect_from:
   - /codespaces/codespaces-reference/using-the-command-palette-in-codespaces
 ---
 
-## About the {% data variables.product.prodname_vscode_command_palette %}
+## Sobre a Paleta de Comando de {% data variables.product.prodname_vscode %}
 
-The {% data variables.product.prodname_vscode_command_palette_shortname %} is one of the focal features of {% data variables.product.prodname_vscode %} and is available for you to use in {% data variables.product.prodname_github_codespaces %}. The Command Palette allows you to access many commands for {% data variables.product.prodname_github_codespaces %} and {% data variables.product.prodname_vscode_shortname %}. For more information on using the {% data variables.product.prodname_vscode_command_palette_shortname %}, see "[User Interface](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)" in the {% data variables.product.prodname_vscode_shortname %} documentation.
+A Paleta de Comando é uma das funcionalidades principais de {% data variables.product.prodname_vscode %} e está disponível para uso em codespaces. O {% data variables.product.prodname_vscode_command_palette %} permite que você acesse muitos comandos para {% data variables.product.prodname_codespaces %} e {% data variables.product.prodname_vscode %}. Para obter mais informações sobre como usar o {% data variables.product.prodname_vscode_command_palette %}, consulte "[Interface do usuário](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)" na documentação do Visual Studio Code.
 
-## Accessing the {% data variables.product.prodname_vscode_command_palette_shortname %}
+## Acessando o {% data variables.product.prodname_vscode_command_palette %}
 
-You can access the {% data variables.product.prodname_vscode_command_palette_shortname %} in a number of ways.
+Você pode acessar o {% data variables.product.prodname_vscode_command_palette %} de várias maneiras.
 
 - <kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>P</kbd> (Mac) / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> (Windows/Linux).
 
-  Note that this command is a reserved keyboard shortcut in Firefox.
+  Observe que este comando é um atalho de teclado reservado no Firefox.
 - <kbd>F1</kbd>
-- From the Application Menu, click **View > Command Palette…**.
+- No Menu de Aplicativos, clique em **Ver > Paleta de Comando…**.
 
-  ![The application menu](/assets/images/help/codespaces/codespaces-view-menu.png)
+  ![Menu do aplicativo](/assets/images/help/codespaces/codespaces-view-menu.png)
 
-## Commands for {% data variables.product.prodname_codespaces %}
+## Comandos para {% data variables.product.prodname_github_codespaces %}
 
-To see all commands related to {% data variables.product.prodname_github_codespaces %}, [access the {% data variables.product.prodname_vscode_command_palette_shortname %}](#accessing-the-command-palette), then start typing "Codespaces".
+Para ver todos os comandos relacionados a {% data variables.product.prodname_github_codespaces %}, [acesse o {% data variables.product.prodname_vscode_command_palette %}](#accessing-the-command-palette) e, em seguida, comece a digitar "Codespaces".
 
-![A list of all commands that relate to Codespaces](/assets/images/help/codespaces/codespaces-command-palette.png)
+![Uma lista de todos os comandos que se referem a codespaces](/assets/images/help/codespaces/codespaces-command-palette.png)
 
-### Suspending or stopping a codespace
+### Suspender ou interromper um codespace
 
-If you add a new secret or change the machine type, you'll have to stop and restart the codespace for it to apply your changes. 
+Se você adicionar um novo segredo ou alterar o tipo de máquina, você terá que parar e reiniciar o codespace para que aplique suas alterações.
 
-To suspend or stop your codespace's container, [access the {% data variables.product.prodname_vscode_command_palette_shortname %}](#accessing-the-command-palette), then start typing "stop". Select **Codespaces: Stop Current Codespace**.
+Para suspender ou interromper o contêiner do seu codespace, [acesse o {% data variables.product.prodname_vscode_command_palette %}](#accessing-the-command-palette)e, em seguida, comece a digitar "parar". Selecione **Codespaces: Parar o codespace atual**.
 
-![Command to stop a codespace](/assets/images/help/codespaces/codespaces-stop.png)
+![Comando para parar um codespace](/assets/images/help/codespaces/codespaces-stop.png)
 
-### Adding a dev container from a template
+### Adicionando um contêiner de desenvolvimento a partir de um modelo
 
-To add a dev container from a template, [access the {% data variables.product.prodname_vscode_command_palette_shortname %}](#accessing-the-command-palette), then start typing "dev container". Select **Codespaces: Add Development Container Configuration Files...**
+Para adicionar um contêiner de desenvolvimento a partir de um modelo, [acesse o {% data variables.product.prodname_vscode_command_palette %}](#accessing-the-command-palette) e, em seguida, comece a digitar "dev container". Selecione **Codespaces: Adicionar arquivos de configuração de Contêiner do Desenvolvimento...**
 
-![Command to add a dev container](/assets/images/help/codespaces/add-prebuilt-container-command.png)
+![Comando para adicionar um contêiner de desenvolvimento](/assets/images/help/codespaces/add-prebuilt-container-command.png)
 
-### Rebuilding a codespace
+### Reconstruindo um codespace
 
-If you add a dev container or edit any of the configuration files (`devcontainer.json` and `Dockerfile`), you'll have to rebuild your codespace for it to apply your changes. 
+Se você adicionar um contêiner de desenvolvimento ou editar qualquer um dos arquivos de configuração (`devcontainer.json` e `arquivo Docker`), você terá que reconstruir seu codespace para aplicar suas alterações.
 
-To rebuild your container, [access the {% data variables.product.prodname_vscode_command_palette_shortname %}](#accessing-the-command-palette), then start typing "rebuild". Select **Codespaces: Rebuild Container**.
+Para reconstruir seu contêiner, [acesse o {% data variables.product.prodname_vscode_command_palette %}](#accessing-the-command-palette)e, em seguida, comece a digitar "recriar". Selecione **Codespaces: Reconstruir Contêiner**.
 
-![Command to rebuild a codespace](/assets/images/help/codespaces/codespaces-rebuild.png)
+![Comando para reconstruir um codespace](/assets/images/help/codespaces/codespaces-rebuild.png)
 
-### Codespaces logs
+### Registros de codespaces
 
-You can use the {% data variables.product.prodname_vscode_command_palette_shortname %} to access the codespace creation logs, or you can use it export all logs. 
+Você pode usar o {% data variables.product.prodname_vscode_command_palette %} para acessar os registros de criação do codespace ou você pode usá-lo para exportar todos os registros.
 
-To retrieve the logs for {% data variables.product.prodname_github_codespaces %}, [access the {% data variables.product.prodname_vscode_command_palette_shortname %}](#accessing-the-command-palette), then start typing "log". Select **Codespaces: Export Logs** to export all logs related to {% data variables.product.prodname_github_codespaces %} or select **Codespaces: View Creation Logs** to view logs related to the setup.
+Para recuperar os registros para os codespaces, [acesse o {% data variables.product.prodname_vscode_command_palette %}](#accessing-the-command-palette)e, em seguida, comece a digitar "registro". Selecione **Codespaces: Exportar registros** para exportar todos os registros relacionados aos codespaces ou selecione **Codespaces: Visualizar o registro de criação** para visualizar os registros relacionados à configuração.
 
-![Command to access logs](/assets/images/help/codespaces/codespaces-logs.png)
+![Comando para acessar os registros](/assets/images/help/codespaces/codespaces-logs.png)

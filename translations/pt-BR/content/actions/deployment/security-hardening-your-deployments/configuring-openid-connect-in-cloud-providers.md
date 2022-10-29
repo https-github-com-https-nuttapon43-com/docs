@@ -1,12 +1,12 @@
 ---
-title: Configuring OpenID Connect in cloud providers
-shortTitle: OpenID Connect in cloud providers
-intro: Use OpenID Connect within your workflows to authenticate with cloud providers.
+title: Configurando OpenID Connect em provedores da nuvem
+shortTitle: Configurando OpenID Connect em provedores da nuvem
+intro: Use o OpenID Connect dentro de seus fluxos de trabalho para efetuar a autenticação com provedores de nuvem.
 miniTocMaxHeadingLevel: 3
 versions:
   fpt: '*'
+  ghae: issue-4856
   ghec: '*'
-  ghes: '>=3.5'
 type: tutorial
 topics:
   - Security
@@ -15,49 +15,49 @@ topics:
 {% data reusables.actions.enterprise-beta %}
 {% data reusables.actions.enterprise-github-hosted-runners %}
 
-## Overview
+## Visão Geral
 
-OpenID Connect (OIDC) allows your {% data variables.product.prodname_actions %} workflows to access resources in your cloud provider, without having to store any credentials as long-lived {% data variables.product.prodname_dotcom %} secrets.
+O OpenID Connect (OIDC) permite que os seus fluxos de trabalho de {% data variables.product.prodname_actions %} acessem recursos no seu provedor da nuvem, sem ter que armazenar qualquer credencial como segredos de {% data variables.product.prodname_dotcom %} de longa duração.
 
-To use OIDC, you will first need to configure your cloud provider to trust {% data variables.product.prodname_dotcom %}'s OIDC as a federated identity, and must then update your workflows to authenticate using tokens.
+Para usar o OIDC, você primeiro precisará configurar seu provedor de nuvem para confiar no OIDC de {% data variables.product.prodname_dotcom %} como uma identidade federada e, em seguida, atualizar seus fluxos de trabalho para efetuar a autenticação usando tokens.
 
-## Prerequisites
+## Pré-requisitos
 
 {% data reusables.actions.oidc-link-to-intro %}
 
 {% data reusables.actions.oidc-security-notice %}
 
-## Updating your {% data variables.product.prodname_actions %} workflow
+## Atualizar o seu fluxo de trabalho de {% data variables.product.prodname_actions %}
 
-To update your workflows for OIDC, you will need to make two changes to your YAML:
-1. Add permissions settings for the token.
-2. Use the official action from your cloud provider to exchange the OIDC token (JWT) for a cloud access token.
+Para atualizar seus fluxos de trabalho para o OIDC, você deverá fazer duas alterações no seu YAML:
+1. Adicionar configurações de permissões para o token.
+2. Use a ação oficial do seu provedor de nuvem para trocar o token OIDC (JWT) por um token de acesso em nuvem.
 
-If your cloud provider doesn't yet offer an official action, you can update your workflows to perform these steps manually.
+Se seu provedor de nuvem ainda não oferece uma ação oficial, você pode atualizar seus fluxos de trabalho para executar essas etapas manualmente.
 
-### Adding permissions settings
+### Adicionando configurações de permissões
 
  {% data reusables.actions.oidc-permissions-token %}
 
-### Using official actions
+### Usando ações oficiais
 
-If your cloud provider has created an official action for using OIDC with {% data variables.product.prodname_actions %}, it will allow you to easily exchange the OIDC token for an access token. You can then update your workflows to use this token when accessing cloud resources.
+Se seu provedor de nuvem criou uma ação oficial para usar o OIDC com {% data variables.product.prodname_actions %}, isso permitirá que você troque o token OIDC por um token de acesso facilmente. Em seguida, você pode atualizar seus fluxos de trabalho para usar este token ao acessar recursos da nuvem.
 
-## Using custom actions
+## Usando ações personalizadas
 
-If your cloud provider doesn't have an official action, or if you prefer to create custom scripts, you can manually request the JSON Web Token (JWT) from {% data variables.product.prodname_dotcom %}'s OIDC provider.
+Se seu provedor de nuvem não tiver uma ação oficial, ou se você preferir criar scripts personalizados, você poderá solicitar manualmente o token web do JSON (JWT) do provedor OIDC de {% data variables.product.prodname_dotcom %}.
 
-If you're not using an official action, then {% data variables.product.prodname_dotcom %} recommends that you use the Actions core toolkit. Alternatively, you can use the following environment variables to retrieve the token: `ACTIONS_RUNTIME_TOKEN`, `ACTIONS_ID_TOKEN_REQUEST_URL`.
+Se você não estiver usando uma ação oficial, então {% data variables.product.prodname_dotcom %} recomenda que você use o kit de ferramentas principal das Ações. Como alternativa, você pode usar as seguintes variáveis de ambiente para recuperar o token: `ACTIONS_RUNTIME_TOKEN`, `ACTIONS_ID_TOKEN_REQUEST_URL`.
 
-To update your workflows using this approach, you will need to make three changes to your YAML:
+Para atualizar seus fluxos de trabalho usando esta abordagem, você deverá fazer três alterações no seu YAML:
 
-1. Add permissions settings for the token.
-2. Add code that requests the OIDC token from {% data variables.product.prodname_dotcom %}'s OIDC provider.
-3. Add code that exchanges the OIDC token with your cloud provider for an access token.
+1. Adicionar configurações de permissões para o token.
+2. Adicione o código que solicita o token OIDC do provedor OIDC de {% data variables.product.prodname_dotcom %}.
+3. Adicione um código que troque o token OIDC com seu provedor de nuvem por um token de acesso.
 
-### Requesting the JWT using the Actions core toolkit
+### Solicitando o JWT que usa a o kit de ferramentas principal das Ações
 
-The following example demonstrates how to use `actions/github-script` with the `core` toolkit to request the JWT from {% data variables.product.prodname_dotcom %}'s OIDC provider. For more information, see "[Adding actions toolkit packages](/actions/creating-actions/creating-a-javascript-action#adding-actions-toolkit-packages)."
+O exemplo a seguir demonstra como usar `actions/github-script` com o kit de ferramentas `principal` para solicitar o JWT do provedor do OIDC de {% data variables.product.prodname_dotcom %}. Para obter mais informações, consulte "[" Adicionando pacotes de kit de ferramentas de ações](/actions/creating-actions/creating-a-javascript-action#adding-actions-toolkit-packages)".
 
 ```yaml
 jobs:
@@ -68,29 +68,29 @@ jobs:
     - name: Install OIDC Client from Core Package
       run: npm install @actions/core@1.6.0 @actions/http-client
     - name: Get Id Token
-      uses: {% data reusables.actions.action-github-script %}
+      uses: actions/github-script@v4
       id: idtoken
       with:
         script: |
           const coredemo = require('@actions/core')
-          let id_token = await coredemo.getIDToken()
-          coredemo.setOutput('id_token', id_token)
+          let id_token = await coredemo.getIDToken()   
+          coredemo.setOutput('id_token', id_token)  
 ```
 
-### Requesting the JWT using environment variables
+### Solicitando o JWT que usa variáveis de ambiente
 
-The following example demonstrates how to use enviroment variables to request a JSON Web Token.
+O exemplo a seguir demonstra como usar variáveis de ambiente para solicitar um token web do JSON.
 
-For your deployment job, you will need to define the token settings, using `actions/github-script` with the `core` toolkit. For more information, see "[Adding actions toolkit packages](/actions/creating-actions/creating-a-javascript-action#adding-actions-toolkit-packages)."
+Para o seu trabalho de implantação, você deverá definir as configurações do token, usando `actions/github-script` com o kit de ferramentas `principal`. Para obter mais informações, consulte "[" Adicionando pacotes de kit de ferramentas de ações](/actions/creating-actions/creating-a-javascript-action#adding-actions-toolkit-packages)".
 
-For example:
+Por exemplo:
 
 ```yaml
 jobs:
   job:
     runs-on: ubuntu-latest
     steps:
-    - uses: {% data reusables.actions.action-github-script %}
+    - uses: actions/github-script@v4
       id: script
       timeout-minutes: 10
       with:
@@ -102,7 +102,7 @@ jobs:
           core.setOutput('IDTOKENURL', runtimeUrl.trim())
 ```
 
-You can then use `curl` to retrieve a JWT from the {% data variables.product.prodname_dotcom %} OIDC provider. For example:
+Você pode usar `curl` para recuperar um JWT do provedor do OIDC do {% data variables.product.prodname_dotcom %}. Por exemplo:
 
 ```yaml
     - run: |
@@ -115,23 +115,18 @@ You can then use `curl` to retrieve a JWT from the {% data variables.product.pro
             fi
         }
         jwtd $IDTOKEN
-{%- ifversion actions-save-state-set-output-envs %}
-        echo "idToken=${IDTOKEN}" >> $GITHUB_OUTPUT
-{%- else %}
         echo "::set-output name=idToken::${IDTOKEN}"
-{%- endif %}
       id: tokenid
 ```
 
-### Getting the access token from the cloud provider
+### Obtendo o token de acesso do provedor da nuvem
 
-You will need to present the OIDC JSON web token to your cloud provider in order to obtain an access token.
+Você precisará apresentar o token web JSON do OIDC para seu provedor de nuvem a fim de obter um token de acesso.
 
-For each deployment, your workflows must use cloud login actions (or custom scripts) that fetch the OIDC token and present it to your cloud provider. The cloud provider then validates the claims in the token; if successful, it provides a cloud access token that is available only to that job run. The provided access token can then be used by subsequent actions in the job to connect to the cloud and deploy to its resources.
+Para cada implantação, seus fluxos de trabalho devem usar ações de login em nuvem (ou scripts personalizados) que buscam o token do OIDC e o apresentam ao seu provedor de nuvem. O provedor da nuvem valida as reivindicações no token; se for bem sucedido, ele fornece um token de acesso à nuvem que está disponível apenas para a execução do trabalho. O token de acesso fornecido pode ser usado por ações subsequentes no trabalho para conectar-se à nuvem e fazer a implantação nos seus recursos.
 
-The steps for exchanging the OIDC token for an access token will vary for each cloud provider.
+As etapas para trocar o token do OIDC por um token de acesso irão variar para cada provedor de nuvem.
 
-### Accessing resources in your cloud provider
+### Acessando recursos no seu provedor da nuvem
 
-Once you've obtained the access token, you can use specific cloud actions or scripts to authenticate to the cloud provider and deploy to its resources. These steps could differ for each cloud provider.
-In addition, the default expiration time of this access token could vary between each cloud and can be configurable at the cloud provider's side.
+Depois de obter o token de acesso, você pode usar as ações específicas da nuvem ou scripts para efetuar a autenticação no provedor da nuvem e fazer a implantação nos seus recursos. Essas etapas podem ser diferentes para cada provedor da nuvem. Além disso, o tempo de expiração padrão desse token de acesso pode variar entre as nuvens e pode ser configurável no lado do provedor de nuvem.

@@ -11,14 +11,9 @@ versions:
   ghes: '*'
   ghae: '*'
   ghec: '*'
-shortTitle: Non-fast-forward error
-ms.openlocfilehash: 59e1957bf2376462c1267527b1bc29ed9de49db9
-ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 09/05/2022
-ms.locfileid: '145101341'
+shortTitle: Erro non-fast-forward
 ---
+
 Se outra pessoa tiver feito push no mesmo branch que você, o Git não poderá fazer push das alterações:
 
 ```shell
@@ -31,18 +26,18 @@ $ git push origin main
 > 'Note about fast-forwards' section of 'git push --help' for details.
 ```
 
-Isso pode ser corrigido [buscando e mesclando](/github/getting-started-with-github/getting-changes-from-a-remote-repository) as alterações feitas na ramificação remota com as alterações feitas localmente:
+Você pode corrigir isso [fazendo fetch e merge](/github/getting-started-with-github/getting-changes-from-a-remote-repository) das alterações feitas no branch remote com as alterações que foram feitas localmente:
 
 ```shell
 $ git fetch origin
-# Fetches updates made to an online repository
+# Faz fetch das atualizações feitas em um repositório online
 $ git merge origin <em>YOUR_BRANCH_NAME</em>
-# Merges updates made online with your local work
+# Faz merge de atualizações feitas online com seu trabalho local
 ```
 
-Ou você pode usar `git pull` para executar ambos os comandos ao mesmo tempo:
+Ou você pode simplesmente usar `git pull` para executar ambos os comandos de uma vez:
 
 ```shell
 $ git pull origin <em>YOUR_BRANCH_NAME</em>
-# Grabs online updates and merges them with your local work
+# Captura atualizações online e faz merge delas com seu trabalho local
 ```

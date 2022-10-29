@@ -1,5 +1,5 @@
 ---
-title: Noções básicas de autenticação
+title: Fundamentos da autenticação
 intro: Aprenda sobre as diferentes maneiras de efetuar a autenticação com alguns exemplos.
 redirect_from:
   - /guides/basics-of-authentication
@@ -12,35 +12,30 @@ versions:
   ghec: '*'
 topics:
   - API
-ms.openlocfilehash: 3e2796e83047f4e8bb6b7e9a503eee6dac63f019
-ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
-ms.translationtype: HT
-ms.contentlocale: pt-BR
-ms.lasthandoff: 09/10/2022
-ms.locfileid: '145126778'
 ---
-Nesta seção, vamos nos concentrar nos fundamentos da autenticação. Especificamente, vamos criar um servidor do Ruby (usando o [Sinatra][Sinatra]) que implementa o [fluxo da Web][webflow] de um aplicativo de várias maneiras diferentes.
+
+
+Nesta seção, vamos nos concentrar nos fundamentos da autenticação. Mais especificamente, Vamos criar um servidor no Ruby (usando [Sinatra][Sinatra]) que implementa o [fluxo web][webflow] de um aplicativo de várias maneiras diferentes.
 
 {% tip %}
 
-Baixe o código-fonte completo deste projeto [no repositório platform-samples](https://github.com/github/platform-samples/tree/master/api/).
+Você pode fazer o download do código-fonte completo para este projeto[no repositório de amostra de plataforma](https://github.com/github/platform-samples/tree/master/api/).
 
 {% endtip %}
 
-## Registrando seu aplicativo
+## Registrar seu aplicativo
 
-Primeiro, você precisará [registrar seu aplicativo][new oauth app]. Cada aplicativo OAuth registrado recebe uma ID do Cliente e um Segredo do Cliente exclusivos.
-O Segredo do Cliente não deve ser compartilhado! Isso inclui a verificação da cadeia de caracteres no repositório.
+Primeiro, você precisará [registrar o seu aplicativo][new oauth app]. A cada aplicativo OAuth registrado recebe um ID de Cliente único e um Segredo de Cliente. O Segredo do Cliente não deve ser compartilhado! Isso inclui verificar o string de caracteres no seu repositório.
 
-Você pode preencher cada informação da forma que preferir, exceto a **URL de retorno de chamada de autorização**. Esta é facilmente a parte mais importante da configuração do seu aplicativo. É a URL de retorno de chamada que o {% data variables.product.product_name %} retorna ao usuário após a autenticação bem-sucedida.
+Você pode preencher cada informação da forma que preferir, exceto a **URL de chamada de retorno de autorização**. Esta é facilmente a parte mais importante para configurar o seu aplicativo. É a URL de chamada de retorno que o {% data variables.product.product_name %} retorna ao usuário após a autenticação bem-sucedida.
 
-Como estamos executando um servidor normal do Sinatra, a localização da instância local está definida como `http://127.0.0.1:4567`. Vamos preencher a URL de retorno de chamada como `http://127.0.0.1:4567/callback`.
+Como estamos executando um servidor do Sinatra regular, a localização da instância local está definida como `http://127.0.0.1:4567`. Vamos preencher o URL de retorno como `http://127.0.0.1:4567/callback`.
 
 ## Aceitar a autorização do usuário
 
 {% data reusables.apps.deprecating_auth_with_query_parameters %}
 
-Agora vamos começar a preencher o nosso servidor simples. Crie um arquivo chamado _server.rb_ e cole isto nele:
+Agora vamos começar a preencher o nosso servidor simples. Crie um arquivo denominado _server.rb_ e cole-o em:
 
 ``` ruby
 require 'sinatra'
@@ -55,7 +50,10 @@ get '/' do
 end
 ```
 
-A ID do cliente e as chaves secretas do cliente são obtidas na [página de configuração do aplicativo][app settings].{% ifversion fpt or ghec %} Você **nunca** deve armazenar esses valores no {% data variables.product.product_name %} ou em qualquer outro local público, nesse caso.{% endif %} Recomendamos armazená-los como [variáveis de ambiente][about env vars], que é exatamente o que fizemos aqui.
+O seu ID de cliente e as chaves secretas de cliente vêm da [página de configuração do seu aplicativo][app settings].
+{% ifversion fpt or ghec %} Você **nunca __** deve armazenar esses valores em
+{% data variables.product.product_name %}--ou qualquer outro lugar público, para essa questão.{% endif %}Recomendamos armazená-los como
+[Variáveis de ambiente][about env vars]--que é exatamente o que fizemos aqui.
 
 Em seguida, em _views/index.erb_, cole este conteúdo:
 
@@ -68,29 +66,29 @@ Em seguida, em _views/index.erb_, cole este conteúdo:
       Well, hello there!
     </p>
     <p>
-      We're going to now talk to the GitHub API. Ready?
-      <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=<%= client_id %>">Click here</a> to begin!
+      We're going to now talk to the GitHub API. Pronto?
+      <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=<%= client_id %>">Clique aqui</a> para começar!
     </p>
     <p>
-      If that link doesn't work, remember to provide your own <a href="/apps/building-oauth-apps/authorizing-oauth-apps/">Client ID</a>!
+      Se esse link não funcionar, lembre-se de fornecer o seu próprio <a href="/apps/building-oauth-apps/authorizing-oauth-apps/">ID de cliente</a>!
     </p>
   </body>
 </html>
 ```
 
-(Se você não estiver familiarizado com o funcionamento do Sinatra, recomendamos [ler o guia do Sinatra][Sinatra guide]).
+(Se você não estiver familiarizado com a forma como Sinatra funciona, recomendamos [a leitura do guia do Sinatra][Sinatra guide].)
 
-Além disso, observe que a URL usa o parâmetro de consulta `scope` para definir os [escopos][oauth scopes] solicitados pelo aplicativo. Para nosso aplicativo, estamos solicitando o escopo `user:email` para ler endereços de email particulares.
+Observe também que a URL usa o parâmetro da consulta do `escopo` para definir os [escopos][oauth scopes] solicitados pelo aplicativo. Para o nosso aplicativo, estamos solicitando o escopo `user:email` para ler endereços de e-mail privados.
 
-Acesse `http://127.0.0.1:4567` no navegador. Depois de clicar no link, você será direcionado para o {% data variables.product.product_name %} e verá uma caixa de diálogo que se parece com esta: ![Prompt do OAuth no GitHub](/assets/images/oauth_prompt.png)
+Acesse `http://127.0.0.1:4567`. Depois de clicar no link, você será direcionado para {% data variables.product.product_name %} e visualizará uma caixa de diálogo que se parece com isso: ![Diálogo do GitHub's OAuth](/assets/images/oauth_prompt.png)
 
-Se você confiar em si mesmo, clique em **Autorizar Aplicativo**. Ah ha! O Sinatra gera um erro `404`. O que está acontecendo?!
+Se você confiar em você, clique em **Autorizar aplicativo**. Ah ha! O Sinatra envia um erro `404`. O que está acontecendo?!
 
-Bem, lembre-se de quando especificamos uma URL de retorno de chamada como `callback`? Não fornecemos uma rota para ela. Portanto o {% data variables.product.product_name %} não sabe em que local deixar o usuário depois que ele autorizar o aplicativo. Vamos consertar isso agora!
+Bem, lembre-se de quando especificamos uma URL de retorno de chamada para ser `retorno de chamada`? Não fornecemos um encaminhamento para isso. Portanto o {% data variables.product.product_name %} não sabe onde soltar o usuário depois que ele autorizar o aplicativo. Vamos consertar isso agora!
 
 ### Fornecer um retorno de chamada
 
-Em _server.rb_, adicione uma rota para especificar o que o retorno de chamada deve fazer:
+Em _server.rb_, adicione um encaminhamento para especificar o que o retorno de chamada deve fazer:
 
 ``` ruby
 get '/callback' do
@@ -109,14 +107,11 @@ get '/callback' do
 end
 ```
 
-Após uma autenticação de aplicativo bem-sucedida, o {% data variables.product.product_name %} fornece um valor `code` temporário.
-Você precisará fazer `POST` desse código novamente para o {% data variables.product.product_name %} em troca de um `access_token`.
-Para simplificar as solicitações HTTP GET e POST, estamos usando o [cliente REST][REST Client].
-Observe que você provavelmente nunca terá acesso à API através de REST. Para uma aplicação mais séria, provavelmente, você deve usar [uma biblioteca escrita na sua linguagem preferida][libraries].
+Após uma autenticação de aplicativo bem-sucedida, o {% data variables.product.product_name %} fornecerá um valor `temporário de código`. Você precisará fazer `POST` deste código de volta para {% data variables.product.product_name %} em troca de um `access_token`. Para simplificar nossas solicitações HTTP de GET e POST, estamos usando o [rest-client][REST Client]. Observe que você provavelmente nunca terá acesso à API através de REST. Para aplicar de modo mais sério, você deve provavelmente usar [uma biblioteca escrita na sua linguagem preferida][libraries].
 
 ### Verificar os escopos concedidos
 
-Os usuários podem editar os escopos que você solicitou alterando diretamente a URL. Isso pode conceder ao seu aplicativo menos acesso do que o que você solicitou originalmente. Antes de fazer qualquer solicitação com o token, verifique os escopos que foram concedidos para o token pelo usuário. Para obter mais informações sobre os escopos solicitados e concedidos, confira "[Escopos para Aplicativos OAuth](/developers/apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes)".
+Os usuários podem editar os escopos que você solicitou alterando diretamente a URL. Isso pode conceder ao seu aplicativo menos acesso do que o que você solicitou originalmente. Antes de fazer qualquer solicitação com o token, verifique os escopos que foram concedidos para o token pelo usuário. Para obter mais informações sobre escopos solicitados e concedidos, consulte "[Escopos para aplicativos OAuth](/developers/apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes)".
 
 Os escopos que foram concedidos são retornados como parte da resposta da troca de um token.
 
@@ -132,20 +127,17 @@ get '/callback' do
 end
 ```
 
-No aplicativo, estamos usando `scopes.include?` para verificar se recebemos o escopo `user:email` necessário para buscar os endereços de email particulares do usuário autenticado. Se o aplicativo tivesse solicitado outros escopos, nós os teríamos verificado também.
+No nosso aplicativo, estamos usando `scopes.include?` para verificar se recebemos o escopo de`user:email` necessário para obter os endereços de e-mail privado do usuário autenticado. Se o aplicativo tivesse solicitado outros escopos, nós teríamos verificado isso também.
 
-Além disso, como existe uma relação hierárquica entre os escopos, você deve verificar se recebeu o nível mais baixo dos escopos necessários. Por exemplo, se o aplicativo tiver solicitado o escopo `user`, ele poderá ter recebido apenas o escopo `user:email`. Nesse caso, o aplicativo não teria sido concedido o que solicitou, mas os escopos concedidos ainda seriam suficientes.
+Além disso, uma vez que existe uma relação hierárquica entre os escopos, você deve verificar se você recebeu o nível mais baixo dos escopos necessários. Por exemplo, se o aplicativo tivesse solicitado o escopo `usuário`, ele pode ter recebido apenas o escopo `user:email`. Nesse caso, o aplicativo não teria sido concedido o que pediu, mas os escopos concedidos ainda seriam suficientes.
 
-A verificação de escopos apenas antes das solicitações não é suficiente, pois é possível que os usuários mudem os escopos entre a sua verificação e a solicitação real.
-Caso isso aconteça, as chamadas à API que você espera que sejam bem-sucedidas podem falhar com o status `404` ou `401` ou retornar um subconjunto diferente de informações.
+Verificar escopos apenas antes de fazer solicitações não é suficiente, já que é possível que os usuários mudem os escopos entre a sua verificação e a solicitação real. Caso isso aconteça, as chamadas par a API que você espera ter sucesso podem falhar com o status `404` ou `401` ou retornar um subconjunto diferente de informações.
 
-Para ajudar você a lidar com essas situações normalmente, todas as respostas da API para solicitações feitas com tokens válidos também contêm um [cabeçalho `X-OAuth-Scopes`][oauth scopes].
-Esse cabeçalho contém a lista de escopos do token que foi usado para fazer a solicitação. Além disso, a API de Aplicativos OAuth fornece um ponto de extremidade para {% ifversion fpt or ghes or ghec %} [verificar um token quanto à validade](/rest/reference/apps#check-a-token){% else %}[verificar um token quanto à validade](/rest/reference/apps#check-an-authorization){% endif %}.
-Use essas informações para detectar alterações no escopo do token e informar seus usuários sobre mudanças nas funcionalidades do aplicativo disponível.
+Para ajudá-lo a gerenciar essas situações facilmente, todas as respostas da API para solicitações feitas com tokens válidos também contêm um [`cabeçalho de ` X-OAuth-Scopes][oauth scopes]. Este cabeçalho contém a lista de escopos do token que foi usado para fazer a solicitação. Além disso, a API de aplicativos OAuth fornece um ponto de extremidade para {% ifversion fpt or ghes or ghec %} [verifica se há validade do token](/rest/reference/apps#check-a-token){% else %}[verifica se há validade do token](/rest/reference/apps#check-an-authorization){% endif %}. Use esta informação para detectar alterações no escopo do token e informar os seus usuários sobre mudanças nas funcionalidades do aplicativo disponível.
 
 ### Fazer solicitações autenticadas
 
-Finalmente, com esse token de acesso, você poderá fazer solicitações autenticadas como o usuário conectado:
+Finalmente, com esse token de acesso, você será capaz de fazer solicitações autenticadas como o usuário conectado:
 
 ``` ruby
 # fetch user information
@@ -183,16 +175,17 @@ Podemos fazer o que quisermos com os nossos resultados. Nesse caso, vamos simple
 
 ## Implementar autenticação "persistente"
 
-Esse seria um modelo muito ruim se exigíssemos que os usuários se conectassem ao aplicativo todas as vezes que eles precisassem acessar a página da Web. Por exemplo, experimente navegar diretamente até `http://127.0.0.1:4567/basic`. Você receberá uma mensagem de erro.
+Seria um modelo muito ruim se exigíssemos que os usuários se conectassem ao aplicativo todas as vezes que eles precisassem para acessar a página web. Por exemplo, tente acessar diretamente `http://127.0.0.1:4567/basic`. Você receberá uma mensagem de erro.
 
-E se pudéssemos contornar todo o processo de "clique aqui" e apenas nos _lembrarmos_ de que, desde que o usuário estivesse conectado ao {% data variables.product.product_name %}, ele poderia acessar esse aplicativo? Espere um pouco, porque _isso é exatamente o que vamos fazer_.
+E se pudéssemos contornar todo o processo de "clique aqui", e apenas _lembrar-se_ disso, enquanto o usuário estiver conectado
+{% data variables.product.product_name %}, devem conseguir acessar este aplicativo? Espere um pouco,
+porque _é exatamente o que vamos fazer_.
 
-Nosso pequeno servidor acima é bastante simples. Para inserir um tipo de autenticação inteligente, vamos alternar para o uso de sessões para armazenar tokens.
-Isto tornará a autenticação transparente para o usuário.
+Nosso pequeno servidor acima é bastante simples. Para inserir um tipo de autenticação inteligente, vamos alternar para o uso de sessões para armazenar tokens. Isto tornará a autenticação transparente para o usuário.
 
-Além disso, como estamos persistindo escopos na sessão, precisaremos lidar com os casos em que o usuário atualiza os escopos depois de verificá-los ou revoga o token. Para fazer isso, usaremos um bloco `rescue` e verificaremos se a primeira chamada à API foi bem-sucedida, o que verifica se o token ainda é válido. Depois disso, verificaremos o cabeçalho de resposta `X-OAuth-Scopes` para ver se o usuário não revogou o escopo `user:email`.
+Além disso, já que estamos fazendo persistir escopos dentro da sessão, precisaremos lidar com casos quando o usuário atualiza os escopos depois de verificá-los ou quando o token for revogado. Para fazer isso, usaremos um bloco de `resgate` e verificaremos se a primeira chamada da API foi bem-sucedida, que verifica se o token ainda é válido. Depois disso, vamos verificar o cabeçalho de resposta do `X-OAuth-Scopes` para verificar se o usuário não revogou o escopo `user:email`.
 
-Crie um arquivo chamado _advanced_server.rb_ e cole estas linhas nele:
+Crie um arquivo denominado _advanced_server.rb_ e cole essas linhas em:
 
 ``` ruby
 require 'sinatra'
@@ -272,11 +265,11 @@ get '/callback' do
 end
 ```
 
-Grande parte do código deve parecer familiar. Por exemplo, ainda estamos usando o `RestClient.get` para chamar a API do {% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %}{% else %}{% data variables.product.product_name %}{% endif %} e ainda estamos transmitindo os resultados para serem renderizados em um modelo ERB (desta vez, chamado `advanced.erb`).
+Grande parte do código deve parecer familiar. Por exemplo, ainda estamos usando o `RestClient.get` para chamar para a {% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %}{% else %}{% data variables.product.product_name %}{% endif %} API, e ainda estamos passando nossos resultados para serem interpretados em um modelo de ERB (dessa vez, ele é denominado `advanced.erb`).
 
-Além disso, agora temos o método `authenticated?` que verifica se o usuário já está autenticado. Caso não esteja, o método `authenticate!` é chamado, que executa o fluxo do OAuth e atualiza a sessão com o token e os escopos concedidos.
+Além disso, agora temos o método `authenticated?` que verifica se o usuário já está autenticado. Caso não esteja, chama-se o método `authenticate!`, que executa o fluxo do OAuth e atualiza a sessão com o token e escopos concedidos.
 
-Em seguida, crie um arquivo em _views_ chamado _advanced.erb_ e cole esta marcação nele:
+Em seguida, crie um arquivo em _views_ denominado _advanced.erb_, e cole este markup nele:
 
 ``` erb
 <html>
@@ -301,12 +294,11 @@ Em seguida, crie um arquivo em _views_ chamado _advanced.erb_ e cole esta marca�
 </html>
 ```
 
-Na linha de comando, chame `ruby advanced_server.rb`, o que inicia o servidor na porta `4567`, a mesma porta que usamos quando tínhamos um aplicativo simples do Sinatra.
-Quando você navega até `http://127.0.0.1:4567`, o aplicativo chama `authenticate!`, que redireciona você para `/callback`. Em seguida, `/callback` nos envia novamente para `/`, e como fomos autenticados, ele renderiza _advanced.erb_.
+A partir da linha de comando, chame `ruby advanced_server.rb`, que inicia o seu servidor na porta `4567` -- a mesma porta que usamos quando tínhamos um aplicativo Sinatra simples. Ao acessar `http://127.0.0.1:4567`, o aplicativo chama `authenticate!` que redireciona você para `/callback`. Em seguida, `/callback` nos envia de volta para `/`, e, já que fomos autenticados, interpreta _advanced.erb_.
 
-Podemos simplificar por completo este roteamento de ida e volta apenas alterando a URL de retorno de chamada no {% data variables.product.product_name %} para `/`. No entanto, como _server.rb_ e _advanced.rb_ dependem da mesma URL de retorno de chamada, precisamos fazer alguns outros ajustes para que isso funcione.
+Nós poderíamos simplificar completamente este encaminhamento de ida e volta simplesmente mudando a nossa URL de chamada de retorno em {% data variables.product.product_name %} para `/`. No entanto, uma vez que _server.rb_ e _advanced.rb_ dependem da mesma URL de chamada de retorno, temos que fazer um pouco mais de ajuste para que funcione.
 
-Além disso, se nunca tivéssemos autorizado este aplicativo a acessar nossos dados do {% data variables.product.product_name %}, teríamos visto a mesma caixa de diálogo de confirmação do pop-up anterior para nos avisar.
+Além disso, se nunca tivéssemos autorizado este aplicativo a acessar nossos dados de {% data variables.product.product_name %}, teríamos visto o mesmo diálogo de confirmação em um pop-up anterior para nos avisar.
 
 [webflow]: /apps/building-oauth-apps/authorizing-oauth-apps/
 [Sinatra]: http://www.sinatrarb.com/
@@ -315,6 +307,6 @@ Além disso, se nunca tivéssemos autorizado este aplicativo a acessar nossos da
 [REST Client]: https://github.com/archiloque/rest-client
 [libraries]: /libraries/
 [oauth scopes]: /apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
-[platform samples]: https://github.com/github/platform-samples/tree/master/api/ruby/basics-of-authentication
+[oauth scopes]: /apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
 [new oauth app]: https://github.com/settings/applications/new
 [app settings]: https://github.com/settings/developers

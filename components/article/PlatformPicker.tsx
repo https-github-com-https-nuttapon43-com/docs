@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { SubNav, TabNav, UnderlineNav } from '@primer/react'
+import { sendEvent, EventType } from 'components/lib/events'
+import { useRouter } from 'next/router'
 
 import { useArticleContext } from 'components/context/ArticleContext'
-import { parseUserAgent } from 'components/lib/user-agent'
-import { InArticlePicker } from './InArticlePicker'
+import parseUserAgent from 'components/lib/user-agent'
 
-const platformQueryKey = 'platform'
 const platforms = [
-  { value: 'mac', label: 'Mac' },
-  { value: 'windows', label: 'Windows' },
-  { value: 'linux', label: 'Linux' },
+  { id: 'mac', label: 'Mac' },
+  { id: 'windows', label: 'Windows' },
+  { id: 'linux', label: 'Linux' },
 ]
 
 // Nota bene: platform === os
@@ -19,7 +21,7 @@ const platforms = [
 function showPlatformSpecificContent(platform: string) {
   const markdowns = Array.from(document.querySelectorAll<HTMLElement>('.extended-markdown'))
   markdowns
-    .filter((el) => platforms.some((platform) => el.classList.contains(platform.value)))
+    .filter((el) => platforms.some((platform) => el.classList.contains(platform.id)))
     .forEach((el) => {
       el.style.display = el.classList.contains(platform) ? '' : 'none'
     })
@@ -28,7 +30,7 @@ function showPlatformSpecificContent(platform: string) {
   // example: <span class="platform-mac">inline content</span>
   const platformEls = Array.from(
     document.querySelectorAll<HTMLElement>(
-      platforms.map((platform) => `.platform-${platform.value}`).join(', ')
+      platforms.map((platform) => `.platform-${platform.id}`).join(', ')
     )
   )
   platformEls.forEach((el) => {
@@ -36,39 +38,144 @@ function showPlatformSpecificContent(platform: string) {
   })
 }
 
-export const PlatformPicker = () => {
-  const { defaultPlatform, detectedPlatforms } = useArticleContext()
+// uses the order of the supportedPlatforms array to
+// determine the default platform
+const getFallbackPlatform = (detectedPlatforms: Array<string>): string => {
+  const foundPlatform = platforms.find((platform) => detectedPlatforms.includes(platform.id))
+  return foundPlatform?.id || 'linux'
+}
 
-  const [defaultUA, setDefaultUA] = useState('')
+type Props = {
+  variant?: 'subnav' | 'tabnav' | 'underlinenav'
+}
+export const PlatformPicker = ({ variant = 'subnav' }: Props) => {
+  const { defaultPlatform, detectedPlatforms } = useArticleContext()
+  const [currentPlatform, setCurrentPlatform] = useState(defaultPlatform || '')
+  const { asPath } = useRouter()
+
+  // Run on mount for client-side only features
   useEffect(() => {
     let userAgent = parseUserAgent().os
     if (userAgent === 'ios') {
       userAgent = 'mac'
     }
-    setDefaultUA(userAgent)
-  }, [])
 
-  // Defensively, just in case some article happens to have an array
-  // but for some reasons, it might be empty, let's not have a picker
-  // at all.
-  if (!detectedPlatforms.length) return null
+    const platform = defaultPlatform || Cookies.get('osPreferred') || userAgent || 'linux'
+    setCurrentPlatform(platform)
 
-  const options = platforms.filter((platform) => detectedPlatforms.includes(platform.value))
+    // always trigger this on initial render. if the default doesn't change the other useEffect won't fire
+    showPlatformSpecificContent(platform)
+  }, [asPath])
+
+  // Make sure we've always selected a platform that exists in the article
+  useEffect(() => {
+    // Only check *after* current platform has been determined
+    if (currentPlatform && !detectedPlatforms.includes(currentPlatform)) {
+      setCurrentPlatform(getFallbackPlatform(detectedPlatforms))
+    }
+  }, [currentPlatform, detectedPlatforms.join(',')])
+
+  const onClickPlatform = (platform: string) => {
+    setCurrentPlatform(platform)
+
+    // imperatively modify the article content
+    showPlatformSpecificContent(platform)
+
+    sendEvent({
+      type: EventType.preference,
+      preference_name: 'os',
+      preference_value: platform,
+    })
+
+    Cookies.set('osPreferred', platform, {
+      sameSite: 'strict',
+      secure: true,
+    })
+  }
+
+  // only show platforms that are in the current article
+  const platformOptions = platforms.filter((platform) => detectedPlatforms.includes(platform.id))
+
+  const sharedContainerProps = {
+    'data-testid': 'platform-picker',
+    'aria-label': 'Platform picker',
+    'data-default-platform': defaultPlatform,
+    className: 'mb-4',
+  }
+
+  if (variant === 'subnav') {
+    return (
+      <SubNav {...sharedContainerProps}>
+        <SubNav.Links>
+          {platformOptions.map((option) => {
+            return (
+              <SubNav.Link
+                key={option.id}
+                data-platform={option.id}
+                as="button"
+                selected={option.id === currentPlatform}
+                onClick={() => {
+                  onClickPlatform(option.id)
+                }}
+              >
+                {option.label}
+              </SubNav.Link>
+            )
+          })}
+        </SubNav.Links>
+      </SubNav>
+    )
+  }
+
+  if (variant === 'underlinenav') {
+    return (
+      <UnderlineNav {...sharedContainerProps}>
+        {platformOptions.map((option) => {
+          return (
+            <UnderlineNav.Link
+              key={option.id}
+              data-platform={option.id}
+              as="button"
+              selected={option.id === currentPlatform}
+              // Temporary fix: This should be removed when this merges: PR 24123
+              sx={{
+                color: 'var(--color-fg-default)',
+                '&.selected': { color: 'var(--color-fg-default)' },
+                ':hover': { color: 'var(--color-fg-default)' },
+                ':focus': {
+                  color: 'var(--color-fg-default)',
+                  outline: '-webkit-focus-ring-color auto 1px;',
+                },
+              }}
+              onClick={() => {
+                onClickPlatform(option.id)
+              }}
+            >
+              {option.label}
+            </UnderlineNav.Link>
+          )
+        })}
+      </UnderlineNav>
+    )
+  }
 
   return (
-    <InArticlePicker
-      defaultValue={defaultPlatform}
-      fallbackValue={
-        detectedPlatforms.includes(defaultUA)
-          ? defaultUA
-          : detectedPlatforms[detectedPlatforms.length - 1]
-      }
-      cookieKey="osPreferred"
-      queryStringKey={platformQueryKey}
-      onValue={showPlatformSpecificContent}
-      preferenceName="os"
-      ariaLabel="Platform"
-      options={options}
-    />
+    <TabNav {...sharedContainerProps}>
+      {platformOptions.map((option) => {
+        return (
+          <TabNav.Link
+            key={option.id}
+            data-platform={option.id}
+            as="button"
+            selected={option.id === currentPlatform}
+            onClick={() => {
+              onClickPlatform(option.id)
+            }}
+          >
+            {option.label}
+          </TabNav.Link>
+        )
+      })}
+    </TabNav>
   )
 }

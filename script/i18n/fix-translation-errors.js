@@ -12,11 +12,12 @@ import path from 'path'
 import { execSync } from 'child_process'
 import { get, set } from 'lodash-es'
 import fs from 'fs'
+import readFileAsync from '../../lib/readfile-async.js'
 import fm from '../../lib/frontmatter.js'
 import matter from 'gray-matter'
 import chalk from 'chalk'
 import yaml from 'js-yaml'
-import releaseNotesSchema from '../../tests/helpers/schemas/release-notes-schema.js'
+import ghesReleaseNotesSchema from '../../tests/helpers/schemas/ghes-release-notes-schema.js'
 import revalidator from 'revalidator'
 
 main()
@@ -30,7 +31,7 @@ async function main() {
   const loadAndValidateContent = async (path, schema) => {
     let fileContents
     try {
-      fileContents = await fs.promises.readFile(path, 'utf8')
+      fileContents = await readFileAsync(path, 'utf8')
     } catch (e) {
       if (fs.existsSync(path)) {
         console.error(e.message)
@@ -66,7 +67,7 @@ async function main() {
     // find the corresponding english file by removing the first 2 path segments: /translation/<language code>
     const engAbsPath = relPath.split(path.sep).slice(2).join(path.sep)
 
-    const localisedResult = await loadAndValidateContent(relPath, releaseNotesSchema)
+    const localisedResult = await loadAndValidateContent(relPath, ghesReleaseNotesSchema)
     if (!localisedResult) continue
     const { data, errors, content } = localisedResult
 

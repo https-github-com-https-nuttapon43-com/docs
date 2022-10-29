@@ -1,6 +1,6 @@
 ---
-title: Listing dependencies configured for version updates
-intro: 'You can view the dependencies that {% data variables.product.prodname_dependabot %} monitors for updates.'
+title: 列出为版本更新配置的依赖项
+intro: '您可以查看由 {% data variables.product.prodname_dependabot %} 监视更新的依赖项。'
 redirect_from:
   - /github/administering-a-repository/listing-dependencies-configured-for-version-updates
   - /code-security/supply-chain-security/listing-dependencies-configured-for-version-updates
@@ -8,35 +8,32 @@ redirect_from:
 versions:
   fpt: '*'
   ghec: '*'
-  ghes: '*'
+  ghes: '>3.2'
 type: how_to
 topics:
   - Repositories
   - Dependabot
   - Version updates
   - Dependencies
-shortTitle: List configured dependencies
+shortTitle: 列出已配置的依赖项
 ---
 
 {% data reusables.dependabot.beta-security-and-version-updates %}
 {% data reusables.dependabot.enterprise-enable-dependabot %}
 
-## Viewing dependencies monitored by {% data variables.product.prodname_dependabot %}
+## 查看由 {% data variables.product.prodname_dependabot %} 监视的依赖项
 
-After you've enabled version updates, you can confirm that your configuration is correct using the **{% data variables.product.prodname_dependabot %}** tab in the dependency graph for the repository. For more information, see "[Configuring {% data variables.product.prodname_dependabot %} version updates](/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-dependabot-version-updates)."
+启用版本更新后，可以使用仓库依赖关系图中的 **{% data variables.product.prodname_dependabot %}** 选项卡确认配置是否正确。 For more information, see "[Configuring {% data variables.product.prodname_dependabot %} version updates](/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-dependabot-version-updates)."
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.repositories.accessing-repository-graphs %}
 {% data reusables.repositories.click-dependency-graph %}
 {% data reusables.dependabot.click-dependabot-tab %}
-1. Optionally, to view the files monitored for a package manager, click the associated {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %}.
-  ![Monitored dependency files](/assets/images/help/dependabot/monitored-dependency-files.png)
+1. 或者，要查看为包管理器监视的文件，请单击关联的 {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %}。 ![受监视的依赖项文件](/assets/images/help/dependabot/monitored-dependency-files.png)
 
-If any dependencies are missing, check the log files for errors. If any package managers are missing, review the configuration file.
+如果缺少任何依赖项，请检查日志文件是否有错误。 如果缺少任何包管理器，请审查配置文件。
 
-## Viewing {% data variables.product.prodname_dependabot %} log files
+## 查看 {% data variables.product.prodname_dependabot %} 日志文件
 
-1. On the **{% data variables.product.prodname_dependabot %}** tab, click **Last checked *TIME* ago** to see the log file that {% data variables.product.prodname_dependabot %} generated during the last check for version updates.
-  ![View log file](/assets/images/help/dependabot/last-checked-link.png)
-2. Optionally, to rerun the version check, click **Check for updates**.
-  ![Check for updates](/assets/images/help/dependabot/check-for-updates.png)
+1. 在 **{% data variables.product.prodname_dependabot %}** 选项卡上，单击 **Last checked *TIME* ago**（上次检查时间以前），查看 {% data variables.product.prodname_dependabot %} 在上次检查版本更新时生成的日志文件。 ![查看日志文件](/assets/images/help/dependabot/last-checked-link.png)
+2. 或者，要返回版本检查，请单击 **Check for updates（检查更新）**。 ![检查更新](/assets/images/help/dependabot/check-for-updates.png)

@@ -1,5 +1,4 @@
 import { GitPullRequestIcon } from '@primer/octicons-react'
-
 import { useMainContext } from 'components/context/MainContext'
 import { useTranslation } from 'components/hooks/useTranslation'
 
@@ -8,7 +7,7 @@ export const Contribution = () => {
   const { t } = useTranslation('contribution_cta')
 
   const contributionHref = relativePath
-    ? `https://github.com/github/docs/blob/main/content/${relativePath}`
+    ? `https://github.com/github/docs/edit/main/content/${relativePath}`
     : 'https://github.com/github/docs'
 
   return (

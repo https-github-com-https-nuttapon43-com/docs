@@ -1,9 +1,12 @@
 ---
-title: '管理 {% data variables.product.prodname_projects_v1 %}'
-shortTitle: 'Managing {% data variables.product.prodname_projects_v1 %}'
-intro: '了解如何创建和管理 {% data variables.projects.projects_v1_boards %}'
+title: 管理项目板
+shortTitle: 管理项目板
+intro: 了解如何创建和管理项目板
 versions:
-  feature: projects-v1
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Issues
   - Projects
@@ -21,12 +24,6 @@ children:
   - /deleting-a-project-board
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards
-allowTitleToDifferFromFilename: true
-ms.openlocfilehash: b4034bc9c9ffd29709ac491c6729787c958dd50b
-ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 10/25/2022
-ms.locfileid: '148108642'
 ---
+
 {% data reusables.projects.project_boards_old %}

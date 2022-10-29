@@ -1,12 +1,4 @@
----
-ms.openlocfilehash: 56ed7762c2325d0328bd52ca89fe7879b5ce4601
-ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/11/2022
-ms.locfileid: "145089583"
----
-利用できるスコープとアクセスの値は以下のとおりです。
+Available scopes and access values:
 
 ```yaml
 permissions:
@@ -25,15 +17,15 @@ permissions:
   statuses: read|write|none
 ```
 
-これらのスコープのいずれかにアクセス権を指定すると、指定されていないすべてのスコープが `none` に設定されます。
+If you specify the access for any of these scopes, all of those that are not specified are set to `none`.
 
-利用可能なすべてのスコープに対する読み取りあるいは書き込みアクセス権を定義するためには、以下の構文が使えます。
+You can use the following syntax to define read or write access for all of the available scopes:
 
 ```yaml
 permissions: read-all|write-all
 ```
 
-次の構文を使用して、使用可能なすべてのスコープのアクセス許可を無効にすることができます。
+You can use the following syntax to disable permissions for all of the available scopes:
 
 ```yaml
 permissions: {}

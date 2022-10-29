@@ -10,16 +10,10 @@
 	},
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": {
+	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash",
 		"cSpell.language": ",en"
 	},
-
-	// Install features. Type 'feature' in the VS Code command palette for a full list.
-	"features": {
-		"git-lfs": "latest",
-		"sshd": "latest"
-	 },
 
 	// Visual Studio Code extensions which help authoring for docs.github.com.
 	"extensions": [
@@ -35,12 +29,9 @@
 	"forwardPorts": [4000],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "git lfs pull && npm ci",
-
+	"postCreateCommand": "npm ci && npm run build",
+		 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "node"
-,
-	"hostRequirements": {
-		"memory": "8gb"
-	 }
+
 }

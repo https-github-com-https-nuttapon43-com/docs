@@ -1,5 +1,4 @@
-import { ProductT, useMainContext } from 'components/context/MainContext'
-import type { ProductGroupT } from 'components/homepage/ProductSelections'
+import { ProductT, ProductGroupT, useMainContext } from 'components/context/MainContext'
 
 import React from 'react'
 import { useRouter } from 'next/router'
@@ -60,7 +59,7 @@ export const ProductSelectionCard = ({ name, group }: ProductSelectionCardProps)
           {icon(group)}
 
           <div>
-            <h2 className="h3">{name}</h2>
+            <h3>{name}</h3>
           </div>
         </div>
 

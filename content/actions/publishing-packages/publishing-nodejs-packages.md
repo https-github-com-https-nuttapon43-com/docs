@@ -1,6 +1,5 @@
 ---
 title: Publishing Node.js packages
-shortTitle: Publish Node.js packages
 intro: You can publish Node.js packages to a registry as part of your continuous integration (CI) workflow.
 redirect_from:
   - /actions/automating-your-workflow-with-github-actions/publishing-nodejs-packages
@@ -17,6 +16,7 @@ topics:
   - Publishing
   - Node
   - JavaScript
+shortTitle: Node.js packages
 ---
 
 {% data reusables.actions.enterprise-beta %}
@@ -61,6 +61,7 @@ If you're publishing a package that includes a scope prefix, include the scope i
 
 This example stores the `NPM_TOKEN` secret in the `NODE_AUTH_TOKEN` environment variable. When the `setup-node` action creates an *.npmrc* file, it references the token from the `NODE_AUTH_TOKEN` environment variable.
 
+{% raw %}
 ```yaml{:copy}
 name: Publish Package to npmjs
 on:
@@ -70,17 +71,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: {% data reusables.actions.action-checkout %}
+      - uses: actions/checkout@v2
       # Setup .npmrc file to publish to npm
-      - uses: {% data reusables.actions.action-setup-node %}
+      - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: {% raw %}${{ secrets.NPM_TOKEN }}{% endraw %}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
+{% endraw %}
 
 In the example above, the `setup-node` action creates an *.npmrc* file on the runner with the following contents:
 
@@ -98,9 +100,9 @@ Each time you create a new release, you can trigger a workflow to publish your p
 
 ### Configuring the destination repository
 
-Linking your package to {% data variables.product.prodname_registry %} using the `repository` key is optional. If you choose not to provide the `repository` key in your *package.json* file, then {% data variables.product.prodname_registry %} publishes a package in the {% data variables.product.prodname_dotcom %} repository you specify in the `name` field of the *package.json* file. For example, a package named `@my-org/test` is published to the `my-org/test` {% data variables.product.prodname_dotcom %} repository. If the `url` specified in the `repository` key is invalid, your package may still be published however it won't be linked to the repository source as intended.
+If you don't provide the `repository` key in your *package.json* file, then {% data variables.product.prodname_registry %} publishes a package in the {% data variables.product.prodname_dotcom %} repository you specify in the `name` field of the *package.json* file. For example, a package named `@my-org/test` is published to the `my-org/test` {% data variables.product.prodname_dotcom %} repository.
 
-If you do provide the `repository` key in your *package.json* file, then the repository in that key is used as the destination npm registry for {% data variables.product.prodname_registry %}. For example, publishing the below *package.json* results in a package named `my-amazing-package` published to the `octocat/my-other-repo` {% data variables.product.prodname_dotcom %} repository. Once published, only the repository source is updated, and the package doesn't inherit any permissions from the destination repository.
+However, if you do provide the `repository` key, then the repository in that key is used as the destination npm registry for {% data variables.product.prodname_registry %}. For example, publishing the below *package.json* results in a package named `my-amazing-package` published to the `octocat/my-other-repo` {% data variables.product.prodname_dotcom %} repository.
 
 ```json
 {
@@ -115,7 +117,7 @@ If you do provide the `repository` key in your *package.json* file, then the rep
 
 To perform authenticated operations against the {% data variables.product.prodname_registry %} registry in your workflow, you can use the `GITHUB_TOKEN`. {% data reusables.actions.github-token-permissions %}
 
-If you want to publish your package to a different repository, you must use a {% data variables.product.pat_v1 %} that has permission to write to packages in the destination repository. For more information, see "[Creating a {% data variables.product.pat_generic %}](/github/authenticating-to-github/creating-a-personal-access-token)" and "[Encrypted secrets](/actions/reference/encrypted-secrets)."
+If you want to publish your package to a different repository, you must use a personal access token (PAT) that has permission to write to packages in the destination repository. For more information, see "[Creating a personal access token](/github/authenticating-to-github/creating-a-personal-access-token)" and "[Encrypted secrets](/actions/reference/encrypted-secrets)."
 
 ### Example workflow
 
@@ -128,14 +130,14 @@ on:
     types: [created]
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest {% ifversion fpt or ghes > 3.1 or ghae or ghec %}
     permissions: 
       contents: read
-      packages: write 
+      packages: write {% endif %}
     steps:
-      - uses: {% data reusables.actions.action-checkout %}
+      - uses: actions/checkout@v2
       # Setup .npmrc file to publish to GitHub Packages
-      - uses: {% data reusables.actions.action-setup-node %}
+      - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
@@ -159,6 +161,7 @@ always-auth=true
 
 If you use the Yarn package manager, you can install and publish packages using Yarn.
 
+{% raw %}
 ```yaml{:copy}
 name: Publish Package to npmjs
 on:
@@ -168,9 +171,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: {% data reusables.actions.action-checkout %}
+      - uses: actions/checkout@v2
       # Setup .npmrc file to publish to npm
-      - uses: {% data reusables.actions.action-setup-node %}
+      - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
@@ -179,5 +182,6 @@ jobs:
       - run: yarn
       - run: yarn publish
         env:
-          NODE_AUTH_TOKEN: {% raw %}${{ secrets.NPM_TOKEN }}{% endraw %}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
+{% endraw %}

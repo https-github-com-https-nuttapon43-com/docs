@@ -1,8 +1,8 @@
 ---
-title: Caching repositories
-intro: 'You can improve performance for your geographically-distributed team with repository caching, which provides read-only mirrors close to your users and CI clients.'
+title: Repositórios em cache
+intro: 'Você pode melhorar o desempenho para sua equipe distribuída geograficamente com cache de repositórios, que fornece espelhos somente leitura próximos aos seus usuários e clientes do CI.'
 versions:
-  ghes: '*'
+  ghes: '>=3.3'
 topics:
   - Enterprise
 children:

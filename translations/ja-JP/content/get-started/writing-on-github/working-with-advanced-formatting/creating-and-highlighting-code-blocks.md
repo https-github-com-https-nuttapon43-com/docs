@@ -11,21 +11,16 @@ versions:
   ghae: '*'
   ghec: '*'
 shortTitle: Create code blocks
-ms.openlocfilehash: ba0b49795df16fbafc77ef43c6fef58684162709
-ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 09/11/2022
-ms.locfileid: '147882418'
 ---
-## フェンスされたコード ブロック
 
-三連バッククォート <code>\`\`\`</code> をコード ブロック前後に入力すると、フェンスされたコード ブロックを作成できます。 ソースコードを読みやすくするために、コードブロックの前後に空の行を入れることをお勧めします。
+## コードブロック
+
+三連バッククォート <code>\`\`\`</code> をコードのブロック前後に入力すると、コードブロックを作成できます。 ソースコードを読みやすくするために、コードブロックの前後に空の行を入れることをお勧めします。
 
 <pre>
 ```
 function test() {
-  console.log("notice the blank line before this function?");
+  console.log("この関数の前に空白行があるのがわかりますか?");
 }
 ```
 </pre>
@@ -34,11 +29,11 @@ function test() {
 
 {% tip %}
 
-**参考:** リスト内でフォーマットを保持するために、フェンスされていないコード ブロックをスペース 8 つでインデントします。
+**ヒント:** リスト内でフォーマットを保持するために、フェンスされていないコードのブロックをスペース 8 つでインデントしてください。
 
 {% endtip %}
 
-フェンスされたコード ブロックの中に 3 重のバッククォートを表示するには、4 重のバッククォートで囲みます。
+To display triple backticks in a fenced code block, wrap them inside quadruple backticks.
 
 
 <pre>
@@ -49,13 +44,13 @@ Look! You can see my backticks.
 ````
 </pre>
 
-![表示されたバッククォート付きのコード ブロック](/assets/images/help/writing/fenced-code-show-backticks-rendered.png)
+![Rendered fenced code with backticks block](/assets/images/help/writing/fenced-code-show-backticks-rendered.png)
 
 {% data reusables.user-settings.enabling-fixed-width-fonts %}
 
 ## 構文の強調表示
 
-<!-- If you make changes to this feature, check whether any of the changes affect languages listed in /get-started/learning-about-github/github-language-support. If so, please update the language support article accordingly. -->
+<!-- If you make changes to this feature, update /getting-started-with-github/github-language-support to reflect any changes to supported languages. -->
 
 言語識別子を追加して、コードブロックの構文を強調表示することができます。
 
@@ -69,15 +64,15 @@ Look! You can see my backticks.
 
 ![Ruby の構文を強調して表示されたコードブロック](/assets/images/help/writing/code-block-syntax-highlighting-rendered.png)
 
-[Linguist](https://github.com/github/linguist) を使って言語検出を行い、[サードパーティの文法](https://github.com/github/linguist/blob/master/vendor/README.md)を選んで構文の強調表示を行います。 どのキーワードが有効かは、[languages YAML ファイル](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml)で確認できます。
+構文強調表示のための言語検出の実行や[サードパーティの文法](https://github.com/github/linguist/blob/master/vendor/README.md)の選択には [Linguist](https://github.com/github/linguist) を使用します。 どのキーワードが有効かについては[言語 YAML ファイル](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml)でご覧いただけます。
 
-{% ifversion mermaid %}
-## ダイアグラムの作成
+{% if mermaid %}
+## Creating diagrams
 
-コード ブロックを使って Markdown でダイアグラムを作成することもできます。 GitHub は、Mermaid、GeoJSON、TopoJSON、ASCII STL 構文をサポートしています。 詳細については、「[Creating diagrams (ダイアグラムの作成)](/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)」を参照してください。
+You can also use code blocks to create diagrams in Markdown. GitHub supports Mermaid, geoJSON, topoJSON, and ASCII STL syntax. For more information, see "[Creating diagrams](/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)."
 
 {% endif %}
-## 参考資料
+## 参考リンク
 
 - [{% data variables.product.prodname_dotcom %} Flavored Markdown の仕様](https://github.github.com/gfm/)
-- [Basic writing and formatting syntax (基本的な書き方とフォーマットの構文)](/articles/basic-writing-and-formatting-syntax)
+- [基本的な書き方とフォーマットの構文](/articles/basic-writing-and-formatting-syntax)

@@ -1,6 +1,5 @@
 ---
 title: Adding labels to issues
-shortTitle: Add labels to issues
 intro: 'You can use {% data variables.product.prodname_actions %} to automatically label issues.'
 redirect_from:
   - /actions/guides/adding-labels-to-issues
@@ -33,8 +32,6 @@ In the tutorial, you will first make a workflow file that uses the [`andymckay/l
     ```yaml{:copy}
 {% indented_data_reference reusables.actions.actions-not-certified-by-github-comment spaces=4 %}
 
-{% indented_data_reference reusables.actions.actions-use-sha-pinning-comment spaces=4 %}
-
     name: Label issues
     on:
       issues:
@@ -43,9 +40,9 @@ In the tutorial, you will first make a workflow file that uses the [`andymckay/l
           - opened
     jobs:
       label_issues:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest{% ifversion fpt or ghes > 3.1 or ghae or ghec %}
         permissions:
-          issues: write
+          issues: write{% endif %}
         steps:
           - name: Label issues
             uses: andymckay/labeler@e6c4322d0397f3240f0e7e30a33b5c5df2d39e90

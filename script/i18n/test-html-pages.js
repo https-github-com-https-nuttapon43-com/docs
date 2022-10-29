@@ -40,7 +40,7 @@ async function main() {
   const languageCodes =
     [languageCode] ||
     Object.keys(languages)
-      .filter((language) => language !== 'en')
+      .filter((language) => !language.wip && language !== 'en')
       .map((language) => languages[language].code)
   const versions = singleVersion ? [singleVersion] : Object.keys(allVersions)
 

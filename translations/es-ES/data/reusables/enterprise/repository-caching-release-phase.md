@@ -1,7 +1,5 @@
-{% ifversion ghes < 3.6 %}
 {% note %}
 
-**Note:** Repository caching is currently in beta and subject to change.
+**Nota:** El almacenamiento en caché del repositorio se encuentra actualmente en beta y está sujeto a cambios.
 
 {% endnote %}
-{% endif %}

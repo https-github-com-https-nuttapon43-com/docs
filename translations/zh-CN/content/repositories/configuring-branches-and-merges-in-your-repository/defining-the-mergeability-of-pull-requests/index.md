@@ -18,12 +18,6 @@ children:
   - /about-protected-branches
   - /managing-a-branch-protection-rule
   - /troubleshooting-required-status-checks
-shortTitle: Mergeability of PRs
-ms.openlocfilehash: 4f3f4de6c136710ba2689b22e6def8c7d8de859c
-ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
-ms.translationtype: HT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 09/11/2022
-ms.locfileid: '147882423'
+shortTitle: PRs 的合并性
 ---
 
