@@ -1,11 +1,11 @@
 ---
-title: Working with Dependabot
+title: Trabalhando com Dependabot
 shortTitle: Work with Dependabot
-intro: 'Guidance and recommendations for working with {% data variables.product.prodname_dependabot %}, such as managing pull requests raised by {% data variables.product.prodname_dependabot %}, using {% data variables.product.prodname_actions %} with {% data variables.product.prodname_dependabot %}, and troubleshooting {% data variables.product.prodname_dependabot %} errors.'
+intro: 'Orientação e recomendações para trabalhar com {% data variables.product.prodname_dependabot %}, como gerenciar pull requests levantados por {% data variables.product.prodname_dependabot %}, usando {% data variables.product.prodname_actions %} com {% data variables.product.prodname_dependabot %} e solucionando erros de {% data variables.product.prodname_dependabot %}.'
 versions:
   fpt: '*'
   ghec: '*'
-  ghes: '>3.2'
+  ghes: '*'
 topics:
   - Repositories
   - Dependabot
@@ -20,5 +20,11 @@ children:
   - /managing-encrypted-secrets-for-dependabot
   - /troubleshooting-the-detection-of-vulnerable-dependencies
   - /troubleshooting-dependabot-errors
+ms.openlocfilehash: efab6caf0c9384c9e72cc5ed1fe64bd500cede45
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148107821'
 ---
 

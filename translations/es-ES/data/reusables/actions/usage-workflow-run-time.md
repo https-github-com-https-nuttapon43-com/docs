@@ -1,1 +1,1 @@
-- **Tiempo de ejecución del flujo de trabajo** - Cada flujo de trabajo se limita a 72 horas. Si un flujo de trabajo llega a este límite, se cancelará.
+- **Workflow run time** - Each workflow run is limited to 35 days. If a workflow run reaches this limit, the workflow run is cancelled. This period includes execution duration, and time spent on waiting and approval.
